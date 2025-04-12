@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: imickhai <imickhai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 17:02:27 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/04/09 19:00:54 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/04/12 12:25:10 by imickhai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,27 @@
 # define ECFND 127
 # define EPERM 126
 
+typedef enum	e_token_type
+{
+	WORD,
+	PIPE,
+	AND,
+	REDER_IN,
+	REDER_OUT,
+}	t_token_type;
+
+typedef enum	e_node_type
+{
+	COMMAND,
+	PIPE,
+	REDIR
+}	t_node_type;
+
 typedef struct s_token
 {
-	char	*str;
-	char	**full_str;
+	t_token_type	token_type;
+	char			*value;
+	struct s_token	*next;
 }	t_token;
 
 
