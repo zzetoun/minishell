@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   controllers.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imickhai <imickhai@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 17:07:31 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/04/10 16:03:18 by imickhai         ###   ########.fr       */
+/*   Updated: 2025/04/13 14:39:07 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_prnt_error(int option, char *error)
 	if (option == 1)
 		perror(error);
 	else
-		printf("%s\n", error);
+		ft_printf(2, "%s\n", error);
 	exit(EXIT_FAILURE);
 }
 

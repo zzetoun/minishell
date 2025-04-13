@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imickhai <imickhai@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 17:02:14 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/04/10 16:37:39 by imickhai         ###   ########.fr       */
+/*   Updated: 2025/04/13 17:24:08 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,11 @@
 void setup_minishell(t_token *token)
 {
 	token->str = NULL;
-	token->full_str = NULL;
+	token->str_backup = NULL;
+	token->var_exists = 0;
+	token->type = 0;
+	token->status = 0;
+	token->join = 0;
 }
 
 int	main(int ac, char **av, char **envp)

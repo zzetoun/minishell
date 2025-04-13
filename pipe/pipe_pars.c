@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 13:36:28 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/02/15 18:07:35 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/04/13 14:17:11 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	parse_cmd_args(t_pipex *pipex, int ac, char **av)
 
 int	ft_parse(t_pipex *pipex, int ac, char **av)
 {
-	if (av[1] && ft_strncmp(av[1], "here_doc", 8) == 0
+	if (av[1] && ft_strncmp(av[1], "<<", 2) == 0
 		&& ft_strlen(av[1]) == 8)
 		pipex->here_doc = 1;
 	if (ac < 5 + pipex->here_doc)

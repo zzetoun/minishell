@@ -3,6 +3,7 @@
 		"get_next_line.h": "c",
 		"minishell.h": "c",
 		"__tuple": "c",
-		"array": "c"
+		"array": "c",
+		"cmd.h": "c"
 	}
 }

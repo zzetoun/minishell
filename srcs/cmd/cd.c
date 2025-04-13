@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   controllers.h                                      :+:      :+:    :+:   */
+/*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/13 17:08:04 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/04/13 14:35:43 by zzetoun          ###   ########.fr       */
+/*   Created: 2025/04/13 14:32:53 by zzetoun           #+#    #+#             */
+/*   Updated: 2025/04/13 15:29:48 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CONTROLLERS_H
-# define CONTROLLERS_H
+#include "../include/minishell.h"
 
-/* ============ ERROR & EXIT HANDLING ============ */
-
-void	ft_prnt_error(int option, char *error);
-void	exit_error(int option, char **array, char *error);
-
-#endif
+static int	chdir_errno_mod(char *path)
+{
+	if (errno == ESTALE)
+		errno = ENOENT;
+	errmsg_cmd("cd", path, strerror(errno), errno);
+	return (0);
+}
