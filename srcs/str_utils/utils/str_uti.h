@@ -13,9 +13,13 @@
 #ifndef STR_UTI_H
 # define STR_UTI_H
 
+/* ======== String Utilties ========== */
+
 char	*ft_strdup(const char *s);
 char	*ft_strchr(const char *s, int c);
-char	*ft_strjoin(char const *s1, char const *s2);
+
+/* ======== String Join frees *s1 at exit ========== */
+char	*ft_strjoin(char *s1, char const *s2);
 
 char	**ft_split(const char *s, char c);
 

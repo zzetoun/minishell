@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 17:02:27 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/04/13 14:38:51 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/04/13 21:13:54 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,20 +40,17 @@
 # include "../srcs/str_utils/utils/str_uti.h"
 # include "../srcs/str_utils/get_next_line/get_next_line.h"
 
-
 # define EARGS "error: invalid arguments"
 # define NOACC "error: permission denied"
 # define EUNKN "error: unknown error"
 # define PATHE "error: Commands Path"
 # define ARGUE "error: Commands error"
+# define CMDER "error: Command not found"
+# define ARGEER01 "error: use ./minishell"
+# define ARGEER02 "error: use ./minishell -c \"input line\""
 # define ECFND 127
 # define EPERM 126
 
-
-
-
-
-
-void 	setup_minishell(t_token *token);
+void    setup_minishell(t_token *token);
 
 #endif

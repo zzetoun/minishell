@@ -4,6 +4,7 @@
 		"minishell.h": "c",
 		"__tuple": "c",
 		"array": "c",
-		"cmd.h": "c"
+		"cmd.h": "c",
+		"parser.h": "c"
 	}
 }

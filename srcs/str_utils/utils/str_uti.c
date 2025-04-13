@@ -64,7 +64,8 @@ char	*ft_strdup(const char *s)
 	str[i] = '\0';
 	return (str);
 }
-char	*ft_strjoin(char const *s1, char const *s2)
+
+char	*ft_strjoin(char *s1, char const *s2)
 {
 	char	*str;
 	int		i;
@@ -86,5 +87,6 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	while (s2[j])
 		str[i++] = s2[j++];
 	str[i] = '\0';
+	free(s1);
 	return (str);
 }

@@ -1,24 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   controllers.h                                      :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/13 17:08:04 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/04/13 21:11:00 by zzetoun          ###   ########.fr       */
+/*   Created: 2025/04/13 18:10:58 by zzetoun           #+#    #+#             */
+/*   Updated: 2025/04/13 21:17:24 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CONTROLLERS_H
-# define CONTROLLERS_H
+#include "../include/minishell.h"
 
-/* ============ ERROR & EXIT HANDLING ============ */
-void    ft_free_fd(t_command *cmd);
-void    ft_prnt_error(int option, char *error);
-void	errmsg(char *error, char *detail, int quotes);
-void    exit_error(int option, char **array, char *error);
+int ft_pwd(t_data *data)
+{
+	char	buf[PATH_MAX];
+	char	*cwd;
 
-int     errmsg_cmd(char *cmd, char *detail, char *error, int error_numb);
-
-#endif
+	if (data->working_dir)
+	{
+		ft_printf(1, "%s\n", data->working_dir);
+		return (EXIT_SUCCESS);
+	}
+	cwd = getcwd(buf, PATH_MAX);
+	if (cwd)
+	{
+		ft_putendl_fd(cwd, STDOUT_FILENO);
+		return (EXIT_SUCCESS);
+	}
+	errmsg_cmd("pwd", NULL, strerror(errno), errno);
+	return (EXIT_FAILURE);
+}

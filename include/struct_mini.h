@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 14:23:53 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/04/13 18:07:51 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/04/13 21:16:53 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,15 @@
 # include "minishell.h"
 
 typedef struct s_token
-{	
+{
 	char			*str;
 	char			*str_backup;
-	int             var_exists;
+	int				var_exists;
 	int				type;
 	int				status;
-	int			    join;
+	int				join;
 	struct s_token	*next;
-    struct s_token  *prev;
+	struct s_token	*prev;
 }	t_token;
 
 typedef struct s_io_fds
@@ -41,7 +41,7 @@ typedef struct s_io_fds
 
 typedef struct s_command
 {
-	char                *command;
+	char				*command;
 	char				*path;
 	char				**args;
 	int					pipe_output;
@@ -63,7 +63,8 @@ typedef struct s_data
 	pid_t		pid;
 }	t_data;
 
-enum e_token_types {
+enum e_token_types
+{
 	SPACES = 1,
 	WORD,
 	VAR,
@@ -75,7 +76,8 @@ enum e_token_types {
 	END
 };
 
-enum e_quoting_status {
+enum e_quoting_status
+{
 	DEFAULT,
 	SQUOTE,
 	DQUOTE
