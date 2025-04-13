@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 14:23:53 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/04/13 15:31:29 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/04/13 18:07:51 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,5 +63,22 @@ typedef struct s_data
 	pid_t		pid;
 }	t_data;
 
+enum e_token_types {
+	SPACES = 1,
+	WORD,
+	VAR,
+	PIPE,
+	INPUT,
+	TRUNC,
+	HEREDOC,
+	APPEND,
+	END
+};
+
+enum e_quoting_status {
+	DEFAULT,
+	SQUOTE,
+	DQUOTE
+};
 
 #endif
