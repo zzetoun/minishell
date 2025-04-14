@@ -5,6 +5,7 @@
 		"__tuple": "c",
 		"array": "c",
 		"cmd.h": "c",
-		"parser.h": "c"
+		"parser.h": "c",
+		"sstream": "c"
 	}
 }

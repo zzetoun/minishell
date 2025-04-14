@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 17:07:31 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/04/13 21:08:48 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/04/14 16:50:51 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@ int	errmsg_cmd(char *cmd, char *detail, char *error, int error_numb)
 		}
 		if (detail != NULL)
 		{
-			if (add_detail_quotes(cmd))
+			if (add_detail_quotes(cmd) == 1)
 				msg = ft_strjoin(msg, "`");
 			msg = ft_strjoin(msg, detail);
-			if (add_detail_quotes(cmd))
+			if (add_detail_quotes(cmd) == 1)
 				msg = ft_strjoin(msg, "'");
 			msg = ft_strjoin(msg, ": ");
 		}

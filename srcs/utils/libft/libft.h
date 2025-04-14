@@ -1,33 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/13 18:10:58 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/04/14 16:02:14 by zzetoun          ###   ########.fr       */
+/*   Created: 2024/07/03 17:21:53 by zzetoun           #+#    #+#             */
+/*   Updated: 2025/04/14 19:52:02 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#ifndef LIBFT_H
+# define LIBFT_H
 
-int ft_pwd(t_data *data)
-{
-	char	buf[PATH_MAX];
-	char	*cwd;
+int		ft_isdigit(int c);
+int		ft_isspace(int c);
+int		ft_atoi(const char *str, int *error);
 
-	if (data->working_dir)
-	{
-		ft_printf(1, "%s\n", data->working_dir);
-		return (EXIT_FAILURE);
-	}
-	cwd = getcwd(buf, PATH_MAX);
-	if (cwd)
-	{
-		ft_printf(1, "%s\n", cwd);
-		return (EXIT_SUCCESS);
-	}
-	errmsg_cmd("pwd", NULL, strerror(errno), errno);
-	return (EXIT_FAILURE);
-}
+#endif

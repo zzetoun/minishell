@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 15:50:37 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/04/13 21:05:10 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/04/14 16:24:51 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,14 @@ void	ft_free_array(char **array)
 	free(array);
 	array = NULL;
 }
-
+void	free_ptr(void *ptr)
+{
+	if (ptr != NULL)
+	{
+		free(ptr);
+		ptr = NULL;
+	}
+}
 // void	ft_freedom_token(t_token *token, int type)
 // {
 // 	if (!token)

@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 17:02:27 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/04/13 21:13:54 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/04/14 19:49:43 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,19 +37,20 @@
 # include "../srcs/memory/mem_utils.h"
 # include "../srcs/display/ft_printf.h"
 # include "../srcs/error/controllers.h"
-# include "../srcs/str_utils/utils/str_uti.h"
-# include "../srcs/str_utils/get_next_line/get_next_line.h"
+# include "../srcs/utils/libft/libft.h"
+# include "../srcs/utils/str_utils/str_uti.h"
+# include "../srcs/utils/str_utils/get_next_line/get_next_line.h"
 
 # define EARGS "error: invalid arguments"
 # define NOACC "error: permission denied"
 # define EUNKN "error: unknown error"
 # define PATHE "error: Commands Path"
 # define ARGUE "error: Commands error"
-# define CMDER "error: Command not found"
 # define ARGEER01 "error: use ./minishell"
 # define ARGEER02 "error: use ./minishell -c \"input line\""
-# define ECFND 127
-# define EPERM 126
+# define CMD_NOT_FOUND 127
+
+extern int	final_exit_code;
 
 void    setup_minishell(t_token *token);
 
