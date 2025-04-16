@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 17:28:34 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/04/14 19:54:48 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/04/16 20:32:48 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 // 	else if (ft_strncmp(cmd->command, "env", 4) == 0)
 // 		value = ft_env(data, cmd->args);
 // 	else if (ft_strncmp(cmd->command, "export", 7) == 0)
-// 		value = export_cmds(data, cmd->args);
+// 		value = ft_export(data, cmd->args);
 // 	else if (ft_strncmp(cmd->command, "pwd", 4) == 0)
 // 		value = ft_pwd(data);
 // 	else if (ft_strncmp(cmd->command, "unset", 6) == 0)

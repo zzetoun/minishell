@@ -6,13 +6,13 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 15:50:37 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/04/14 16:24:51 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/04/16 20:32:11 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	ft_free_fd(t_command *cmd)
+void static ft_close_cmd_fd(t_command *cmd)
 {
 	if (cmd->io_fds->fd_in != -1)
 	{
@@ -51,33 +51,23 @@ void	ft_free_array(char **array)
 	free(array);
 	array = NULL;
 }
-void	free_ptr(void *ptr)
+void	ft_free_ptr(void *pointer)
 {
-	if (ptr != NULL)
+	if (pointer != NULL)
 	{
-		free(ptr);
-		ptr = NULL;
+		free(pointer);
+		pointer = NULL;
 	}
 }
-// void	ft_freedom_token(t_token *token, int type)
-// {
-// 	if (!token)
-// 		return ;
-// 	if (type == 1 || type == 2)
-// 		ft_free_fd(token);
-// 	if ((type == 1 || type == 3) && token->cmd_paths != NULL)
-// 	{
-// 		ft_free_array(token->cmd_paths, token->cmd_num);
-// 		token->cmd_paths = NULL;
-// 	}
-// 	if ((type == 1 || type == 4) && token->cmd_args != NULL)
-// 	{
-// 		ft_free_2d_array(token->cmd_args, token->cmd_num);
-// 		token->cmd_args = NULL;
-// 	}
-// 	if (type == 1 || type == 5)
-// 	{
-// 		free(token);
-// 		token = NULL;
-// 	}
-// }
+void	ft_freedom(t_token *token, t_command *cmd, int type)
+{
+	if (!token && !cmd)
+		return ;
+	if (cmd && type == 1)
+		ft_close_cmd_fd(cmd);
+	if (type == 1)
+	{
+		ft_free_ptr(cmd);
+		ft_free_ptr(token);
+	}
+}

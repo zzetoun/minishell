@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 18:10:58 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/04/14 16:02:14 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/04/16 19:52:13 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int ft_pwd(t_data *data)
 	if (data->working_dir)
 	{
 		ft_printf(1, "%s\n", data->working_dir);
-		return (EXIT_FAILURE);
+		return (EXIT_SUCCESS);
 	}
 	cwd = getcwd(buf, PATH_MAX);
 	if (cwd)
