@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 17:07:31 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/04/16 20:27:31 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/04/17 20:27:58 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,18 +44,17 @@ void	errmsg(char *error, char *detail, int quotes)
 		ft_printf(2, "minishell: %s: %s\n", error, detail);
 }
 
-void	exit_error(int option, char **array, char *error)
-{
-	ft_free_array(array);
-	ft_prnt_error(option, error);
-}
+// void	exit_error(int option, char **array, char *error)
+// {
+// 	ft_free_array(array);
+// 	ft_prnt_error(option, error);
+// }
 
-void	ft_prnt_error(int option, char *error)
-{
-	if (option == 1)
-		perror(error);
-	else
-		ft_printf(2, "%s\n", error);
-	exit(EXIT_FAILURE);
-}
-
+// void	ft_prnt_error(int option, char *error)
+// {
+// 	if (option == 1)
+// 		perror(error);
+// 	else
+// 		ft_printf(2, "%s\n", error);
+// 	exit(EXIT_FAILURE);
+// }

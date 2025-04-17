@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 15:11:49 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/04/16 20:30:57 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/04/17 21:27:49 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int ft_exit(t_data *data, char **arg);
 int ft_echo(t_data *data, char **arg);
 int ft_unset(t_data *data, char **arg);
 int ft_export(t_data *data, char **arg);
+int str_compare(char *s1, char *s2);
 int	execute_cmd(t_data *data, t_command *cmd);
 
 #endif

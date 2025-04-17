@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 16:01:53 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/04/17 16:22:19 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/04/17 20:33:16 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ int	setup_mini(t_data *data, char **env)
 	data->user_input = NULL;
 	data->cmd = NULL;
 	data->pid = -1;
+	errno = 0;
 	//final_exit_code = 0;
 	return (1);
 }

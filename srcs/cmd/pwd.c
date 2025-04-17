@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 18:10:58 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/04/16 19:52:13 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/04/17 21:43:20 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,6 @@ int ft_pwd(t_data *data)
 		ft_printf(1, "%s\n", cwd);
 		return (EXIT_SUCCESS);
 	}
-	errmsg_cmd("pwd", NULL, strerror(errno), errno);
+	perror("pwd ERROR");
 	return (EXIT_FAILURE);
 }
