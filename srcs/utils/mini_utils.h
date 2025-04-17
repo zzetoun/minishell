@@ -1,29 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   mini_utils.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/08 17:02:14 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/04/17 16:46:30 by zzetoun          ###   ########.fr       */
+/*   Created: 2025/04/17 16:12:16 by zzetoun           #+#    #+#             */
+/*   Updated: 2025/04/17 16:22:12 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#ifndef MINI_UTILS_S
+#define MINI_UTILS_S
 
+void    setup_io(t_command *cmd);
+int     setup_mini(t_data *data, char **env);
 
-int	main(int ac, char **av, char **envp)
-{
-	t_data data;
-	(void) ac;
-	(void) av;
-
-	while (1)
-	{
-		data.user_input = readline(PROMPT);
-		setup_mini(&data, envp);
-		ft_printf(1, "working directort: \"%s\" \n", data.working_dir);
-	}
-	return (0);
-}
+#endif 

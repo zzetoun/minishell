@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 17:02:27 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/04/16 19:45:36 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/04/17 16:41:19 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,20 +37,24 @@
 # include "../srcs/memory/mem_utils.h"
 # include "../srcs/display/ft_printf.h"
 # include "../srcs/error/controllers.h"
+# include "../srcs/utils/mini_utils.h"
 # include "../srcs/utils/libft/libft.h"
 # include "../srcs/utils/str_utils/str_uti.h"
 # include "../srcs/utils/str_utils/get_next_line/get_next_line.h"
 
-# define EARGS "error: invalid arguments"
-# define NOACC "error: permission denied"
-# define EUNKN "error: unknown error"
-# define PATHE "error: Commands Path"
-# define ARGUE "error: Commands error"
-# define ARGEER01 "error: use ./minishell"
-# define ARGEER02 "error: use ./minishell -c \"input line\""
+#define PROMPT "\001\e[44m\002*** \001\e[0m\e[96m\002 Minishell>$ \001\e[0m\002"
+# define EARGS "ERROR: invalid arguments"
+# define NOACC "ERROR: permission denied"
+# define EUNKN "ERROR: unknown error"
+# define PATHE "ERROR: Commands Path"
+# define ARGUE "ERROR: Commands error"
+# define ARGEER01 "ERROR: use ./minishell"
+# define ARGEER02 "ERROR: use ./minishell -c \"input line\""
+# define ENVERRO "ERROR: Could not initialize environment"
+# define WDWRROR "ERROR: Could not initialize working directories"
 # define CMD_NOT_FOUND 127
 
-extern int	final_exit_code;
+//extern int	final_exit_code;
 
 void    setup_minishell(t_token *token);
 
