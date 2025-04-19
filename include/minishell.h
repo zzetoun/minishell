@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 17:02:27 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/04/17 16:41:19 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/04/18 16:56:13 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@
 # include "../srcs/utils/str_utils/str_uti.h"
 # include "../srcs/utils/str_utils/get_next_line/get_next_line.h"
 
-#define PROMPT "\001\e[44m\002*** \001\e[0m\e[96m\002 Minishell>$ \001\e[0m\002"
+# define PROMPT "\001\e[44m\002*** \001\e[0m\e[96m\002 Minishell>$ \001\e[0m\002"
 # define EARGS "ERROR: invalid arguments"
 # define NOACC "ERROR: permission denied"
 # define EUNKN "ERROR: unknown error"
@@ -53,6 +53,15 @@
 # define ENVERRO "ERROR: Could not initialize environment"
 # define WDWRROR "ERROR: Could not initialize working directories"
 # define CMD_NOT_FOUND 127
+
+# define CD "cd"
+# define PWD "pwd"
+# define EXP "export"
+# define UNS "unset"
+# define ENV "env"
+# define ECHO "echo"
+# define EXIT "exit"
+# define OLDPWD "OLDPWD"
 
 //extern int	final_exit_code;
 

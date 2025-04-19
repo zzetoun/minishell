@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 17:08:04 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/04/13 21:11:00 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/04/18 16:48:45 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,6 @@ void    ft_prnt_error(int option, char *error);
 void	errmsg(char *error, char *detail, int quotes);
 void    exit_error(int option, char **array, char *error);
 
-int     errmsg_cmd(char *cmd, char *detail, char *error, int error_numb);
+int     errmsg_cmd(char *cmd, char *detail, char *error, int err_nb);
 
 #endif

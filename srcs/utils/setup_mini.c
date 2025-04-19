@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 16:01:53 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/04/17 20:33:16 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/04/19 19:58:35 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,11 @@ static int	init_directory(t_data *data)
 	wd = getcwd(buff, PATH_MAX);
 	data->working_dir = ft_strdup(wd);
 	if (!data->working_dir)
-		return (0);
-	// if (get_env_var_index(data->env, "OLDPWD") != -1)
+		return (ft_free_ptr(wd), 0);
+	// if (get_env_var_index(data->env, OLDPWD) != -1)
 	// {
 	// 	data->old_working_dir = ft_strdup(get_env_var_value(data->env,
-	// 				"OLDPWD"));
+	// 				OLDPWD));
 	// 	if (!data->old_working_dir)
 	// 		return (0);
 	// }
@@ -54,15 +54,15 @@ static int	init_directory(t_data *data)
 	// }
     data->old_working_dir = ft_strdup(wd);
 	if (!data->old_working_dir)
-		return (0);
+		return (ft_free_ptr(wd), 0);
 	return (1);
 }
 
 
-int	setup_mini(t_data *data, char **env)
+int	setup_mini(t_data *data, char **envp)
 {
-    (void) env;
-	// if (!init_env(data, env))
+    (void) envp;
+	// if (!init_env(data, envp))
 	// {
 	// 	errmsg_cmd("Fatal", NULL, ENVERRO, 1);
 	// 	return (0);

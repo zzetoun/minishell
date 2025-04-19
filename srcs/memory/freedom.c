@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 15:50:37 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/04/16 20:32:11 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/04/19 17:06:44 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,18 +38,18 @@ void static ft_close_cmd_fd(t_command *cmd)
 
 void	ft_free_array(char **array)
 {
-	int	i;
+	char **ptr;
 
-	i = -1;
 	if (!array)
-		exit(EXIT_FAILURE);
-	while (array[++i])
+		return ;
+	ptr = array;
+	while (*ptr)
 	{
-		free(array[i]);
-		array[i] = NULL;
+		free(*ptr);
+		*ptr = NULL;
+		ptr++;
 	}
 	free(array);
-	array = NULL;
 }
 void	ft_free_ptr(void *pointer)
 {

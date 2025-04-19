@@ -198,27 +198,7 @@ The shell must implement the following built-in commands with specified restrict
 
 ## IV. Bonus Features
 
-### A. Logical Operators with Parentheses (&& and ||)
-- **Logical AND (`&&`):**  
-  - Execute the command following `&&` only if the preceding command succeeds (returns 0).
-- **Logical OR (`||`):**  
-  - Execute the command following `||` only if the preceding command fails (nonzero exit status).
-- **Parentheses for Grouping:**  
-  - Use parentheses to override the default operator precedence, ensuring commands are evaluated as a single unit.
-  - **Example without grouping:**
-    ```bash
-    cmd1 && cmd2 || cmd3
-    ```
-  - **Example with grouping:**
-    ```bash
-    (cmd1 && cmd2) || cmd3
-    ```
-- **Implementation Notes:**
-  - Extend your parser to recognize `&&`, `||`, and grouping symbols `(` and `)`.
-  - Construct an Abstract Syntax Tree (AST) or equivalent structure to enforce correct precedence.
-  - Employ short-circuit evaluation to avoid unnecessary command executions.
-
-### B. Wildcard Expansion (Globbing)
+### A. Wildcard Expansion (Globbing)
 - **Wildcard Character (`*`):**  
   - Matches zero or more characters in file or directory names within the current working directory.
   - **Example:**  
@@ -236,108 +216,190 @@ The shell must implement the following built-in commands with specified restrict
 
 ## V. Edge Cases and Robustness Considerations
 
-To ensure the Minishell is robust and error-free, consider the following edge cases and handling strategies:
+To ensure the Minishell is robust and error‑free, consider the following edge cases and handling strategies:
 
 ### 1. Input Parsing and Tokenization
 - **Empty or Whitespace-Only Input:**  
-  - **Situation:** The user presses Enter without typing any command.
-  - **Action:** Simply display a new prompt and do not add an empty command to history.
-- **Unbalanced or Unclosed Quotes:**  
-  - **Situation:** Input contains unclosed single (`'`) or double (`"`) quotes.
-  - **Action:** Report a syntax error and prompt for a new command.
-- **Unbalanced or Misplaced Parentheses:**  
-  - **Situation:** Commands with missing or extra parentheses (e.g., `(cmd1 && cmd2` or `cmd1 && cmd2)`).
-  - **Action:** Detect and report the error during parsing.
-- **Misplaced Logical Operators:**  
-  - **Situation:** Input begins or ends with `&&` or `||` (e.g., `&& cmd1`, `cmd1 ||`).
-  - **Action:** Validate token order and provide a syntax error message.
+  - **Situation:** User presses Enter on a blank line.  
+  - **Action:** Redisplay prompt; do not add to history.  
+- **Mixed Whitespace Delimiters:**  
+  - **Situation:** Tabs and spaces intermixed.  
+  - **Action:** Treat any sequence of whitespace as a single separator.  
+- **Unclosed Quotes:**  
+  - **Situation:** Single (`'`) or double (`"`) quotes not balanced.  
+  - **Action:** Print syntax error and discard input.  
+- **Escaped Newline Continuation:**  
+  - **Situation:** Line ends with `\` to join with next line.  
+  - **Action:** Read next line, strip backslash, concatenate before parsing.  
+- **Line Comments (`#`):**  
+  - **Situation:** `#` outside quotes starts a comment.  
+  - **Action:** Ignore `#` and rest of line; continue parsing preceding tokens.  
+- **Unbalanced Parentheses/Braces:**  
+  - **Situation:** `( cmd1 && cmd2` or `${VAR`.  
+  - **Action:** Detect at parse time; report syntax error.
 
-### 2. Command Execution
-- **Non-existent/Non-executable Commands:**  
-  - **Situation:** The command does not exist or the file lacks execution permissions.
-  - **Action:** Use `access()` for validation and report an appropriate error message.
-- **Invalid Paths:**  
-  - **Situation:** Commands provided with absolute or relative paths that are invalid.
-  - **Action:** Validate paths and handle errors gracefully.
+### 2. Quoting, Escaping, and Comments
+- **Nested Quotes:**  
+  - **Situation:** `"a 'b' c"` or `'a "b" c'`.  
+  - **Action:** Allow literal inner quotes if opposite type.  
+- **Backslash in Quotes:**  
+  - **Situation:** `echo "a \"b\""` or `echo 'a \'b\''`.  
+  - **Action:** Honor backslash only in double quotes; in single quotes treat literally.  
+- **Here‑Document Delimiter Quoting:**  
+  - **Situation:** Delimiter in `<< 'EOF'` vs `<< EOF`.  
+  - **Action:** If quoted, disable variable expansion within the here‑doc.
 
-### 3. Redirections and Pipelines
-- **Redirection Errors:**  
-  - **Situation:** Input or output redirection fails (e.g., due to missing files or permission issues).
-  - **Action:** Check file accessibility (using `open()`/`access()`) and prevent execution if redirection setup fails.
-- **Here-Document (<<) Issues:**  
-  - **Situation:** The delimiter is never encountered, or input is terminated by ctrl-D.
-  - **Action:** Decide whether to abort the redirection or process the accumulated input, and do not update history if aborted.
-- **Pipeline Problems:**  
-  - **Situation:** A command within a pipeline fails.
-  - **Action:** Propagate the correct exit status and determine if subsequent commands should be executed.
-
-### 4. Environment Variable Expansion
+### 3. Parameter, Command, and Arithmetic Expansion
 - **Undefined Variables:**  
-  - **Situation:** A referenced variable is not defined.
-  - **Action:** Replace it with an empty string.
-- **Invalid Syntax After `$`:**  
-  - **Situation:** The `$` symbol is not immediately followed by a valid identifier.
-  - **Action:** Treat the symbol as literal text or report a syntax error.
-- **Special Variable `$?`:**  
-  - **Situation:** No prior command has executed.
-  - **Action:** Return a default or consistent exit status.
+  - **Situation:** `$FOO` not set.  
+  - **Action:** Expand to empty string.  
+- **Special Variables:**  
+  - **Situation:** `$?`, `$$`, `$!` before any processes.  
+  - **Action:** `$?` → `0`, `$$` → shell PID, `$!` → empty or last background PID.  
+- **Invalid `$` Usage:**  
+  - **Situation:** `$1var` or `$-`.  
+  - **Action:** Treat as literal text or report syntax error.  
+- **Brace Expansion Errors:**  
+  - **Situation:** `${VAR:-default}`, `${VAR:=default}`, missing `}`.  
+  - **Action:** Perform correct default/assign semantics; on missing `}`, syntax error.  
+- **Command Substitution:**  
+  - **Situation:** `` `cmd` `` or `$(cmd)`.  
+  - **Action:** Execute `cmd`, capture stdout (stripping trailing newline), then re‑tokenize.  
+- **Arithmetic Expansion:**  
+  - **Situation:** `$(( 2+3 ))` or division by zero.  
+  - **Action:** Evaluate integer expression; on error, print message and return nonzero status.
 
-### 5. Wildcard Expansion
-- **No Matching Files:**  
-  - **Situation:** The wildcard pattern (e.g., `*.c`) does not match any files.
-  - **Action:** Either leave the pattern unchanged or notify the user.
-- **Hidden Files Matching:**  
-  - **Situation:** Wildcard unintentionally matches hidden files.
-  - **Action:** Exclude files starting with a dot unless explicitly required.
-- **Multiple or Complex Patterns:**  
-  - **Situation:** Patterns such as `pre*fix*` are encountered.
-  - **Action:** Ensure robust matching even with overlapping or empty pattern segments.
+### 4. Globbing and Pathname Expansion
+- **No Matches:**  
+  - **Situation:** `*.xyz` matches nothing.  
+  - **Action:** Leave pattern unexpanded (or as user preference).  
+- **Hidden Files:**  
+  - **Situation:** `.*` or `*.c` matching `.foo`.  
+  - **Action:** Exclude files starting with `.` unless pattern explicitly begins with `.`.  
+- **Complex Patterns:**  
+  - **Situation:** `pre*fix*suffix`.  
+  - **Action:** Match greedily; sort results lexicographically.  
+- **Directory Slash in Pattern:**  
+  - **Situation:** `dir/*.c`.  
+  - **Action:** Only expand within specified directory, not recursive.
 
-### 6. Logical Operators and Grouping
-- **Malformed Groupings:**  
-  - **Situation:** Unbalanced parentheses or dangling operators (e.g., `cmd1 &&`).
-  - **Action:** Validate during parsing and display syntax error messages.
-- **Short-Circuit Evaluation:**  
-  - **Situation:** A command’s result renders subsequent operators unnecessary.
-  - **Action:** Implement short-circuiting to prevent redundant execution.
+### 5. Redirections and File Descriptor Manipulation
+- **Simple Redirections:**  
+  - **Situation:** `cmd >out`, `cmd <in`.  
+  - **Action:** Open files with correct flags; on error, print and abort execution.  
+- **Append vs Overwrite:**  
+  - **Situation:** `>>out` vs `>out`.  
+  - **Action:** Use `O_APPEND` or `O_TRUNC` accordingly.  
+- **Multiple Redirections:**  
+  - **Situation:** `cmd >o1 >o2`, `cmd 2>&1`.  
+  - **Action:** Apply left‑to‑right; duplicate or close FDs as specified.  
+- **Here‑Document EOF Before Delimiter:**  
+  - **Situation:** EOF (Ctrl‑D) before matching delimiter.  
+  - **Action:** Abort the here‑doc; do not add to history.  
+- **Ambiguous Redirect Without Space:**  
+  - **Situation:** `cmd>file`.  
+  - **Action:** Recognize `>` token and filename even without spacing.
 
-### 7. Built-In Commands and Special Cases
-- **Invalid or Missing Arguments:**  
-  - **Situation:** Built-ins like `cd`, `export`, or `unset` receive improper or missing arguments.
-  - **Action:** Validate and provide clear, user-friendly error messages.
-- **Extra Arguments for `exit`:**  
-  - **Situation:** The `exit` command is given additional unsupported arguments.
-  - **Action:** Follow the specifications—ignore extra arguments or warn the user.
+### 6. Pipelines and Process Execution
+- **Non‑existent Commands in Pipeline:**  
+  - **Situation:** `false | cmd`.  
+  - **Action:** `access()` check each; report for the failing stage but still run others.  
+- **SIGPIPE Handling:**  
+  - **Situation:** Downstream process exits early.  
+  - **Action:** Parent or writer sees `SIGPIPE`; ignore or catch and propagate error.  
+- **Maximum Pipe Depth:**  
+  - **Situation:** Excessive chained pipes (`a|b|c|…`).  
+  - **Action:** Dynamically allocate FD arrays; detect `EMFILE` and report “too many open files.”  
+- **Zombie Processes:**  
+  - **Situation:** Child exits but not waited on.  
+  - **Action:** Use `waitpid(-1, …, WNOHANG)` in SIGCHLD handler to reap.
 
-### 8. Signal Handling
-- **Rapid or Concurrent Signals:**  
-  - **Situation:** Multiple signals (e.g., repeated ctrl-C) are received quickly.
-  - **Action:** Use the single global variable to track the signal and handle it without disrupting the prompt.
-- **Terminal Control Signals:**  
-  - **Situation:** Differentiating between ctrl-C (interrupt), ctrl-D (exit), and ctrl+\\ (ignored).
-  - **Action:** Implement each behavior exactly as specified.
+### 7. Built-In Commands and Environment Management
+- **`cd -`:**  
+  - **Situation:** Return to previous directory.  
+  - **Action:** Save and swap `$OLDPWD`/`$PWD`.  
+- **`export` Without Arguments:**  
+  - **Situation:** `export` alone.  
+  - **Action:** List all exported vars.  
+- **`unset` Non‑existent Var:**  
+  - **Situation:** `unset FOO` when FOO unset.  
+  - **Action:** No error; no-op.  
+- **`env` with Arguments:**  
+  - **Situation:** `env VAR=val cmd`.  
+  - **Action:** Temporarily set VAR for `cmd` only.  
+- **Invalid Built‑in Syntax:**  
+  - **Situation:** `exit foo`.  
+  - **Action:** If `foo` non-numeric, print error; exit with status `255`.
 
-### 9. Memory and Resource Management
-- **Memory Allocation Failures:**  
-  - **Situation:** `malloc()` returns `NULL`.
-  - **Action:** Always check allocations and free any allocated memory before handling the error.
-- **File Descriptor or Resource Leaks:**  
-  - **Situation:** Files or directories are left open.
-  - **Action:** Ensure every open operation (e.g., `open()`, `opendir()`) is paired with an appropriate close (`close()`, `closedir()`).
-- **Custom Code Memory Leaks:**  
-  - **Situation:** Memory leaks in the tokenization, parsing, or AST management.
-  - **Action:** Regularly test with tools (e.g., Valgrind) and free all allocated resources.
+### 8. Signal and Job Control
+- **Interactive Signals:**  
+  - **Situation:** Ctrl‑C, Ctrl‑D, Ctrl+\\, Ctrl‑Z.  
+  - **Action:**  
+    - Ctrl‑C: interrupt foreground, redisplay prompt  
+    - Ctrl‑D: exit if no input; EOF otherwise  
+    - Ctrl+\\: ignore  
+    - Ctrl‑Z: suspend foreground (optional job control)  
+- **SIGWINCH (Window Resize):**  
+  - **Situation:** Terminal dimensions change.  
+  - **Action:** Recompute line lengths via `ioctl()`.  
+- **Background Execution (`&`):**  
+  - **Situation:** `sleep 10 &`.  
+  - **Action:** Fork without wait; print background PID; track status for `$!`.
 
-### 10. Miscellaneous
-- **Handling Extremely Long Commands:**  
-  - **Situation:** The input exceeds typical buffer sizes.
-  - **Action:** Use dynamic allocation and proper buffer management.
-- **Preventing Buffer Overflows:**  
-  - **Situation:** Large inputs or string operations might overrun buffers.
-  - **Action:** Use safe string functions and perform bounds checking.
-- **Concurrency and Race Conditions:**  
-  - **Situation:** Multiple processes concurrently modifying shared resources.
-  - **Action:** Apply proper synchronization, especially during signal handling.
+### 9. Memory, Resource, and Error Handling
+- **Allocation Failures:**  
+  - **Situation:** `malloc()` returns `NULL`.  
+  - **Action:** Clean up, print “memory error,” return to prompt.  
+- **File Descriptor Leaks:**  
+  - **Situation:** `open()` or `pipe()` without `close()`.  
+  - **Action:** Audit every code path; ensure matching `close()`/`closedir()`.  
+- **Race in `access()` vs `open()`:**  
+  - **Situation:** File removed between checks.  
+  - **Action:** Prefer `open()` with proper flags; handle errors there.  
+- **Signal‑Safe Functions:**  
+  - **Situation:** Calling non‑async‑safe API in handler.  
+  - **Action:** Restrict to `write()` and `sig_atomic_t`.  
+
+### 10. I/O, Terminal, and Encoding
+- **Non‑TTY I/O:**  
+  - **Situation:** Input/output redirected from files or pipes.  
+  - **Action:** Disable line editing; read raw lines until EOF.  
+- **Invalid UTF‑8 Sequences:**  
+  - **Situation:** Multi‑byte sequence broken.  
+  - **Action:** Treat bytes literally; avoid crashes.  
+- **Carriage Return Handling:**  
+  - **Situation:** CRLF input from Windows files.  
+  - **Action:** Strip `\r` before processing.  
+
+### 11. Non‑Interactive & Scripting Mode
+- **Script File Execution:**  
+  - **Situation:** `./minishell script.sh`.  
+  - **Action:** Read and execute without prompt, exit at EOF.  
+- **`exit` in Script:**  
+  - **Situation:** `exit` inside a script.  
+  - **Action:** Terminate shell immediately with given status.  
+
+### 12. Miscellaneous
+- **Excessively Long Argument Lists:**  
+  - **Situation:** `execve()` fails with `E2BIG`.  
+  - **Action:** Report “argument list too long.”  
+- **Illegal Byte in Filename:**  
+  - **Situation:** NUL or path separator in file name.  
+  - **Action:** Reject or treat as not found.  
+- **Environment Size Limits:**  
+  - **Situation:** Too many or too-large variables.  
+  - **Action:** Detect and report if `execve()` fails with `E2BIG`.  
+- **Locale Changes at Runtime:**  
+  - **Situation:** User sets `LANG` or `LC_*` during session.  
+  - **Action:** Respect new locale for word splitting and display width.  
+- **Circular Here‑Doc References:**  
+  - **Situation:** Here‑doc delimiter equals a variable name.  
+  - **Action:** No special handling; treat delimiter literally.  
+- **Editor Key Sequences:**  
+  - **Situation:** User inputs arrow or function keys.  
+  - **Action:** Let `readline()` handle; avoid interpreting raw codes.
+
+
 
 ---
 

@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 15:38:01 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/04/14 19:53:18 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/04/19 20:13:28 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,11 @@ int	ft_isdigit(int c)
 int	ft_isspace(int c)
 {
 	return (c == ' ' || (c >= 9 && c <= 13));
+}
+
+int	ft_isalnum(int c)
+{
+	return (ft_isalpha(c) || ft_isdigit(c));
 }
 
 int	ft_atoi(const char *str, int *error)
