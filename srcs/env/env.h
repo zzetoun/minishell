@@ -1,24 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   env.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/03 17:21:53 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/04/20 21:34:36 by zzetoun          ###   ########.fr       */
+/*   Created: 2025/04/20 18:23:32 by zzetoun           #+#    #+#             */
+/*   Updated: 2025/04/20 21:44:10 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_H
-# define LIBFT_H
+#ifndef ENV_H
+# define ENV_H
 
-int		ft_isdigit(int c);
-int		ft_isspace(int c);
-int	    ft_isalnum(int c);
-int     ft_isalpha(int c);
-int		ft_atoi(const char *str, int *error);
+size_t  ft_env_len(char **envp);
 
-char    *str_tolower(char *s);
+int     ft_free_env(t_env_info *env);
+int     ft_env_setup(t_env_info *env, char **envp);
+int     ft_str_to_env(t_data *data,t_env_info *env);
 
 #endif

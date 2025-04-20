@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 14:23:53 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/04/17 16:53:06 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/04/20 20:16:20 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,20 @@ typedef struct s_token
 	struct s_token	*next;
 	struct s_token	*prev;
 }	t_token;
+
+typedef struct s_envp
+{
+	char			*str;
+	size_t			idx;
+	struct s_envp	*next;
+}	t_envp;
+
+typedef struct s_env_info
+{
+	t_envp		*head;
+	t_envp		*tail;
+	size_t		size;
+}	t_env_info;
 
 typedef struct s_io_fds
 {

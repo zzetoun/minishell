@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 17:02:27 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/04/18 16:56:13 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/04/20 18:24:38 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,16 @@
 # include "../srcs/io/io.h"
 # include "../srcs/cmd/cmd.h"
 # include "../srcs/exc/exc.h"
+# include "../srcs/env/env.h"
 # include "../srcs/parser/parser.h"
 # include "../srcs/signal/signal.h"
-# include "../srcs/memory/freedom.h"
-# include "../srcs/memory/mem_utils.h"
-# include "../srcs/display/ft_printf.h"
+# include "../srcs/cleanup/freedom.h"
 # include "../srcs/error/controllers.h"
 # include "../srcs/utils/mini_utils.h"
 # include "../srcs/utils/libft/libft.h"
-# include "../srcs/utils/str_utils/str_uti.h"
+# include "../srcs/utils/memory/mem_utils.h"
+# include "../srcs/utils/display/ft_printf.h"
+# include "../srcs/utils/str_utils/str_utils.h"
 # include "../srcs/utils/str_utils/get_next_line/get_next_line.h"
 
 # define PROMPT "\001\e[44m\002*** \001\e[0m\e[96m\002 Minishell>$ \001\e[0m\002"

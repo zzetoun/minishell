@@ -6,6 +6,11 @@
 		"array": "c",
 		"cmd.h": "c",
 		"parser.h": "c",
-		"sstream": "c"
+		"sstream": "c",
+		"libft.h": "c",
+		"mini_utils.h": "c",
+		"ft_printf.h": "c",
+		"controllers.h": "c",
+		"ratio": "c"
 	}
 }

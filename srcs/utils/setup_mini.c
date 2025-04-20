@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 16:01:53 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/04/19 19:58:35 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/04/20 21:48:28 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,13 @@ static int	init_directory(t_data *data)
 }
 
 
-int	setup_mini(t_data *data, char **envp)
+int	setup_mini(t_data *data, t_env_info *env, char **envp)
 {
-    (void) envp;
-	// if (!init_env(data, envp))
-	// {
-	// 	errmsg_cmd("Fatal", NULL, ENVERRO, 1);
-	// 	return (0);
-	// }
+	if (!ft_env_setup(env, envp))
+	{
+		errmsg_cmd("Fatal", NULL, ENVERRO, 1);
+		return (0);
+	}
 	if (!init_directory(data))
 	{
 		errmsg_cmd("Fatal", NULL, WDWRROR, 1);
@@ -76,6 +75,8 @@ int	setup_mini(t_data *data, char **envp)
 	data->user_input = NULL;
 	data->cmd = NULL;
 	data->pid = -1;
+	data->env = NULL;
+	ft_str_to_env(data, env);
 	errno = 0;
 	//final_exit_code = 0;
 	return (1);
