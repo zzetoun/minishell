@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 17:02:14 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/04/20 21:43:30 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/04/21 16:46:24 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@ int main (int ac, char **av, char **envp)
     (void) av;
     t_data      data;
     t_env_info  env;
-    //int i = -1;
+    int i = -1;
 	
 	welcome_msg();
 	ft_printf(1, "envp len:%d\n", ft_env_len(envp));
     setup_mini(&data, &env, envp);
-    // while(data.env[++i])
-    //     ft_printf(1, "data.env \"%s\" \n", data.env[i]);
+    while(data.env[++i])
+        ft_printf(1, "data.env:{%s}\n", data.env[i]);
     while (1)
 	{
 		data.user_input = readline(PROMPT);

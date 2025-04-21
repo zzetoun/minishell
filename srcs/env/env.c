@@ -6,11 +6,28 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/20 18:22:32 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/04/20 21:49:51 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/04/21 16:44:26 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+// static void linked_list_print(t_env_info  *env, char **_envp)
+// {
+//     t_envp *envp;
+//     int    idx;
+
+//     envp = env->head;
+//     idx = 0;
+//    ft_printf(1, "env size: {%d}\n",env->size);
+//     while(envp)
+//     {
+//         ft_printf(1, "[%d] envp->str: {%s}\n",envp->idx, envp->str);
+//         ft_printf(1, "[%d] _envp: {%s}\n", idx, _envp[idx]);
+//         idx++;
+//         envp = envp->next;
+//     }
+// }
 
 int ft_env_setup(t_env_info *env, char **envp)
 {
@@ -24,9 +41,9 @@ int ft_env_setup(t_env_info *env, char **envp)
 		new_env = ft_calloc(1, sizeof(t_envp));
 		if (!new_env)
 			return (ft_free_env(env));
-		if (idx == 1)
+		if (idx == 0)
 			env->head = new_env;
-		new_env->idx = idx - 1;
+		new_env->idx = idx;
         new_env->str = ft_strdup(envp[idx]);
 		new_env->next = NULL;
 		if (env->tail != NULL)
@@ -38,30 +55,24 @@ int ft_env_setup(t_env_info *env, char **envp)
     return (1);
 }
 
+
 int    ft_str_to_env(t_data *data, t_env_info *env)
 {
-    size_t  idx;
     t_envp  *envp;
 
-    idx = -1;
     envp = env->head;
     if (!data->env)
-        data->env = ft_calloc(env->size + 1, sizeof(char *));
+        data->env = ft_calloc(env->size, sizeof(char *));
     if (!data->env)
         return (0);
-    while(++idx <= env->size)
+    while(envp)
     {
-        printf("print me 01\n");
-        data->env[idx] = ft_calloc(ft_strlen(envp->str), sizeof(char));
-        printf("print me 02\n");
-        if (!data->env[idx])
+        data->env[envp->idx] = ft_calloc(ft_strlen(envp->str), sizeof(char));
+        if (!data->env[envp->idx])
             return (ft_free_array(data->env), 0);
-        data->env[idx] = ft_strdup(envp->str);
-		ft_printf(1, "envp->str: %s\n", envp->str);
-		ft_printf(1, "new_envp[%d]: %s\n",idx , data->env[idx]);
+        data->env[envp->idx] = ft_strdup(envp->str);
         envp = envp->next;
     }
-    printf("idx: %zu\n", idx);
-    data->env[idx] = "\0";
+    data->env[env->size] = NULL;
     return (1);
 }
