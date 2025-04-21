@@ -14,7 +14,7 @@ OBJ       = $(SRC:.c=.o)
 
 # Compiler and flags
 CC        = gcc
-CFLAGS    = -Wall -Wextra -Werror -I$(INCDIR) -I/opt/vagrant/embedded/include
+CFLAGS    = -Wall -Wextra -Werror -I$(INCDIR) -I/opt/vagrant/embedded/include -g3 -fsanitize=address
 
 # **************************************************************************** #
 #                                  RULES                                       #

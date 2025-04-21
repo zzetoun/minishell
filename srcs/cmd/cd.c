@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 14:32:53 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/04/19 16:20:27 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/04/21 18:32:06 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 // static void	update_wds(t_data *data, char *wd)
 // {
-// 	set_env_var(data, OLDPWD, get_env_var_value(data->env, PWD));
-// 	set_env_var(data, PWD, wd);
+// 	set_env_var(data, OLDPWD, get_env_var_value(data->env, "PWD"));
+// 	set_env_var(data, "PWD", wd);
 // 	if (data->old_working_dir)
 // 	{
 // 		ft_free_ptr(data->old_working_dir);

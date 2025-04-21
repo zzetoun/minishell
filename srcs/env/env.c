@@ -6,36 +6,36 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/20 18:22:32 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/04/21 16:44:26 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/04/21 20:31:36 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-// static void linked_list_print(t_env_info  *env, char **_envp)
-// {
-//     t_envp *envp;
-//     int    idx;
+void linked_list_print(t_env_info  *env, char **_envp)
+{
+    t_envp *envp;
+    int    idx;
 
-//     envp = env->head;
-//     idx = 0;
-//    ft_printf(1, "env size: {%d}\n",env->size);
-//     while(envp)
-//     {
-//         ft_printf(1, "[%d] envp->str: {%s}\n",envp->idx, envp->str);
-//         ft_printf(1, "[%d] _envp: {%s}\n", idx, _envp[idx]);
-//         idx++;
-//         envp = envp->next;
-//     }
-// }
+    envp = env->head;
+    idx = 0;
+   ft_printf(1, "env size: {%d}\n",env->size);
+    while(envp)
+    {
+        ft_printf(1, "[%d] envp->str: {%s}\n",envp->idx, envp->str);
+        ft_printf(1, "[%d] _envp: {%s}\n", idx, _envp[idx]);
+        idx++;
+        envp = envp->next;
+    }
+}
 
 int ft_env_setup(t_env_info *env, char **envp)
 {
     t_envp	*new_env;
     size_t  idx;
 
-	env->tail = NULL;
     idx = -1;
+    env->tail = NULL;
 	while (envp[++idx])
 	{
 		new_env = ft_calloc(1, sizeof(t_envp));
@@ -46,7 +46,7 @@ int ft_env_setup(t_env_info *env, char **envp)
 		new_env->idx = idx;
         new_env->str = ft_strdup(envp[idx]);
 		new_env->next = NULL;
-		if (env->tail != NULL)
+        if (env->tail != NULL)
 			env->tail->next = new_env;
 		env->tail = new_env;
 	}
@@ -73,6 +73,5 @@ int    ft_str_to_env(t_data *data, t_env_info *env)
         data->env[envp->idx] = ft_strdup(envp->str);
         envp = envp->next;
     }
-    data->env[env->size] = NULL;
     return (1);
 }

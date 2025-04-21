@@ -70,3 +70,28 @@ char	*ft_strdup(const char *s)
 	return (str);
 }
 
+char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	size_t	i;
+	char	*str;
+
+	if (!s)
+		return (0);
+	if (ft_strlen(s) < start)
+		return (ft_calloc(1, sizeof(char)));
+	if (ft_strlen(s) < len + start)
+		str = (char *)malloc(sizeof(char) * ft_strlen(s) - start + 1);
+	else
+		str = (char *)malloc(sizeof(char) * len + 1);
+	if (!str)
+		return (0);
+	i = -1;
+	while (s[start + ++i] && i < len)
+	{
+		ft_printf(1, "%c\n", s[start + i]);
+		str[i] = s[start + i];
+	}
+	str[i] = '\0';
+	return (str);
+}
+
