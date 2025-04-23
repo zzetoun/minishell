@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 14:32:53 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/04/21 18:32:06 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/04/23 00:02:16 by zzetoun          ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../include/minishell.h"
 
@@ -60,26 +60,26 @@
 // 	return (1);
 // }
 
-// int	ft_cd(t_data *data, char **args)
-// {
-// 	char	*path;
+int	ft_cd(t_data *data, char **args)
+{
+	char	*path;
 
-// 	if (!args || !args[1] || ft_isspace(args[1][0])
-// 		|| args[1][0] == '\0' || str_compare(args[1], "--"))
-// 	{
-// 		path = get_env_var_value(data->env, "HOME");
-// 		if (!path || *path == '\0' || ft_isspace(*path))
-// 			return (errmsg_cmd(CD, NULL, "HOME not set", EXIT_FAILURE));
-// 		return (!change_dir(data, path));
-// 	}
-// 	if (args[2])
-// 		return (errmsg_cmd(CD, NULL, "too many arguments", EXIT_FAILURE));
-// 	if (str_compare(args[1], "-"))
-// 	{
-// 		path = get_env_var_value(data->env, OLDPWD);
-// 		if (!path)
-// 			return (errmsg_cmd(CD, NULL, "OLDPWD not set", EXIT_FAILURE));
-// 		return (!change_dir(data, path));
-// 	}
-// 	return (!change_dir(data, args[1]));
-// }
+	if (!args || !args[1] || ft_isspace(args[1][0])
+		|| args[1][0] == '\0' || str_compare(args[1], "--"))
+	{
+		path = get_env_var_value(data->env, "HOME");
+		if (!path || *path == '\0' || ft_isspace(*path))
+			return (errmsg_cmd(CD, NULL, "HOME not set", EXIT_FAILURE));
+		return (!change_dir(data, path));
+	}
+	if (args[2])
+		return (errmsg_cmd(CD, NULL, "too many arguments", EXIT_FAILURE));
+	if (str_compare(args[1], "-"))
+	{
+		path = get_env_var_value(data->env, "OLDPWD");
+		if (!path)
+			return (errmsg_cmd(CD, NULL, "OLDPWD not set", EXIT_FAILURE));
+		return (!change_dir(data, path));
+	}
+	return (!change_dir(data, args[1]));
+}
