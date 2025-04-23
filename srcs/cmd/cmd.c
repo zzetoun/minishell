@@ -26,12 +26,14 @@ int str_compare(char const *s1, char const *s2)
     return (result);
 }
 
-int	execute_cmd(t_data *data, t_command *cmd)
+int	execute_cmd(t_data *data, t_command *cmd, t_env_info *env)
 {
 	int	value;
 
 	value = CMD_NOT_FOUND;
-	if (str_compare(cmd->command, PWD) == 1)
+	if (str_compare(cmd->command, "pwd") == 1)
 		value = ft_pwd(data);
+	else if (str_compare(cmd->command, "cd") == 1)
+		value = ft_cd(data, cmd->args, env);
 	return (value);
 }

@@ -70,7 +70,6 @@ typedef struct s_data
 	int			interactive;
 	t_token		*token;
 	char		*user_input;
-	char		**env;
 	char		*working_dir;
 	char		*old_working_dir;
 	t_command	*cmd;

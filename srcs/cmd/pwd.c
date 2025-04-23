@@ -16,12 +16,7 @@ int ft_pwd(t_data *data)
 {
 	char	buff[PATH_MAX];
 
-	if (data->working_dir)
-	{
-		ft_printf(1, "%s\n", data->working_dir);
-		return(EXIT_SUCCESS);
-	}
-	else
+	if (!data->working_dir)
 	{
 		data->working_dir = getcwd(buff, PATH_MAX);
 		if (data->working_dir)
@@ -30,6 +25,11 @@ int ft_pwd(t_data *data)
 			return(EXIT_SUCCESS);
 		}
 	}
-	errmsg_cmd(PWD, NULL, strerror(errno), errno);
+	else
+	{
+		ft_printf(1, "%s\n", data->working_dir);
+		return(EXIT_SUCCESS);
+	}
+	errmsg_cmd("pwd", NULL, strerror(errno), errno);
 	return (EXIT_FAILURE);
 }

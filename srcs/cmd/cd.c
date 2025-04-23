@@ -12,74 +12,74 @@
 
 #include "../include/minishell.h"
 
-// static void	update_wds(t_data *data, char *wd)
-// {
-// 	set_env_var(data, OLDPWD, get_env_var_value(data->env, "PWD"));
-// 	set_env_var(data, "PWD", wd);
-// 	if (data->old_working_dir)
-// 	{
-// 		ft_free_ptr(data->old_working_dir);
-// 		data->old_working_dir = ft_strdup(data->working_dir);
-// 	}
-// 	if (data->working_dir)
-// 	{
-// 		ft_free_ptr(data->working_dir);
-// 		data->working_dir = ft_strdup(wd);
-// 	}
-// 	ft_free_ptr(wd);
-// }
+static void	update_wds(t_data *data, char *wd, t_env_info *env)
+{
+	set_env_var(data, "OLDPWD", get_env_var_value(env, "PWD"));
+	set_env_var(data, "PWD", wd);
+	if (data->old_working_dir && data->working_dir)
+	{
+		free(data->old_working_dir);
+		data->old_working_dir = ft_strdup(data->working_dir);
+	}
+	if (data->working_dir)
+	{
+		free(data->working_dir);
+		data->working_dir = ft_strdup(wd);
+	}
+	free(wd);
+}
 
-// static	int	chdir_errno_mod(char *path)
-// {
-// 	if (errno == ESTALE)
-// 		errno = ENOENT;
-// 	errmsg_cmd(CD, path, strerror(errno), errno);
-// 	return (0);
-// }
+static	int	chdir_errno_mod(char *path)
+{
+	if (errno == ESTALE)
+		errno = ENOENT;
+	errmsg_cmd("cd", path, strerror(errno), errno);
+	return (0);
+}
 
-// static int	change_dir(t_data *data, char *path)
-// {
-// 	char	*wd;
-// 	char	buff[PATH_MAX];
+static int	change_dir(t_data *data, char *path, t_env_info *env)
+{
+	char	*wd;
+	char	buff[PATH_MAX];
 
-// 	wd = NULL;
-//     if (access(path, R_OK) == -1)
-//         return (perror("Minishell"), 0);
-// 	if (chdir(path) != 0)
-// 		return (perror("Minishell"), 0);
-// 	wd = getcwd(buff, PATH_MAX);
-// 	if (!wd)
-// 	{
-// 		perror("Minishell");
-// 		wd = ft_strjoin(data->working_dir, "/");
-// 		wd = ft_strjoin_free(wd, path);
-// 	}
-// 	else
-// 		wd = ft_strdup(buff);
-// 	update_wds(data, wd);
-// 	return (1);
-// }
+	wd = NULL;
+    if (access(path, R_OK) == -1)
+        return (perror("Minishell"), 0);
+	if (chdir(path) != 0)
+		return (perror("Minishell"), 0);
+	wd = getcwd(buff, PATH_MAX);
+	if (!wd)
+	{
+		perror("Minishell");
+		wd = ft_strjoin(data->working_dir, "/");
+		wd = ft_strjoin_free(wd, path);
+	}
+	else
+		wd = ft_strdup(buff);
+	update_wds(data, wd, env);
+	return (1);
+}
 
-int	ft_cd(t_data *data, char **args)
+int	ft_cd(t_data *data, char **args, t_env_info *env)
 {
 	char	*path;
 
 	if (!args || !args[1] || ft_isspace(args[1][0])
 		|| args[1][0] == '\0' || str_compare(args[1], "--"))
 	{
-		path = get_env_var_value(data->env, "HOME");
+		path = get_env_var_value(env, "HOME");
 		if (!path || *path == '\0' || ft_isspace(*path))
-			return (errmsg_cmd(CD, NULL, "HOME not set", EXIT_FAILURE));
-		return (!change_dir(data, path));
+			return (errmsg_cmd("cd", NULL, "HOME not set", EXIT_FAILURE));
+		return (!change_dir(data, path, env));
 	}
 	if (args[2])
-		return (errmsg_cmd(CD, NULL, "too many arguments", EXIT_FAILURE));
+		return (errmsg_cmd("cd", NULL, "too many arguments", EXIT_FAILURE));
 	if (str_compare(args[1], "-"))
 	{
-		path = get_env_var_value(data->env, "OLDPWD");
+		path = get_env_var_value(env, "OLDPWD");
 		if (!path)
-			return (errmsg_cmd(CD, NULL, "OLDPWD not set", EXIT_FAILURE));
-		return (!change_dir(data, path));
+			return (errmsg_cmd("cd", NULL, "OLDPWD not set", EXIT_FAILURE));
+		return (!change_dir(data, path, env));
 	}
-	return (!change_dir(data, args[1]));
+	return (!change_dir(data, args[1], env));
 }

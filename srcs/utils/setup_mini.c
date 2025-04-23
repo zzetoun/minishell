@@ -75,7 +75,6 @@ int	setup_mini(t_data *data, t_env_info *env, char **envp)
 	data->user_input = NULL;
 	data->cmd = NULL;
 	data->pid = -1;
-	data->env = NULL;
 	ft_str_to_env(data, env);
 	errno = 0;
 	//final_exit_code = 0;

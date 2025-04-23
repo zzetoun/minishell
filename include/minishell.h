@@ -55,15 +55,6 @@
 # define WDWRROR "ERROR: Could not initialize working directories"
 # define CMD_NOT_FOUND 127
 
-# define CD "cd"
-# define PWD "pwd"
-# define EXP "export"
-# define UNS "unset"
-# define ENV "env"
-# define ECHO "echo"
-# define EXIT "exit"
-# define OLDPWD "OLDPWD"
-
 //extern int	final_exit_code;
 
 void    setup_minishell(t_token *token);

@@ -17,7 +17,11 @@ size_t  ft_env_len(char **envp);
 
 int     ft_free_env(t_env_info *env);
 int     ft_env_setup(t_env_info *env, char **envp);
-int     ft_str_to_env(t_data *data,t_env_info *env);
+
+char     **ft_env_to_str(t_env_info *env);
+
+char    *get_env_value(t_env_info *env, char *term);
+int     set_env_value(t_env_info *env, char *term, char *value);
 
 void    linked_list_print(t_env_info  *env, char **_envp);
 

@@ -56,22 +56,23 @@ int ft_env_setup(t_env_info *env, char **envp)
 }
 
 
-int    ft_str_to_env(t_data *data, t_env_info *env)
+char    **ft_env_to_str(t_env_info *env)
 {
     t_envp  *envp;
+    char    **str;
 
     envp = env->head;
-    if (!data->env)
-        data->env = ft_calloc(env->size, sizeof(char *));
-    if (!data->env)
+    str = ft_calloc(env->size, sizeof(char *));
+    if (!str)
         return (0);
     while(envp)
     {
-        data->env[envp->idx] = ft_calloc(ft_strlen(envp->str), sizeof(char));
-        if (!data->env[envp->idx])
-            return (ft_free_array(data->env), 0);
-        data->env[envp->idx] = ft_strdup(envp->str);
+        str[envp->idx] = ft_calloc(ft_strlen(envp->str), sizeof(char));
+        if (!str[envp->idx])
+            return (ft_free_array(str), 0);
+        str[envp->idx] = ft_strdup(envp->str);
         envp = envp->next;
     }
-    return (1);
+    str[env->size] = NULL;
+    return (str);
 }
