@@ -29,15 +29,15 @@ int main (int ac, char **av, char **envp)
     t_env_info  env;
     t_command cmd;
 	
+    data.cmd = &cmd;
+    data.env = &env;
 	welcome_msg();
     setup_mini(&data, &env, envp);
-    cmd.command = ft_strdup("cd");
     while (1)
 	{
 		data.user_input = readline(PROMPT);
-        // ft_printf(1, "data.user_input: %s\n", data.user_input);
-        // if (str_compare((data.user_input), "cd"))
-        //     execute_cmd(&data, &cmd, &env);
+        cmd_args_split(&cmd, data.user_input);
+        execute_cmd(&data, &cmd, &env);
 	}
     return (0);
 }

@@ -44,10 +44,11 @@ static int	change_dir(t_data *data, char *path, t_env_info *env)
 	(void)	env;
 
 	wd = NULL;
+	ft_printf(1, "path=%s\n", path);
     if (access(path, R_OK) == -1)
-        return (perror("Minishell"), 0);
+        return (perror("[01]Minishell"), 0);
 	if (chdir(path) != 0)
-		return (perror("Minishell"), 0);
+		return (perror("[02]Minishell"), 0);
 	wd = getcwd(buff, PATH_MAX);
 	if (!wd)
 	{
@@ -65,21 +66,23 @@ int	ft_cd(t_data *data, char **args, t_env_info *env)
 {
 	char	*path;
 
-	if (!args || !args[1] || ft_isspace(args[1][0])
-		|| args[1][0] == '\0' || str_compare(args[1], "--"))
+	if (!args || !args[0] || ft_isspace(args[0][0])
+		|| args[0][0] == '\0' || str_compare(args[0], "--"))
 	{
+		ft_printf(1, "I am here[01] \n");
 		path = get_env_value(env, "HOME");
-		path = ft_substr(path, ft_strlen("HOME="), ft_strlen(path));
+		path = ft_substr(path, ft_strlen("HOME="), ft_strlen(path) - 5);
 		if (!path || *path == '\0' || ft_isspace(*path))
 			return (errmsg_cmd("cd", NULL, "HOME not set", EXIT_FAILURE));
 		return (!change_dir(data, path, env));
 	}
-	if (args[2])
+	if (args[1])
 		return (errmsg_cmd("cd", NULL, "too many arguments", EXIT_FAILURE));
-	if (str_compare(args[1], "-"))
+	if (str_compare(args[0], "-"))
 	{
+		ft_printf(1, "I am here[02] \n");
 		path = get_env_value(env, "OLDPWD");
-		path = ft_substr(path, ft_strlen("OLDPWD="), ft_strlen(path));
+		path = ft_substr(path, ft_strlen("OLDPWD="), ft_strlen(path) - 7);
 		if (!path)
 			return (errmsg_cmd("cd", NULL, "OLDPWD not set", EXIT_FAILURE));
 		return (!change_dir(data, path, env));

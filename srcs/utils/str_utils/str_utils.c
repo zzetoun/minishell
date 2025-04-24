@@ -87,10 +87,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		return (0);
 	i = -1;
 	while (s[start + ++i] && i < len)
-	{
-		ft_printf(1, "%c\n", s[start + i]);
 		str[i] = s[start + i];
-	}
 	str[i] = '\0';
 	return (str);
 }

@@ -18,7 +18,7 @@ int str_compare(char const *s1, char const *s2)
 
 	if (!s1 || !s2)
 	{
-		ft_printf(2, "Minishell ERROR: string is NULL\n");
+		ft_printf(2, "Minishell Compare Error: string is NULL\n");
 		return (0);
 	}
     result = (ft_strncmp(s1, s2, ft_strlen(s2)) == 0);

@@ -23,6 +23,4 @@ char    *get_env_value(t_env_info *env, char *term);
 
 char     **ft_env_to_str(t_env_info *env);
 
-void    linked_list_print(t_env_info  *env, char **_envp, int option);
-
 #endif
