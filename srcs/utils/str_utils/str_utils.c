@@ -64,7 +64,7 @@ char	*ft_strdup(const char *s)
 	str = ft_calloc(ft_strlen(s) + 1, sizeof(char));
 	if (!str)
 		return (NULL);
-	while (s[++i])
+	while (s && s[++i])
 		str[i] = s[i];
 	str[i] = '\0';
 	return (str);

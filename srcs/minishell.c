@@ -31,12 +31,13 @@ int main (int ac, char **av, char **envp)
 	
 	welcome_msg();
     setup_mini(&data, &env, envp);
-    cmd.command = ft_strdup("pwd");
+    cmd.command = ft_strdup("cd");
     while (1)
 	{
-		data.user_input = readline(PROMPT);    
-        if (str_compare((data.user_input), PWD))
-            execute_cmd(&data, &cmd);
+		data.user_input = readline(PROMPT);
+        // ft_printf(1, "data.user_input: %s\n", data.user_input);
+        // if (str_compare((data.user_input), "cd"))
+        //     execute_cmd(&data, &cmd, &env);
 	}
     return (0);
 }

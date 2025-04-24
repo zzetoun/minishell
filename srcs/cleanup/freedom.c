@@ -45,11 +45,11 @@ void	ft_free_array(char **array)
 	ptr = array;
 	while (*ptr)
 	{
-		free(*ptr);
-		*ptr = NULL;
+		ft_free_ptr(*ptr);
 		ptr++;
 	}
 	free(array);
+	array = NULL;
 }
 void	ft_free_ptr(void *pointer)
 {
@@ -70,4 +70,19 @@ void	ft_freedom(t_token *token, t_command *cmd, int type)
 		ft_free_ptr(cmd);
 		ft_free_ptr(token);
 	}
+}
+void ft_free_env(t_env_info *env)
+{
+	t_envp	*list;
+
+	list = env->head;
+	while (list)
+	{
+		list = list->next;
+		env->head->idx = 0;
+        free(env->head->str);
+		free(env->head);
+		env->head = list;
+	}
+    env->size = 0;
 }

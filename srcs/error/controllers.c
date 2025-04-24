@@ -14,7 +14,7 @@
 
 static int	add_quotes(char *cmd)
 {
-	if (str_compare(cmd, EXP) || str_compare(cmd, UNS))
+	if (str_compare(cmd, "export") || str_compare(cmd, "unset"))
 		return (1);
 	return (0);
 }

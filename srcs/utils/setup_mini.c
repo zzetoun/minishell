@@ -12,24 +12,6 @@
 
 #include "../include/minishell.h"
 
-// static int	init_env(t_data *data, char **env)
-// {
-// 	int		i;
-
-// 	data->env = ft_calloc(env_var_count(env) + 1, sizeof * data->env);
-// 	if (!data->env)
-// 		return (0);
-// 	i = 0;
-// 	while (env[i])
-// 	{
-// 		data->env[i] = ft_strdup(env[i]);
-// 		if (!data->env[i])
-// 			return (0);
-// 		i++;
-// 	}
-// 	return (1);
-// }
-
 static int	init_directory(t_data *data)
 {
 	char	buff[PATH_MAX];
@@ -75,7 +57,6 @@ int	setup_mini(t_data *data, t_env_info *env, char **envp)
 	data->user_input = NULL;
 	data->cmd = NULL;
 	data->pid = -1;
-	ft_str_to_env(data, env);
 	errno = 0;
 	//final_exit_code = 0;
 	return (1);

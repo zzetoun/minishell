@@ -12,7 +12,20 @@
 
 #include "../include/minishell.h"
 
-static int ft_add_env_node(t_env_info *env, t_envp *envp, char *value)
+size_t ft_env_len(char **envp)
+{
+    size_t  size;
+    
+    size = 0;
+    if (!envp || !*envp)
+        return (0);
+    while(envp[size])
+        size++;
+    return (size);
+}
+
+
+int ft_add_new_env(t_env_info *env, t_envp *envp, char *value)
 {
     envp = ft_calloc(1, sizeof(t_envp));
     if (!envp)
@@ -28,64 +41,24 @@ static int ft_add_env_node(t_env_info *env, t_envp *envp, char *value)
     return (1);
 }
 
-size_t ft_env_len(char **envp)
-{
-    size_t  size;
-    
-    size = 0;
-    if (!envp || !*envp)
-        return (0);
-    while(envp[size])
-        size++;
-    return (size);
-}
-
-int ft_free_env(t_env_info *env)
-{
-	t_envp	*list;
-
-	list = env->head;
-	while (list)
-	{
-		list = list->next;
-		env->head->idx = 0;
-        free(env->head->str);
-		free(env->head);
-		env->head = list;
-	}
-    env->size = 0;
-    return (0);
-}
-
-char    *get_env_value(t_env_info *env, char *term)
+void linked_list_print(t_env_info  *env, char **_envp, int option)
 {
     t_envp *envp;
+    int    idx;
 
     envp = env->head;
-    while (envp)
+    idx = 0;
+    ft_printf(1, "env size: {%d}\n",env->size);
+    while(envp)
     {
-        if (ft_strncmp(envp->str, term, ft_stlen(term)) == 0)
-            return (envp->str);
-        envp = envp->next;
-    }
-    return (NULL);
-}
-
-int set_env_value(t_env_info *env, char *term, char *value)
-{
-    t_envp *envp;
-
-    envp = env->head;
-    while (envp)
-    {
-        if (ft_strncmp(envp->str, term, ft_stlen(term)) == 0)
+        if (option == 1)
         {
-                free(envp->str);
-                envp->str = ft_strdup(value);
+            ft_printf(1, "[%d] envp->str: {%s}\n",envp->idx, envp->str);
+            ft_printf(1, "[%d] _envp: {%s}\n", idx, _envp[idx]);
         }
+        else
+            break ;
+        idx++;
         envp = envp->next;
     }
-    if (!envp)
-        return (ft_add_env_node(env, envp, value));
-    return (1);
 }

@@ -12,23 +12,6 @@
 
 #include "../include/minishell.h"
 
-void linked_list_print(t_env_info  *env, char **_envp)
-{
-    t_envp *envp;
-    int    idx;
-
-    envp = env->head;
-    idx = 0;
-   ft_printf(1, "env size: {%d}\n",env->size);
-    while(envp)
-    {
-        ft_printf(1, "[%d] envp->str: {%s}\n",envp->idx, envp->str);
-        ft_printf(1, "[%d] _envp: {%s}\n", idx, _envp[idx]);
-        idx++;
-        envp = envp->next;
-    }
-}
-
 int ft_env_setup(t_env_info *env, char **envp)
 {
     t_envp	*new_env;
@@ -36,25 +19,58 @@ int ft_env_setup(t_env_info *env, char **envp)
 
     idx = -1;
     env->tail = NULL;
-	while (envp[++idx])
+	while (++idx <= ft_env_len(envp))
 	{
 		new_env = ft_calloc(1, sizeof(t_envp));
 		if (!new_env)
-			return (ft_free_env(env));
+			return (ft_free_env(env), 0);
 		if (idx == 0)
 			env->head = new_env;
 		new_env->idx = idx;
-        new_env->str = ft_strdup(envp[idx]);
+        if (idx < ft_env_len(envp))
+            new_env->str = ft_strdup(envp[idx]);
 		new_env->next = NULL;
         if (env->tail != NULL)
 			env->tail->next = new_env;
 		env->tail = new_env;
 	}
     env->size = idx;
-	env->tail->next = NULL;
     return (1);
 }
 
+int set_env_value(t_env_info *env, char *term, char *value)
+{
+    t_envp *envp;
+
+    envp = env->head;
+    while (envp)
+    {
+        if (ft_strncmp(envp->str, term, ft_strlen(term)) == 0)
+        {
+                ft_free_ptr(envp->str);
+                envp->str = ft_strdup(value);
+                return (1);
+        }
+        envp = envp->next;
+    }
+    if (!envp)
+        return (ft_add_new_env(env, envp, value));
+    return (0);
+}
+
+char    *get_env_value(t_env_info *env, char *term)
+{
+    t_envp *envp;
+
+    envp = env->head;
+    while (envp)
+    {
+        if (ft_strncmp(envp->str, term, ft_strlen(term)) == 0)
+            return (envp->str);
+        envp = envp->next;
+    }
+    return (NULL);
+}
 
 char    **ft_env_to_str(t_env_info *env)
 {
@@ -67,12 +83,13 @@ char    **ft_env_to_str(t_env_info *env)
         return (0);
     while(envp)
     {
-        str[envp->idx] = ft_calloc(ft_strlen(envp->str), sizeof(char));
-        if (!str[envp->idx])
-            return (ft_free_array(str), 0);
-        str[envp->idx] = ft_strdup(envp->str);
+        if (envp->idx < env->size - 1)
+        {
+            str[envp->idx] = ft_strdup(envp->str);
+            if (!str[envp->idx])
+                return (ft_free_array(str), NULL);   
+        }
         envp = envp->next;
     }
-    str[env->size] = NULL;
     return (str);
 }

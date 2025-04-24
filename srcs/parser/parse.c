@@ -41,3 +41,16 @@ int parse_tokens(int argc, char **argv, t_token **tokens)
         return (0);
     return (1);
 }
+
+void    cmd_args_split(t_command *cmd, char *input)
+{
+    char    *cmd;
+    int     idx;
+
+    cmd = ft_strchr(input, ' ');
+    ft_printf(1, "cmd args are:%s\n", cmd);
+    cmd->args = ft_split(cmd, ' ');
+    idx = -1;
+    while(cmd->args[++idx])
+        ft_printf(1, "arg[%d]=%s", idx, arg[idx]);
+}

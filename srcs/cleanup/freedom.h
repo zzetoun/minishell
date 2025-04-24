@@ -17,6 +17,7 @@ void	ft_free_ptr(void *pointer);
 void	ft_close_fd(int fd[]);
 //void	ft_free_fd(t_pipex *pipex);
 void	ft_free_array(char **array);
+void    ft_free_env(t_env_info *env);
 //void	ft_freedom(t_pipex *pipex, int type);
 
 #endif
