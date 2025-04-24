@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
@@ -6,36 +6,36 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/20 18:22:32 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/04/21 20:31:36 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/04/25 03:47:40 by zzetoun          ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../include/minishell.h"
 
 int ft_env_setup(t_env_info *env, char **envp)
 {
-    t_envp	*new_env;
-    size_t  idx;
+        t_envp	*new_env;
+        size_t  idx;
 
-    idx = -1;
-    env->tail = NULL;
-	while (++idx <= ft_env_len(envp))
-	{
-		new_env = ft_calloc(1, sizeof(t_envp));
-		if (!new_env)
-			return (ft_free_env(env), 0);
-		if (idx == 0)
-			env->head = new_env;
-		new_env->idx = idx;
-        if (idx < ft_env_len(envp))
-            new_env->str = ft_strdup(envp[idx]);
-		new_env->next = NULL;
-        if (env->tail != NULL)
-			env->tail->next = new_env;
-		env->tail = new_env;
-	}
-    env->size = idx;
-    return (1);
+        idx = -1;
+        env->tail = NULL;
+        while (++idx <= ft_env_len(envp))
+        {
+            new_env = ft_calloc(1, sizeof(t_envp));
+            if (!new_env)
+                return (ft_free_env(env), 0);
+            if (idx == 0)
+                env->head = new_env;
+            new_env->idx = idx;
+            if (idx < ft_env_len(envp))
+                new_env->str = ft_strdup(envp[idx]);
+            new_env->next = NULL;
+            if (env->tail != NULL)
+                env->tail->next = new_env;
+            env->tail = new_env;
+        }
+        env->size = idx;
+        return (1);
 }
 
 int set_env_value(t_env_info *env, char *term, char *value)
@@ -47,14 +47,14 @@ int set_env_value(t_env_info *env, char *term, char *value)
     {
         if (ft_strncmp(envp->str, term, ft_strlen(term)) == 0)
         {
-                ft_free_ptr(envp->str);
-                envp->str = ft_strdup(value);
-                return (1);
+            ft_free_ptr(envp->str);
+            envp->str = ft_strdup(value);
+            return (1);
         }
         envp = envp->next;
     }
     if (!envp)
-        return (ft_add_new_env(env, envp, value));
+        return (ft_add_env(env, value));
     return (0);
 }
 

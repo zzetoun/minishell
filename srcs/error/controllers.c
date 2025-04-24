@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   controllers.c                                      :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 17:07:31 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/04/18 19:07:48 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/04/25 02:10:01 by zzetoun          ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../include/minishell.h"
 
@@ -23,13 +23,13 @@ int	errmsg_cmd(char *cmd, char *detail, char *error, int err_nb)
 {
 	{
 		if (cmd != NULL)
-			ft_printf(2, "minishell: %s: %s\n", cmd, error);
+			ft_printf(2, "Minishell: %s: %s\n", cmd, error);
 		if (detail != NULL)
 		{
 			if (add_quotes(cmd) == 1)
-				ft_printf(2, "minishell: '%s': %s\n", detail, error);
+				ft_printf(2, "Minishell: '%s': %s\n", detail, error);
 			else
-				ft_printf(2, "minishell: %s: %s\n", detail, error);
+				ft_printf(2, "Minishell: %s: %s\n", detail, error);
 		}
 		return (err_nb);
 	}

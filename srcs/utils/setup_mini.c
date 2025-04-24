@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   setup_mini.c                                       :+:      :+:    :+:   */
@@ -6,37 +6,26 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 16:01:53 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/04/21 19:48:12 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/04/25 02:42:25 by zzetoun          ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../include/minishell.h"
 
 static int	init_directory(t_data *data)
 {
 	char	buff[PATH_MAX];
-	char	*wd;
 
-	wd = getcwd(buff, PATH_MAX);
-	data->working_dir = ft_strdup(wd);
+	data->working_dir = ft_strdup(getcwd(buff, PATH_MAX));
 	if (!data->working_dir)
-		return (ft_free_ptr(wd), 0);
-	// if (get_env_var_index(data->env, OLDPWD) != -1)
-	// {
-	// 	data->old_working_dir = ft_strdup(get_env_var_value(data->env,
-	// 				OLDPWD));
-	// 	if (!data->old_working_dir)
-	// 		return (0);
-	// }
-	// else
-	// {
-	// 	data->old_working_dir = ft_strdup(wd);
-	// 	if (!data->old_working_dir)
-	// 		return (0);
-	// }
-    data->old_working_dir = ft_strdup(wd);
-	if (!data->old_working_dir)
-		return (ft_free_ptr(wd), 0);
+		return (0);
+	if (get_env_value(data->env, "OLDPWD"))
+	{
+		data->old_working_dir = ft_strdup(get_env_value(data->env,
+					"OLDPWD"));
+		if (!data->old_working_dir)
+			return (0);
+	}
 	return (1);
 }
 
