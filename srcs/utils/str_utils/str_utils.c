@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 19:46:27 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/04/25 03:53:14 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/04/27 17:05:43 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -72,25 +72,27 @@ char	*ft_strdup(const char *s)
 	return (str);
 }
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_substr(const char *s, unsigned int start, size_t len)
 {
-	size_t	i;
-	char	*str;
+	char	*substr;
+	size_t	idx;
 
+	idx = 0;
 	if (!s)
-		return (0);
-	if (ft_strlen(s) < start)
-		return (ft_calloc(1, sizeof(char)));
-	if (ft_strlen(s) < len + start)
-		str = (char *)malloc(sizeof(char) * ft_strlen(s) - start + 1);
+		return (NULL);
+	if (start > ft_strlen(s))
+		len = 0;
+	if (len > ft_strlen(s) - start)
+		substr = ft_calloc((ft_strlen(s) - start + 1), sizeof(char));
 	else
-		str = (char *)malloc(sizeof(char) * len + 1);
-	if (!str)
-		return (0);
-	i = -1;
-	while (s[start + ++i] && i < len)
-		str[i] = s[start + i];
-	str[i] = '\0';
-	return (str);
+		substr = ft_calloc(len + 1, sizeof(char));
+	if (!substr)
+		return (NULL);
+	while (idx < len && s[start + idx] != '\0')
+	{
+		substr[idx] = s[start + idx];
+		idx++;
+	}
+	substr[idx] = '\0';
+	return (substr);
 }
-

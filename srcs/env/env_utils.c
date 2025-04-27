@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/20 18:22:52 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/04/25 03:46:34 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/04/27 00:45:27 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -24,26 +24,24 @@ size_t ft_env_len(char **envp)
     return (size);
 }
 
-
-int ft_add_env(t_env_info *env, char *value)
+char    **ft_env_to_str(t_env_info *env)
 {
-    t_envp	*new_env;
-    
-    new_env = env->head;
-	while (new_env)
-        new_env = new_env->next;
-    new_env = ft_calloc(1, sizeof(t_envp));
-    if (!new_env)
-        return (ft_free_env(env), 0);
-    if (new_env->idx == 0)
-        env->head = new_env;
-    new_env->idx++;
-    new_env->str = ft_strdup(value);
-    new_env->next = NULL;
-    if (env->tail != NULL)
-        env->tail->next = new_env;
-    env->tail = new_env;
-    env->tail->next = NULL;
-    env->size++;
-    return (1);
+    t_envp  *envp;
+    char    **str;
+
+    envp = env->head;
+    str = ft_calloc(env->size, sizeof(char *));
+    if (!str)
+        return (0);
+    while(envp)
+    {
+        if (envp->idx < env->size - 1)
+        {
+            str[envp->idx] = ft_strdup(envp->str);
+            if (!str[envp->idx])
+                return (ft_free_array(str), NULL);   
+        }
+        envp = envp->next;
+    }
+    return (str);
 }

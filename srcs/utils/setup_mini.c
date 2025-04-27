@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 16:01:53 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/04/25 02:42:25 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/04/27 18:48:40 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -19,10 +19,10 @@ static int	init_directory(t_data *data)
 	data->working_dir = ft_strdup(getcwd(buff, PATH_MAX));
 	if (!data->working_dir)
 		return (0);
-	if (get_env_value(data->env, "OLDPWD"))
+	if (get_env(data->env, "OLDPWD"))
 	{
-		data->old_working_dir = ft_strdup(get_env_value(data->env,
-					"OLDPWD"));
+		data->old_working_dir = get_env(data->env, "OLDPWD");
+		data->old_working_dir = ft_strjoin("OLDPWD=", data->old_working_dir);
 		if (!data->old_working_dir)
 			return (0);
 	}
@@ -47,6 +47,7 @@ int	setup_mini(t_data *data, t_env_info *env, char **envp)
 	data->cmd = NULL;
 	data->pid = -1;
 	errno = 0;
+	linked_list_print(env, envp, 1);
 	//final_exit_code = 0;
 	return (1);
 }

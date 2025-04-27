@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   printf_uti.c                                       :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 19:35:21 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/01/11 19:35:21 by zzetoun          ###   ########.ae       */
+/*   Updated: 2025/04/26 21:06:21 by zzetoun          ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../include/minishell.h"
 
@@ -52,24 +52,3 @@ ssize_t	ft_putnbr_fd(long n, int fd)
 	return (total);
 }
 
-void linked_list_print(t_env_info  *env, char **_envp, int option)
-{
-    t_envp *envp;
-    int    idx;
-
-    envp = env->head;
-    idx = 0;
-    ft_printf(1, "env size: {%d}\n",env->size);
-    while(envp)
-    {
-        if (option == 1)
-        {
-            ft_printf(1, "[%d] envp->str: {%s}\n",envp->idx, envp->str);
-            ft_printf(1, "[%d] _envp: {%s}\n", idx, _envp[idx]);
-        }
-        else
-            break ;
-        idx++;
-        envp = envp->next;
-    }
-}

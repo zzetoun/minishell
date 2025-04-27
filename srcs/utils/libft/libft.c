@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   libft.c                                            :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 15:38:01 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/04/19 20:13:28 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/04/27 17:09:50 by zzetoun          ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../include/minishell.h"
 
@@ -26,7 +26,7 @@ int	ft_isalnum(int c)
 	return (ft_isalpha(c) || ft_isdigit(c));
 }
 
-int	ft_atoi(const char *str, int *error)
+int	ft_atoi(const char *str)
 {
 	unsigned long long	nb;
 	int					sign;
@@ -37,11 +37,11 @@ int	ft_atoi(const char *str, int *error)
 	sign = 1 - 2 * (*str == '-');
 	str += (*str == '-' || *str == '+');
 	while (*str >= '0' && *str <= '9')
-	{
 		nb = (10 * nb) + *(str++) - '0';
-		if ((nb >= LLONG_MAX && sign == -1) || nb > LLONG_MAX)
-			*error = 1;
-		break ;
-	}
+	if (nb >= LLONG_MAX && sign == -1)
+		return (0);
+	else if (nb >= LLONG_MAX)
+		return (-1);
 	return ((int)nb * sign);
 }
+

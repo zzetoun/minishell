@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 14:32:53 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/04/25 02:46:30 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/04/27 19:32:51 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -14,8 +14,8 @@
 
 static void	update_wds(t_data *data, char *wd, t_env_info *env)
 {
-	set_env_value(env, "OLDPWD", get_env_value(env, "PWD"));
-	set_env_value(env, "PWD", wd);
+	set_env(env, "OLDPWD=", get_env(env, "PWD"));
+	set_env(env, "PWD=", wd);
 	if (data->old_working_dir)
 	{
 		free(data->old_working_dir);
@@ -43,11 +43,11 @@ static int	change_dir(t_data *data, char *path, t_env_info *env)
 	char	buff[PATH_MAX];
 
 	wd = NULL;
-	ft_printf(1, "path change dir {%s}\n", path);
-    if (access(path, R_OK) == -1)
-        return (perror("Minishell Path"), 0);
-	else if (chdir(path) != 0)
-		return (perror("Minishell Change Directory"), 0);
+    if (access(path, R_OK) == -1 || chdir(path) != 0)
+		{
+			ft_printf(2, "-Minishell: cd: %s: %s\n", path, strerror(errno));
+			return (errno);
+		}
 	wd = getcwd(buff, PATH_MAX);
 	if (!wd)
 	{
@@ -68,17 +68,16 @@ int	ft_cd(t_data *data, char **args, t_env_info *env)
 	if (!args || !args[0] || ft_isspace(args[0][0])
 		|| args[0][0] == '\0' || str_compare(args[0], "--"))
 	{
-		path = ft_strchr(get_env_value(env, "HOME"), '=');
-		ft_printf(1, "path option 01 {%s}\n", path);
+		path = get_env(env, "HOME");
 		if (!path || *path == '\0' || ft_isspace(*path))
 			return (errmsg_cmd("cd", NULL, "HOME not set", EXIT_FAILURE));
-		return (!change_dir(data, path + 1, env));
+		return (!change_dir(data, path, env));
 	}
 	if (args[1])
 		return (errmsg_cmd("cd", NULL, "too many arguments", EXIT_FAILURE));
 	if (str_compare(args[0], "-"))
 	{
-		path = ft_strchr(get_env_value(env, "OLDPWD"), '=');
+		path = get_env(env, "OLDPWD");
 		if (!path)
 			return (errmsg_cmd("cd", NULL, "OLDPWD not set", EXIT_FAILURE));
 		return (!change_dir(data, path, env));
