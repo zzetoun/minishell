@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 23:52:57 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/04/25 02:41:36 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/04/27 23:17:13 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -30,6 +30,6 @@ int ft_pwd(t_data *data)
 		ft_printf(1, "%s\n", data->working_dir);
 		return(EXIT_SUCCESS);
 	}
-	errmsg_cmd("pwd", NULL, strerror(errno), errno);
-	return (EXIT_FAILURE);
+	ft_printf(2, "Minishell: pwd: %s\n", strerror(errno));
+	return (errno);
 }

@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
@@ -6,48 +6,40 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 19:34:04 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/01/11 19:34:04 by zzetoun          ###   ########.ae       */
+/*   Updated: 2025/04/27 22:51:30 by zzetoun          ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../include/minishell.h"
 
-static int	ft_print(int fd, const char prnt, va_list args)
+static void	ft_print(int fd, const char prnt, va_list args)
 {
 	if (prnt == 'd' || prnt == 'i')
-		return (ft_putnbr_fd(va_arg(args, int), fd));
+		ft_putnbr_fd(va_arg(args, int), fd);
 	if (prnt == 'c')
-		return (ft_putchar_fd((char)va_arg(args, int), fd));
+		ft_putchar_fd((char)va_arg(args, int), fd);
 	if (prnt == 's')
-		return (ft_putstr_fd(va_arg(args, char *), fd));
+		ft_putstr_fd(va_arg(args, char *), fd);
 	if (prnt == '%')
-		return (ft_putchar_fd('%', fd));
-	return (0);
+		ft_putchar_fd('%', fd);
 }
 
-int	ft_printf(int fd, const char *prnt, ...)
+void	ft_printf(int fd, const char *prnt, ...)
 {
 	va_list		args;
-	ssize_t		total;
-	int			tmp;
 
 	if (!prnt)
-		return (0);
+		return ;
 	va_start(args, prnt);
-	total = 0;
 	while (*prnt)
 	{
 		if (*prnt == '%' && *(prnt + 1))
 		{
-			tmp = ft_print(fd, *++prnt, args);
+			ft_print(fd, *++prnt, args);
 			prnt++;
 		}
 		else
-			tmp = ft_putchar_fd(*prnt++, fd);
-		if (tmp < 0)
-			return (va_end(args), -1);
-		total += tmp;
+			ft_putchar_fd(*prnt++, fd);
 	}
 	va_end(args);
-	return ((int)total);
 }

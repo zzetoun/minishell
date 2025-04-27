@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 14:32:53 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/04/27 19:32:51 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/04/27 23:41:43 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -43,15 +43,15 @@ static int	change_dir(t_data *data, char *path, t_env_info *env)
 	char	buff[PATH_MAX];
 
 	wd = NULL;
-    if (access(path, R_OK) == -1 || chdir(path) != 0)
-		{
-			ft_printf(2, "-Minishell: cd: %s: %s\n", path, strerror(errno));
-			return (errno);
-		}
+    if (chdir(path) == -1)
+	{
+		ft_printf(2, "-Minishell: cd: %s: %s\n", path, strerror(errno));
+		return (errno);
+	}
 	wd = getcwd(buff, PATH_MAX);
 	if (!wd)
 	{
-		perror("Minishell get current directory");
+		perror("Minishell: cd");
 		wd = ft_strjoin(data->working_dir, "/");
 		wd = ft_strjoin_free(wd, path);
 	}
@@ -70,16 +70,18 @@ int	ft_cd(t_data *data, char **args, t_env_info *env)
 	{
 		path = get_env(env, "HOME");
 		if (!path || *path == '\0' || ft_isspace(*path))
-			return (errmsg_cmd("cd", NULL, "HOME not set", EXIT_FAILURE));
+			return (ft_printf(2, "Minishell: cd: HOME not set\n"), 1);
 		return (!change_dir(data, path, env));
 	}
 	if (args[1])
-		return (errmsg_cmd("cd", NULL, "too many arguments", EXIT_FAILURE));
+		return (ft_printf(2, "-Minishell: cd: too many arguments\n"), 1);
 	if (str_compare(args[0], "-"))
 	{
 		path = get_env(env, "OLDPWD");
 		if (!path)
-			return (errmsg_cmd("cd", NULL, "OLDPWD not set", EXIT_FAILURE));
+			return (ft_printf(2, "-Minishell: cd: OLDPWD not set\n"), 1);
+		else if (chdir(path) == 0)
+			ft_printf(1, "%s\n", path);
 		return (!change_dir(data, path, env));
 	}
 	return (!change_dir(data, args[0], env));

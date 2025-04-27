@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/20 18:22:52 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/04/27 00:45:27 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/04/27 23:55:47 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -45,3 +45,6 @@ char    **ft_env_to_str(t_env_info *env)
     }
     return (str);
 }
+/*
+look for a way to increse the SHLVL + 1 each time we got into new shell
+*/
