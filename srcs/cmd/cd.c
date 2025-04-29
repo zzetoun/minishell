@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 14:32:53 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/04/27 23:41:43 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/04/28 19:24:32 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -28,14 +28,6 @@ static void	update_wds(t_data *data, char *wd, t_env_info *env)
 	}
 	ft_free_ptr(wd);
 }
-
-// static	int	chdir_errno_mod(char *path)
-// {
-// 	if (errno == ESTALE)
-// 		errno = ENOENT;
-// 	errmsg_cmd("cd", path, strerror(errno), errno);
-// 	return (0);
-// }
 
 static int	change_dir(t_data *data, char *path, t_env_info *env)
 {
