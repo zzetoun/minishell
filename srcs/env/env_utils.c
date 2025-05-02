@@ -6,20 +6,20 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/20 18:22:52 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/04/28 13:35:32 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/04/29 20:38:32 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
 #include "../include/minishell.h"
 
-size_t ft_env_len(char **envp)
+size_t ft_darray_len(char **str)
 {
     size_t  size;
     
     size = 0;
-    if (!envp || !*envp)
+    if (!str || !*str)
         return (0);
-    while(envp[size])
+    while(str[size])
         size++;
     return (size);
 }
@@ -35,7 +35,7 @@ char    **ft_env_to_str(t_env_info *env)
         return (0);
     while(envp)
     {
-        if (envp->idx < env->size - 1)
+        if (envp->idx < env->size && envp->str)
         {
             str[envp->idx] = ft_strdup(envp->str);
             if (!str[envp->idx])

@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/20 18:22:32 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/04/28 22:42:32 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/05/01 17:22:13 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -19,14 +19,14 @@ int ft_env_setup(t_env_info *env, char **envp, size_t  idx)
     if (!envp || !*envp)
         return(ft_env_setup_null(env, idx));
     env->tail = NULL;
-    while (++idx <= ft_env_len(envp))
+    while (++idx <= ft_darray_len(envp))
     {
         new_env = ft_calloc(1, sizeof(t_envp));
         if (!new_env)
             return (ft_free_env(env), 0);
         if (idx == 0)
             env->head = new_env;
-        if (idx < ft_env_len(envp))
+        if (idx < ft_darray_len(envp))
             new_env->str = ft_strdup(envp[idx]);
         new_env->idx = idx;
         new_env->next = NULL;
@@ -47,7 +47,7 @@ int  ft_env_setup_null(t_env_info *env, size_t idx)
     char    buff[PATH_MAX];
 
     env->tail = NULL;
-    while(++idx < 3)
+    while(++idx < 4)
     {
         new_env = ft_calloc(1, sizeof(t_envp));
         if (!new_env)
@@ -89,7 +89,7 @@ int set_env(t_env_info *env, char *key, char *value)
     t_envp *envp;
 
     envp = env->head;
-    while (envp)
+    while (envp && key)
     {
         if (ft_strncmp(envp->str, key, ft_strlen(key)) == 0)
         {
@@ -99,7 +99,7 @@ int set_env(t_env_info *env, char *key, char *value)
         }
         envp = envp->next;
     }
-    if (!envp)
+    if (!env->head || (env->head && key))
         return (ft_add_new_env(env, key, value));
     return (0);
 }

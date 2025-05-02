@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 15:38:01 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/04/27 17:09:50 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/04/29 21:13:24 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -19,6 +19,11 @@ int	ft_isdigit(int c)
 int	ft_isspace(int c)
 {
 	return (c == ' ' || (c >= 9 && c <= 13));
+}
+
+int	ft_isalpha(int c)
+{
+	return ((c >= 65 && c <= 90) || (c >= 97 && c <= 122));
 }
 
 int	ft_isalnum(int c)

@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 17:02:27 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/04/26 21:06:40 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/04/30 21:38:35 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -53,6 +53,7 @@
 # define ARGEER02 "ERROR: use ./minishell -c \"input line\""
 # define ENVERRO "ERROR: Could not initialize environment"
 # define WDWRROR "ERROR: Could not initialize working directories"
+# define MINIEXP "not a valid identifier"
 # define CMD_NOT_FOUND 127
 
 //extern int	final_exit_code;

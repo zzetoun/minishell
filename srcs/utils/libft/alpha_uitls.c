@@ -6,16 +6,12 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 20:12:16 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/04/27 17:08:00 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/04/29 21:12:54 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
 #include "../include/minishell.h"
 
-int	ft_isalpha(int c)
-{
-	return ((c >= 65 && c <= 90) || (c >= 97 && c <= 122));
-}
 char	*str_tolower(char *s)
 {
 	int	i;

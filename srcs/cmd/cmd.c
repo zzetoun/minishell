@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   cmd.c                                              :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 17:28:34 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/04/21 20:05:07 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/04/29 20:52:04 by zzetoun          ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../include/minishell.h"
 
@@ -35,5 +35,7 @@ int	execute_cmd(t_data *data, t_command *cmd, t_env_info *env)
 		value = ft_pwd(data);
 	else if (str_compare(cmd->command, "cd") == 1)
 		value = ft_cd(data, cmd->args, env);
+	else if (str_compare(cmd->command, "export") == 1)
+		value = ft_export(env, cmd->args);
 	return (value);
 }
