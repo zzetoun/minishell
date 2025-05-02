@@ -16,7 +16,12 @@ int ft_pwd(t_data *data)
 {
 	char	buff[PATH_MAX];
 
-	if (!data->working_dir)
+	if (data->working_dir)
+	{
+		ft_printf(1, "%s\n", data->working_dir);
+		return(EXIT_SUCCESS);
+	}
+	else
 	{
 		data->working_dir = ft_strdup(getcwd(buff, PATH_MAX));
 		if (data->working_dir)
@@ -24,11 +29,6 @@ int ft_pwd(t_data *data)
 			ft_printf(1, "%s\n", data->working_dir);
 			return(EXIT_SUCCESS);
 		}
-	}
-	else
-	{
-		ft_printf(1, "%s\n", data->working_dir);
-		return(EXIT_SUCCESS);
 	}
 	ft_printf(2, "Minishell: pwd: %s\n", strerror(errno));
 	return (errno);

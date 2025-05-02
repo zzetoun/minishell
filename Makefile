@@ -17,8 +17,8 @@ SRC         = $(shell find $(SRCDIR) -type f -name "*.c")
 OBJ         = $(SRC:.c=.o)
 
 # Compiler and flags
-CC          = gcc
-CFLAGS      = -Wall -Wextra -Werror -I$(INCDIR) -I/opt/vagrant/embedded/include -g3 -fsanitize=address
+CC          = cc -g3 -fsanitize=address,undefined -O0 -fno-omit-frame-pointer -fno-optimize-sibling-calls
+CFLAGS      = -Wall -Wextra -Werror -I$(INCDIR) -I/opt/vagrant/embedded/include
 LDFLAGS     = -L/opt/vagrant/embedded/lib/ -lreadline -lhistory
 
 # **************************************************************************** #

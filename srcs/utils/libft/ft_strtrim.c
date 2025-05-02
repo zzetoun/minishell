@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 15:14:27 by zzetoun           #+#    #+#             */
-/*   Updated: 2024/07/06 19:35:11 by zzetoun          ###   ########.ae       */
+/*   Updated: 2025/05/02 20:27:23 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ char	*ft_strtrim(const char *s1, const char *set)
 		return (NULL);
 	head = check_head(s1, set);
 	tail = check_tail(s1, set, head, (int)ft_strlen(s1)) - head;
-	str = malloc(sizeof(char) * (tail + 1));
+	str = ft_calloc((tail + 1), sizeof(char));
 	if (!str)
 		return (NULL);
 	sdx = 0;

@@ -58,7 +58,8 @@ int	ft_cd(t_data *data, char **args, t_env_info *env)
 	char	*path;
 
 	if (!args || !args[0] || ft_isspace(args[0][0])
-		|| args[0][0] == '\0' || str_compare(args[0], "--"))
+		|| args[0][0] == '\0' || str_compare(args[0], "--")
+		|| str_compare(args[0], "~"))
 	{
 		path = get_env(env, "HOME");
 		if (!path || *path == '\0' || ft_isspace(*path))

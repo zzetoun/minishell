@@ -25,4 +25,5 @@ void linked_list_print(t_env_info  *env, char **_envp, int option)
         idx++;
         envp = envp->next;
     }
+    printf("last envp %p\n", envp);
 }
