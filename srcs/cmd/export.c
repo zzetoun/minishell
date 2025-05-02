@@ -73,17 +73,24 @@ static int export_print(char **envp, size_t size)
 static int  ft_args_pars(t_env_info *env, char **args)
 {
     char    *tmp;
+    char    *key;
     int     idx;
     
+    ft_printf(1, "inside ft_args_pars\n");
     while(args && *args)
     {
         tmp = *args;
         idx = -1;
+        ft_printf(1, "inside loop\n");
         while(tmp[++idx])
         {
             if (tmp[idx] == '=')
             {
-                set_env(env, , ft_strchr(tmp, '=') + 1);
+                ft_printf(1, "I have found =\n");
+                ft_printf(1, "inside loop\n");
+                idx = ft_strlen(ft_strchr(tmp, '=') + 1);
+                key = ft_substr(tmp, 0, ft_strlen(tmp) - idx);
+                set_env(env, key, ft_strchr(tmp, '=') + 1);
                 break;
             }
             else if (!ft_isalnum(tmp[idx]) && tmp[idx] != '_')

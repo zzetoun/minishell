@@ -1,27 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/23 12:37:28 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/03/13 21:50:53 by zzetoun          ###   ########.fr       */
+/*   Created: 2024/07/09 12:26:09 by zzetoun           #+#    #+#             */
+/*   Updated: 2025/05/02 14:35:51 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "libft.h"
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1024
-# endif
-
-# ifndef OPEN_NAX
-#  define OPEN_MAX 10240
-# endif
-
-char	*get_next_line(int fd);
-char	*ft_strjoin_gl(char *result, char *buffer);
-
-#endif
+ssize_t	ft_putchar_fd(char c, int fd)
+{
+	return (write(fd, &c, 1));
+}

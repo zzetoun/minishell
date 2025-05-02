@@ -7,8 +7,8 @@ void linked_list_print(t_env_info  *env, char **_envp, int option)
 
     envp = env->head;
     idx = 0;
-    ft_printf(1, "env size: {%d}\n",env->size);
-    ft_printf(1, "env shlvl: {%d}\n",env->shlvl);
+    ft_printf(1, "env size: {%d}\n", env->size);
+    ft_printf(1, "env shlvl: {%d}\n", env->shlvl);
     while(envp)
     {
         if (option == 2 && _envp)

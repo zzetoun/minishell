@@ -14,10 +14,5 @@
 # define FT_PRINTF_H
 
 void	ft_printf(int fd, const char *prnt, ...);
-void    linked_list_print(t_env_info  *env, char **_envp, int option);
-
-ssize_t	ft_putchar_fd(const char prnt, int fd);
-ssize_t	ft_putstr_fd(char *s, int fd);
-ssize_t	ft_putnbr_fd(long num, int fd);
 
 #endif

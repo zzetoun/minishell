@@ -15,5 +15,6 @@
 
 void    setup_io(t_command *cmd);
 int     setup_mini(t_data *data, t_env_info *env,  char **envp);
+void    linked_list_print(t_env_info  *env, char **_envp, int option);
 
 #endif 
