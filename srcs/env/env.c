@@ -35,9 +35,7 @@ int ft_env_setup(t_env_info *env, char **envp, size_t  idx)
         env->tail = new_env;
     }
     env->size = idx;
-    env->shlvl = ft_atoi(get_env(env, "SHLVL"));
-    if (env->size <= 4)
-        return (set_env(env, "SHLVL=", ft_itoa(env->shlvl + 1)));
+    env->shlvl = ft_atoi(get_env(env, "SHLVL="));
     return (1);
 }
 
@@ -47,6 +45,8 @@ int  ft_env_setup_null(t_env_info *env)
 
     env->tail = NULL;
     env->size = 0;
+    if (!ft_add_new_env(env, "OLDPWD", NULL))
+        return (0);
     if (!ft_add_new_env(env, "PWD=", getcwd(buff, PATH_MAX)))
         return (0);
     if (!ft_add_new_env(env, "SHLVL=", "1"))
@@ -77,14 +77,22 @@ int set_env(t_env_info *env, char *key, char *value)
     envp = env->head;
     while (envp && key)
     {
+        ft_printf(1, "I am checking key={%s}\n", key);
         if (ft_key_cmp(envp->str, key) == 0)
         {
+            ft_printf(1, "key found\n");
             ft_free_ptr(envp->str);
             envp->str = ft_strjoin(key, value);
+            envp->str = ft_str_quot_free(envp->str);
+            return (1);
+        }
+        else if (!ft_strncmp(envp->str, key, ft_strlen(key)))
+        {
+            ft_printf(1, "key found but with value - exit\n");
             return (1);
         }
         envp = envp->next;
     }
-    ft_add_new_env(env, key, value);
+    return(ft_add_new_env(env, key, value));
     return (0);
 }

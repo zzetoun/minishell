@@ -33,7 +33,6 @@ int main (int ac, char **av, char **envp)
     data.env = &env;
 	welcome_msg();
     setup_mini(&data, envp);
-    ft_printf(1, "envp = %d\n", ft_darray_len(envp));
     while (1)
 	{
 		data.user_input = readline(PROMPT);

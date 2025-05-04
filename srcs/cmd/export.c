@@ -14,23 +14,23 @@
 
 static int  export_args_check(char **args)
 {
-    char    *tmp;
+    char    *ar;
     int     idx;
     
     while(args && *args)
     {
-        tmp = *args;
-        idx = 0;
-        if (!tmp || (!ft_isalpha(tmp[idx]) && tmp[idx] != '_'))
+        ar = *args;
+        if (!ar || (!ft_isalpha(ar[0]) && ar[0] != '_' && !ft_isspace(ar[0])))
         {
             ft_printf(2, "-Minishell: export: `%s':%s\n", *args, MINIEXP);
             return (0);
         }
-        while(tmp[++idx])
+        idx = 0;
+        while(ar[++idx])
         {
-            if (tmp[idx] == '=')
+            if (ar[idx] == '=')
                 break;
-            else if (!ft_isalnum(tmp[idx]) && tmp[idx] != '_')
+            else if (!ft_isalnum(ar[idx]) && ar[idx] != '_')
             {
                 ft_printf(2, "-Minishell: export: `%s':%s\n", *args, MINIEXP);
                 return (0);
@@ -77,27 +77,22 @@ static int  ft_args_pars(t_env_info *env, char **args)
     while(args && *args)
     {
         tmp = *args;
-        idx = -1;
-        while(tmp[++idx])
-        {
-            if (tmp[idx] == '=')
-            {
-                set_env(env, tmp, NULL);
-                break;
-            }
-            else if (!ft_isalnum(tmp[idx]) && tmp[idx] != '_')
-                ft_printf(2, "-Minishell: export: `%s':%s\n", *args, MINIEXP);
-        }
+        idx = 0;
+        while (tmp && ft_isspace(tmp[idx]))
+            idx++;
+        tmp += idx;
+        if (tmp && ft_strlen(tmp) > 1 && *tmp != '=')
+            set_env(env, tmp, NULL);
         args++;
     }
-    return (1);   
+    return (1);
 }
 
 int ft_export(t_env_info *env, char **args)
 {
     char    **envp;
 
-    envp = ft_env_to_export(env);
+    envp = ft_env_to_export(env->head, env->size);
     if (!envp)
     {
         ft_printf(2, "-Minishell: export: enviromets are NULL\n");
@@ -110,4 +105,30 @@ int ft_export(t_env_info *env, char **args)
     else
         return (ft_args_pars(env, args));
     return (0);
+}
+
+char *ft_str_quot_free(char *s)
+{
+    size_t  len;
+    size_t  idx;
+    char    *str;
+
+    if (!s)
+        return (NULL);
+    len = ft_strlen(s);
+    idx = -1;
+    while(s[++idx])
+        if (s[idx] == '\'' || s[idx] == '\"')
+            len--;
+    str = ft_calloc(len + 1, sizeof(char));
+    if (!str)
+        return (NULL);
+    idx = -1;
+    len = 0;
+    while(s[++idx])
+        if(s[idx] != '\'' && s[idx] != '\"')
+            str[len++] = s[idx];
+    str[len] = '\0';
+    free(s);
+    return (str);
 }

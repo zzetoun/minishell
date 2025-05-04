@@ -24,6 +24,7 @@ int     ft_add_new_env(t_env_info *env, char *key, char *value);
 char    *get_env(t_env_info *env, char *key);
 
 char    **ft_env_to_str(t_env_info *env);
-char    **ft_env_to_export(t_env_info *env);
+char    **ft_env_to_export(t_envp *en, size_t size);
+
 
 #endif

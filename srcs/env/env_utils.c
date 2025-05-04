@@ -30,8 +30,10 @@ int ft_key_cmp(const char *str, const char *key)
         return (1);
     while(*str && *str != '=' && *key && *key != '=')
     {
+        ft_printf(1, "str = {%s} key = {%s}\n", str, key);
         if (*str == *key)
         {
+            ft_printf(1, "*str = {%c} *key = {%c}\n", *str, *key);
             str++;
             key++;
         }
@@ -39,7 +41,10 @@ int ft_key_cmp(const char *str, const char *key)
             break;
     }
     if ((!*key || *key == '=') && (!*str || *str == '='))
+    {
+        ft_printf(1, "I only enter when we match *str={%c} *key={%c}\n", *str, *key);
         return (0);
+    }
     return (1);
 }
 
@@ -47,45 +52,51 @@ char    **ft_env_to_str(t_env_info *env)
 {
     t_envp  *envp;
     char    **str;
+    int     idx;
 
     envp = env->head;
     str = ft_calloc(env->size + 1, sizeof(char *));
     if (!str)
         return (0);
+    idx = -1;
     while(envp)
     {
-        str[envp->idx] = ft_strdup(envp->str);
-        if (!str[envp->idx])
-            return (ft_free_array(str), NULL);
+        if (ft_strchr(envp->str, '='))
+        {
+            str[++idx] = ft_strdup(envp->str);
+            if (!str[idx])
+                return (ft_free_array(str), NULL);
+        }
         envp = envp->next;
     }
+    if (idx == -1)
+        return (ft_free_array(str), NULL);
     return (str);
 }
 
-char    **ft_env_to_export(t_env_info *env)
+char    **ft_env_to_export(t_envp *en, size_t size)
 {
-    t_envp  *envp;
-    char    **str;
-    size_t  idx;
+    char    **s;
     size_t  len;
 
-    envp = env->head;
-    str = ft_calloc(env->size + 1, sizeof(char *));
-    if (!str)
+    s = ft_calloc(size + 1, sizeof(char *));
+    if (!s)
         return (0);
-    while(envp)
+    while(en)
     {
-        idx = envp->idx;
-        len = ft_strlen(envp->str) - ft_strlen(ft_strchr(envp->str, '='));
-        str[idx] = ft_substr(envp->str, 0, len);
-        str[idx] = ft_strjoin_free(str[idx], "=\"");
-        str[idx] = ft_strjoin_free(str[idx], ft_strchr(envp->str, '=') + 1);
-        str[idx] = ft_strjoin_free(str[idx], "\"");
-        if (!str[envp->idx])
-            return (ft_free_array(str), NULL);
-        envp = envp->next;
+        len = ft_strlen(en->str) - ft_strlen(ft_strchr(en->str, '='));
+        s[en->idx] = ft_substr(en->str, 0, len);
+        if (ft_strlen(ft_strchr(en->str, '=')) > 1)
+        {
+            s[en->idx] = ft_strjoin_free(s[en->idx], "=\"");
+            s[en->idx] = ft_strjoin_free(s[en->idx], ft_strchr(en->str, '=') + 1);
+            s[en->idx] = ft_strjoin_free(s[en->idx], "\"");
+        }
+        else if (ft_strlen(ft_strchr(en->str, '=')) == 1)
+            s[en->idx] = ft_strjoin_free(s[en->idx], "=\"\"");
+        en = en->next;
     }
-    return (str);
+    return (s);
 }
 
 int ft_add_new_env(t_env_info *env, char *key, char *value)
@@ -105,7 +116,7 @@ int ft_add_new_env(t_env_info *env, char *key, char *value)
         env->head = new_env;
     new_env->idx = env->size;
     if (key || value)
-        new_env->str = ft_strjoin(key, value);
+        new_env->str = ft_str_quot_free(ft_strjoin(key, value));
     new_env->next = NULL;
     if (env->tail != NULL)
         env->tail->next = new_env;

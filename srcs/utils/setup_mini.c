@@ -47,7 +47,6 @@ int	setup_mini(t_data *data, char **envp)
 	data->cmd = NULL;
 	data->pid = -1;
 	errno = 0;
-	ft_env_to_export(data->env);
 	//linked_list_print(data->env, envp, 1);
 	//final_exit_code = 0;
 	return (1);

@@ -45,14 +45,14 @@ int parse_tokens(int argc, char **argv, t_token **tokens)
 void    cmd_args_split(t_command *cmd, char *input)
 {
     char    *args;
-//    int     idx;
+    int     idx;
 
     args = ft_strchr(input, ' ');
+    ft_printf(1, "args: {%s}\n", args);
     cmd->command = ft_substr(input, 0, ft_strlen(input) - ft_strlen(args));
-    //ft_printf(1, "cmd->command: %s\n", cmd->command);
-    //ft_printf(1, "cmd args are: %s\n", args);
+    ft_printf(1, "cmd: {%s}\n", cmd->command);
     cmd->args = ft_split(args, ' ');
- //   idx = -1;
-    // while(cmd->args && cmd->args[++idx])
-    //     ft_printf(1, "arg[%d]=%s\n", idx, cmd->args[idx]);
+    idx = -1;
+    while(cmd->args && cmd->args[++idx])
+        ft_printf(1, "arg[%d]= {%s}\n", idx, cmd->args[idx]);
 }
