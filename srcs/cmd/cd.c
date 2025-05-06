@@ -14,8 +14,8 @@
 
 static void	update_wds(t_data *data, char *wd, t_env_info *env)
 {
-	set_env(env, "OLDPWD=", get_env(env, "PWD"));
-	set_env(env, "PWD=", wd);
+	set_env(env, "OLDPWD", get_env(env, "PWD"));
+	set_env(env, "PWD", wd);
 	if (data->old_working_dir)
 	{
 		free(data->old_working_dir);

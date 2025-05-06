@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 17:21:53 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/05/02 14:48:32 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/05/06 16:58:15 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ char	*ft_substr(const char *s, unsigned int start, size_t len);
 ssize_t	ft_putnbr_fd(long n, int fd);
 ssize_t	ft_putstr_fd(char *s, int fd);
 ssize_t	ft_putchar_fd(char c, int fd);
-
 
 void	ft_putendl_fd(char *s, int fd);
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));

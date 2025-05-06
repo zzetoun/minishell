@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 14:43:53 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/05/02 14:44:23 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/05/06 16:57:29 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 char	*ft_str_tolower(char *s)
 {
 	int	i;
-	
+
 	if (!s)
 		return (NULL);
 	i = -1;
-	while(s[++i])
+	while (s[++i])
 		if (s[i] >= 65 && s[i] <= 90)
 			s[i] += 32;
 	return (s);

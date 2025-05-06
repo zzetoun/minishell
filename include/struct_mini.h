@@ -29,6 +29,8 @@ typedef struct s_token
 
 typedef struct s_envp
 {
+	char			*key;
+	char			*value;
 	char			*str;
 	size_t			idx;
 	struct s_envp	*next;
@@ -37,7 +39,6 @@ typedef struct s_envp
 typedef struct s_env_info
 {
 	t_envp		*head;
-	t_envp		*tail;
 	int			shlvl;
 	size_t		size;
 }	t_env_info;
