@@ -5,13 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/08 15:38:32 by zzetoun           #+#    #+#             */
-/*   Updated: 2024/07/08 22:09:31 by zzetoun          ###   ########.ae       */
+/*   Created: 2025/05/07 18:11:56 by zzetoun           #+#    #+#             */
+/*   Updated: 2025/05/07 18:22:25 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
 
 static int	ft_numblen(int n)
 {
@@ -43,7 +42,7 @@ char	*ft_itoa(int n)
 
 	sign = '-' * (n < 0);
 	len = ft_numblen(n) + (sign == '-') + 1;
-	str = malloc(sizeof(char) * len--);
+	str = ft_calloc(len--, sizeof(char));
 	if (!str)
 		return (NULL);
 	str[len--] = '\0';

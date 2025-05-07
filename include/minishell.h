@@ -1,13 +1,13 @@
 /******************************************************************************/
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/08 17:02:27 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/04/30 21:38:35 by zzetoun          ###   ########.fr       */
-/*                                                                            */
+/*																			*/
+/*														:::	  ::::::::   */
+/*   minishell.h										:+:	  :+:	:+:   */
+/*													+:+ +:+		 +:+	 */
+/*   By: zzetoun <zzetoun@student.42abudhabi.ae>	+#+  +:+	   +#+		*/
+/*												+#+#+#+#+#+   +#+		   */
+/*   Created: 2025/04/08 17:02:27 by zzetoun		   #+#	#+#			 */
+/*   Updated: 2025/04/30 21:38:35 by zzetoun		  ###   ########.fr	   */
+/*																			*/
 /******************************************************************************/
 
 #ifndef MINISHELL_H
@@ -53,6 +53,6 @@
 
 //extern int	final_exit_code;
 
-void    setup_minishell(t_token *token);
+void	setup_minishell(t_token *token);
 
 #endif

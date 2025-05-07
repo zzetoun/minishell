@@ -5,12 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/09 15:41:20 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/04/09 15:41:46 by zzetoun          ###   ########.fr       */
+/*   Created: 2025/05/07 18:23:23 by zzetoun           #+#    #+#             */
+/*   Updated: 2025/05/07 18:23:25 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SIGNAL_H
-#define SIGNAL_H
+# define SIGNAL_H
 
 #endif

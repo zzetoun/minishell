@@ -62,7 +62,7 @@ The following functions are permitted in the project. Understanding their purpos
   
 - **`malloc()` and `free()`**  
   - **Purpose:** Allocate and deallocate dynamic memory.
-  - **Usage:** Ensure proper memory management to avoid leaks (excluding acceptable leaks in `readline()`).
+  - **Usage:** Ensure proper memory management to avoid		leaks (excluding acceptable leaks in `readline()`).
   
 - **`write()`**  
   - **Purpose:** Writes data to a file descriptor.
@@ -131,7 +131,7 @@ The following functions are permitted in the project. Understanding their purpos
 - **Termcap Functions:**  
   - **`tgetent()`, `tgetflag()`, `tgetnum()`, `tgetstr()`, `tgoto()`, `tputs()`**  
   - **Usage:**  
-    - Used for low-level terminal control, such as cursor movement or display attribute manipulation.
+	- Used for low-level terminal control, such as cursor movement or display attribute manipulation.
 
 ---
 
@@ -202,15 +202,15 @@ The shell must implement the following built-in commands with specified restrict
 - **Wildcard Character (`*`):**  
   - Matches zero or more characters in file or directory names within the current working directory.
   - **Example:**  
-    The command `ls *.c` should expand to all files ending with `.c`.
+	The command `ls *.c` should expand to all files ending with `.c`.
 - **Implementation Steps:**
   - After tokenizing input, check arguments containing `*`.
   - Use directory functions (such as `opendir()`, `readdir()`, and `closedir()`) to scan for matching files.
   - Implement a matching function to compare filenames against the wildcard pattern.
   - Consider the behavior when:
-    - No matches are found (either leave the pattern unchanged or notify the user).
-    - Hidden files (those starting with a dot) should typically be excluded, unless explicitly required.
-    - More complex patterns (e.g., `pre*fix*`) are provided.
+	- No matches are found (either leave the pattern unchanged or notify the user).
+	- Hidden files (those starting with a dot) should typically be excluded, unless explicitly required.
+	- More complex patterns (e.g., `pre*fix*`) are provided.
 
 ---
 
@@ -227,7 +227,7 @@ To ensure the Minishell is robust and error‑free, consider the following edge 
   - **Action:** Treat any sequence of whitespace as a single separator.  
 - **Unclosed Quotes:**  
   - **Situation:** Single (`'`) or double (`"`) quotes not balanced.  
-  - **Action:** Print syntax error and discard input.  
+  - **Action:** Print	syntax error and discard input.  
 - **Escaped Newline Continuation:**  
   - **Situation:** Line ends with `\` to join with next line.  
   - **Action:** Read next line, strip backslash, concatenate before parsing.  
@@ -267,7 +267,7 @@ To ensure the Minishell is robust and error‑free, consider the following edge 
   - **Action:** Execute `cmd`, capture stdout (stripping trailing newline), then re‑tokenize.  
 - **Arithmetic Expansion:**  
   - **Situation:** `$(( 2+3 ))` or division by zero.  
-  - **Action:** Evaluate integer expression; on error, print message and return nonzero status.
+  - **Action:** Evaluate integer expression; on error, print	message and return nonzero status.
 
 ### 4. Globbing and Pathname Expansion
 - **No Matches:**  
@@ -286,7 +286,7 @@ To ensure the Minishell is robust and error‑free, consider the following edge 
 ### 5. Redirections and File Descriptor Manipulation
 - **Simple Redirections:**  
   - **Situation:** `cmd >out`, `cmd <in`.  
-  - **Action:** Open files with correct flags; on error, print and abort execution.  
+  - **Action:** Open files with correct flags; on error, print	and abort execution.  
 - **Append vs Overwrite:**  
   - **Situation:** `>>out` vs `>out`.  
   - **Action:** Use `O_APPEND` or `O_TRUNC` accordingly.  
@@ -329,27 +329,27 @@ To ensure the Minishell is robust and error‑free, consider the following edge 
   - **Action:** Temporarily set VAR for `cmd` only.  
 - **Invalid Built‑in Syntax:**  
   - **Situation:** `exit foo`.  
-  - **Action:** If `foo` non-numeric, print error; exit with status `255`.
+  - **Action:** If `foo` non-numeric, print	error; exit with status `255`.
 
 ### 8. Signal and Job Control
 - **Interactive Signals:**  
   - **Situation:** Ctrl‑C, Ctrl‑D, Ctrl+\\, Ctrl‑Z.  
   - **Action:**  
-    - Ctrl‑C: interrupt foreground, redisplay prompt  
-    - Ctrl‑D: exit if no input; EOF otherwise  
-    - Ctrl+\\: ignore  
-    - Ctrl‑Z: suspend foreground (optional job control)  
+	- Ctrl‑C: interrupt foreground, redisplay prompt  
+	- Ctrl‑D: exit if no input; EOF otherwise  
+	- Ctrl+\\: ignore  
+	- Ctrl‑Z: suspend foreground (optional job control)  
 - **SIGWINCH (Window Resize):**  
   - **Situation:** Terminal dimensions change.  
   - **Action:** Recompute line lengths via `ioctl()`.  
 - **Background Execution (`&`):**  
   - **Situation:** `sleep 10 &`.  
-  - **Action:** Fork without wait; print background PID; track status for `$!`.
+  - **Action:** Fork without wait; print	background PID; track status for `$!`.
 
 ### 9. Memory, Resource, and Error Handling
 - **Allocation Failures:**  
   - **Situation:** `malloc()` returns `NULL`.  
-  - **Action:** Clean up, print “memory error,” return to prompt.  
+  - **Action:** Clean up, print	“memory error,” return to prompt.  
 - **File Descriptor Leaks:**  
   - **Situation:** `open()` or `pipe()` without `close()`.  
   - **Action:** Audit every code path; ensure matching `close()`/`closedir()`.  
@@ -366,7 +366,7 @@ To ensure the Minishell is robust and error‑free, consider the following edge 
   - **Action:** Disable line editing; read raw lines until EOF.  
 - **Invalid UTF‑8 Sequences:**  
   - **Situation:** Multi‑byte sequence broken.  
-  - **Action:** Treat bytes literally; avoid crashes.  
+  - **Action:** Treat bytes literally; avoid		crashes.  
 - **Carriage Return Handling:**  
   - **Situation:** CRLF input from Windows files.  
   - **Action:** Strip `\r` before processing.  
@@ -397,7 +397,7 @@ To ensure the Minishell is robust and error‑free, consider the following edge 
   - **Action:** No special handling; treat delimiter literally.  
 - **Editor Key Sequences:**  
   - **Situation:** User inputs arrow or function keys.  
-  - **Action:** Let `readline()` handle; avoid interpreting raw codes.
+  - **Action:** Let `readline()` handle; avoid		interpreting raw codes.
 
 
 

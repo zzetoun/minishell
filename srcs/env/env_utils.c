@@ -1,92 +1,90 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/20 18:22:52 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/04/29 20:38:32 by zzetoun          ###   ########.fr       */
+/*   Created: 2025/05/06 22:49:37 by zzetoun           #+#    #+#             */
+/*   Updated: 2025/05/06 22:49:37 by zzetoun          ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-size_t ft_darray_len(char **str)
+size_t	ft_darray_len(char **str)
 {
-    size_t  size;
-    
-    size = 0;
-    if (!str || !*str)
-        return (0);
-    while(str[size])
-        size++;
-    return (size);
+	size_t	size;
+
+	size = 0;
+	if (!str || !*str)
+		return (0);
+	while (str[size])
+		size++;
+	return (size);
 }
 
 int	env_key(t_env_info *env, char *key)
 {
-    t_envp *envp;
+	t_envp	*envp;
 
-    envp = env->head;
-    while (envp)
-    {
-		ft_printf(1, "looking for key envp->key={%s}, key={%s}\n", envp->key, key);
-        if (ft_strncmp(envp->key, key, ft_strlen(key)) == 0)
-            return (1);
-        envp = envp->next;
-    }
-    return (0);
+	envp = env->head;
+	while (envp)
+	{
+		if (ft_strncmp(envp->key, key, ft_strlen(key)) == 0)
+			return (1);
+		envp = envp->next;
+	}
+	return (0);
 }
 
-
-char    **ft_env_to_str(t_env_info *env)
+char	**ft_env_to_str(t_env_info *env)
 {
-    t_envp  *envp;
-    char    **str;
-    int     idx;
+	t_envp	*envp;
+	char	**str;
+	int		idx;
 
-    envp = env->head;
-    str = ft_calloc(env->size + 1, sizeof(char *));
-    if (!str)
-        return (0);
-    idx = -1;
-    while(envp)
-    {
-        if (ft_strchr(envp->str, '='))
-        {
-            str[++idx] = ft_strdup(envp->str);
-            if (!str[idx])
-                return (ft_free_array(str), NULL);
-        }
-        envp = envp->next;
-    }
-    if (idx == -1)
-        return (ft_free_array(str), NULL);
-    return (str);
+	envp = env->head;
+	str = ft_calloc(env->size + 1, sizeof(char *));
+	if (!str)
+		return (0);
+	idx = -1;
+	while (envp)
+	{
+		if (ft_strchr(envp->str, '='))
+		{
+			str[++idx] = ft_strdup(envp->str);
+			if (!str[idx])
+				return (ft_free_array(str), NULL);
+		}
+		envp = envp->next;
+	}
+	if (idx == -1)
+		return (ft_free_array(str), NULL);
+	return (str);
 }
 
-int ft_add_new_env(t_env_info *env, char *key, char *value)
+int	ft_add_new_env(t_env_info *env, char *key, char *value)
 {
-    t_envp	*new_env;
-    t_envp  *current;
-    
-    new_env = ft_calloc(1, sizeof(t_envp));
-    if (!new_env)
-        return (ft_free_env(env), 0);
-    new_env->idx = env->size;
-    if (key || value)
-        ft_set_key_value(new_env, NULL, key, value);
-    new_env->next = NULL;
-    if (env->head == NULL)
-        env->head = new_env;
-    else
-    {
-        current = env->head;
-        while (current->next)
-            current = current->next;
-        current->next = new_env;
-    }
-    env->size++;
-    return (1);
+	t_envp	*new_env;
+	t_envp	*current;
+
+	new_env = ft_calloc(1, sizeof(t_envp));
+	if (!new_env)
+		return (ft_free_env(env), 0);
+	new_env->idx = env->size;
+	if (key || value)
+		ft_set_key_value(new_env, NULL, key, value);
+	new_env->next = NULL;
+	if (env->head == NULL)
+		env->head = new_env;
+	else
+	{
+		current = env->head;
+		while (current->next)
+			current = current->next;
+		current->next = new_env;
+	}
+	env->size++;
+	return (1);
 }

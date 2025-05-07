@@ -5,14 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/06 20:25:27 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/05/02 14:15:19 by zzetoun          ###   ########.fr       */
+/*   Created: 2025/05/07 18:06:49 by zzetoun           #+#    #+#             */
+/*   Updated: 2025/05/07 18:07:10 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static	int	ft_free_split(char **sp_str, int kdx)
+static int	ft_free_split(char **sp_str, int kdx)
 {
 	while (kdx >= 0)
 		free(sp_str[kdx--]);

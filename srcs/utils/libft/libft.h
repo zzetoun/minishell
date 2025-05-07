@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/03 17:21:53 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/05/06 16:58:15 by zzetoun          ###   ########.fr       */
+/*   Created: 2025/05/07 18:20:08 by zzetoun           #+#    #+#             */
+/*   Updated: 2025/05/07 18:47:29 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define LIBFT_H
 
 # include <stdlib.h>
+# include <stdio.h>
+# include <stdint.h>
 # include <unistd.h>
 # include <limits.h>
 # include "display/ft_printf.h"

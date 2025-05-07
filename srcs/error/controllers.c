@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   controllers.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/13 17:07:31 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/04/25 02:10:01 by zzetoun          ###   ########.fr       */
+/*   Created: 2025/05/07 18:31:14 by zzetoun           #+#    #+#             */
+/*   Updated: 2025/05/07 18:31:14 by zzetoun          ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../include/minishell.h"
 
@@ -43,13 +43,13 @@ void	errmsg(char *error, char *detail, int quotes)
 		ft_printf(2, "minishell: %s: %s\n", error, detail);
 }
 
-// void	exit_error(int option, char **array, char *error)
+// void	exit_error(int	option, char **array, char *error)
 // {
 // 	ft_free_array(array);
 // 	ft_prnt_error(option, error);
 // }
 
-// void	ft_prnt_error(int option, char *error)
+// void	ft_prnt_error(int	option, char *error)
 // {
 // 	if (option == 1)
 // 		perror(error);

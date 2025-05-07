@@ -5,14 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/06 13:33:40 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/05/02 14:18:34 by zzetoun          ###   ########.fr       */
+/*   Created: 2025/05/06 23:13:48 by zzetoun           #+#    #+#             */
+/*   Updated: 2025/05/07 17:40:14 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char		const *s1, char		const *s2)
 {
 	char	*str;
 	int		i;

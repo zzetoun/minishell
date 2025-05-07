@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/09 15:10:19 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/04/14 16:45:24 by zzetoun          ###   ########.fr       */
+/*   Created: 2025/05/07 18:23:42 by zzetoun           #+#    #+#             */
+/*   Updated: 2025/05/07 18:23:44 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,5 @@
 int	restore_io(t_io_fds *io);
 int	redirect_io(t_io_fds *io);
 int	check_infile_outfile(t_io_fds *io);
-
 
 #endif

@@ -1,18 +1,18 @@
 /* ************************************************************************** */
-/*																			*/
-/*														:::	  ::::::::   */
-/*   tmp_list_prnt.c									:+:	  :+:	:+:   */
-/*													+:+ +:+		 +:+	 */
-/*   By: zzetoun <zzetoun@student.42abudhabi.ae>	+#+  +:+	   +#+		*/
-/*												+#+#+#+#+#+   +#+		   */
-/*   Created: 2025/05/06 17:53:27 by zzetoun		   #+#	#+#			 */
-/*   Updated: 2025/05/06 17:53:27 by zzetoun		  ###   ########.fr	   */
-/*																			*/
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tmp_list_prnt.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/07 18:17:46 by zzetoun           #+#    #+#             */
+/*   Updated: 2025/05/07 18:17:46 by zzetoun          ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void linked_list_print(t_env_info  *env, char **_envp, int option)
+void		linked_list_print(t_env_info  *env, char **_envp, int	option)
 {
 	t_envp *envp;
 	int	idx;
@@ -21,7 +21,7 @@ void linked_list_print(t_env_info  *env, char **_envp, int option)
 	idx = 0;
 	ft_printf(1, "env size: {%d}\n", env->size);
 	ft_printf(1, "env shlvl: {%d}\n", env->shlvl);
-	while(envp)
+	while (envp)
 	{
 		if (option == 2 && _envp)
 		{
