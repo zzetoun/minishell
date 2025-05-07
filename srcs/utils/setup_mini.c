@@ -39,7 +39,7 @@ int	setup_mini(t_data *data, char **envp)
 	}
 	if (!init_directory(data))
 	{
-		errmsg_cmd("Fatal", NULL, WDWRROR, 1);
+		errmsg_cmd("Fatal", NULL, WDERROR, 1);
 		return (0);
 	}
 	data->token = NULL;
@@ -47,7 +47,7 @@ int	setup_mini(t_data *data, char **envp)
 	data->cmd = NULL;
 	data->pid = -1;
 	errno = 0;
-	linked_list_print(data->env, envp, 2);
+	linked_list_print(data->env, envp, 1);
 	//final_exit_code = 0;
 	return (1);
 }

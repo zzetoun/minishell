@@ -5,30 +5,30 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/07 18:18:14 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/05/07 18:18:14 by zzetoun          ###   ########.fr       */
+/*   Created: 2025/05/07 19:22:17 by zzetoun           #+#    #+#             */
+/*   Updated: 2025/05/07 19:22:17 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-static void	welcome_msg(void)
+static void		welcome_msg(void)
 {
-	ft_printf(1, "\n\t###############################\n");
-	ft_printf(1, "\t#                               #\n");
-	ft_printf(1, "\t#    Minishell by Zorz & Igor   #\n");
-	ft_printf(1, "\t#							    #\n");
-	ft_printf(1, "\t###############################\n\n");
+	printf("\n\t###############################\n");
+	printf("\t#                             #\n");
+	printf("\t#  Minishell by Zorz & Igor   #\n");
+	printf("\t#                             #\n");
+	printf("\t###############################\n\n");
 }
 
-int	main (int ac, char **av, char **envp)
+int	main (int	ac, char **av, char **envp)
 {
 	(void) ac;
 	(void) av;
-	t_data		data;
+	t_data	  data;
 	t_env_info  env;
-	t_command	cmd;
-
+	t_command cmd;
+	
 	data.cmd = &cmd;
 	data.env = &env;
 	welcome_msg();

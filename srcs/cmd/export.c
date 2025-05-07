@@ -59,13 +59,13 @@ int	export_args_check(char *arg, char *cmd)
 
 	if (!arg || (!ft_isalpha(arg[0]) && arg[0] != '_' && !ft_isspace(arg[0])))
 	{
-		ft_printf(2, "-Minishell: %s: `%s':%s\n", cmd, arg, MINIEXP);
-		return (0);
+		ft_printf(2, "-Minishell: %s: `%s':%s\n", cmd, arg, MINIERID);
+		return (1);
 	}
 	else if (str_compare(cmd, "unset") && ft_strchr(arg, '='))
 	{
-		ft_printf(2, "-Minishell: %s: `%s':%s\n", cmd, arg, MINIEXP);
-		return (0);
+		ft_printf(2, "-Minishell: %s: `%s':%s\n", cmd, arg, MINIERID);
+		return (1);
 	}
 	i = -1;
 	while (arg[++i])
@@ -74,11 +74,11 @@ int	export_args_check(char *arg, char *cmd)
 			break ;
 		else if (!ft_isalnum(arg[i]) && arg[i] != '_' && ft_isspace(arg[i]))
 		{
-			ft_printf(2, "-Minishell: %s: `%s':%s\n", cmd, arg, MINIEXP);
-			return (0);
+			ft_printf(2, "-Minishell: %s: `%s':%s\n", cmd, arg, MINIERID);
+			return (1);
 		}
 	}
-	return (1);
+	return (0);
 }
 
 static int	export_print(char **envp, size_t size)
@@ -113,21 +113,24 @@ int	ft_export(t_env_info *env, char **args)
 {
 	char	**envp;
 	char	*arg;
+	int		error;
 
 	envp = ft_env_to_export(env->head, env->size);
+	error = 0;
 	if (!envp)
 	{
 		ft_printf(2, "-Minishell: export: enviromets are NULL\n");
-		return (0);
+		return (error);
 	}
 	if (!args || !*args)
 		export_print(envp, env->size);
 	while (args && *args)
 	{
 		arg = *args;
-		if (export_args_check(arg, "export"))
+		error = export_args_check(arg, "export");
+		if (error )
 			set_export(env, arg);
 		args++;
 	}
-	return (0);
+	return (error);
 }

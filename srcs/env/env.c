@@ -19,7 +19,7 @@ void	ft_set_key_value(t_envp *new_env, char *envp, char *key, char *value)
 	if (envp)
 	{
 		len = ft_strlen(envp) - ft_strlen(ft_strchr(envp, '='));
-		new_env->value = ft_strdup(getenv(envp));
+		new_env->value = ft_strdup(ft_strchr(envp, '=') + 1);
 		new_env->key = ft_substr(envp, 0, len);
 		new_env->str = ft_strjoin(new_env->key, "=");
 		new_env->str = ft_strjoin_free(new_env->str, new_env->value);
