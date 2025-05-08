@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 22:58:21 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/05/07 18:48:15 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/05/08 16:51:43 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	ft_free_env_in(t_env_info *env, char *key)
 	envp = env->head;
 	while (envp)
 	{
-		if (str_compare(envp->key, key))
+		if (str_compare(envp->key, key) && !str_compare("_", key))
 		{
 			tmp = envp;
 			free(tmp->str);
@@ -65,7 +65,7 @@ int	ft_unset(t_env_info *env, char **args)
 		return (1);
 	while (args && *args)
 	{
-		if (export_args_check(*args, "unset"))
+		if (!export_args_check(*args, "unset"))
 			ft_free_env_in(env, *args);
 		args++;
 	}

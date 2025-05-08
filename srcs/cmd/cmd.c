@@ -1,27 +1,24 @@
 /* ************************************************************************** */
-/*																			*/
-/*														:::	  ::::::::   */
-/*   cmd.c											  :+:	  :+:	:+:   */
-/*													+:+ +:+		 +:+	 */
-/*   By: zzetoun <zzetoun@student.42abudhabi.ae>	+#+  +:+	   +#+		*/
-/*												+#+#+#+#+#+   +#+		   */
-/*   Created: 2025/05/06 22:45:23 by zzetoun		   #+#	#+#			 */
-/*   Updated: 2025/05/06 22:45:23 by zzetoun		  ###   ########.fr	   */
-/*																			*/
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cmd.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/08 16:43:45 by zzetoun           #+#    #+#             */
+/*   Updated: 2025/05/08 16:43:45 by zzetoun          ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	str_compare(char		const *s1, char		const *s2)
+int	str_compare(char const *s1, char const *s2)
 {
 	int	result;
 
 	if (!s1 || !s2)
-	{
-		ft_printf(2, "Minishell Compare Error: string is NULL\n");
-		return (0);
-	}
-	result = (ft_strncmp(s1, s2, ft_strlen(s2)) == 0);
+		return (errmsg_cmd(NULL, "Compare Error: strings NULL", NULL, 1));
+	result = (!ft_strncmp(s1, s2, ft_strlen(s2)));
 	result *= (ft_strlen(s1) == strlen(s2));
 	return (result);
 }
@@ -39,5 +36,7 @@ int	execute_cmd(t_data *data, t_command *cmd, t_env_info *env)
 		value = ft_export(env, cmd->args);
 	else if (str_compare(cmd->command, "unset"))
 		value = ft_unset(env, cmd->args);
+	else if (str_compare(cmd->command, "env"))
+		value = ft_env(env, cmd->args, -1);
 	return (value);
 }

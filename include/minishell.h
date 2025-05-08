@@ -38,9 +38,10 @@
 # include "../srcs/utils/mini_utils.h"
 # include "../srcs/utils/libft/libft.h"
 
-# define PROMPT "\001\e[44m\002*** \001\e[0m\e[96m\002 Minishell>$ \001\e[0m\002"
+# define PROMPT "\001\e[44m\002* \001\e[0m\e[96m\002 Minishell>$ \001\e[0m\002"
+# define PATHEN	"/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin:."
 # define EARGS "ERROR: invalid arguments"
-# define TOARG "too many arguments"
+# define TOARG "ERROR: too many arguments"
 # define NOACC "ERROR: permission denied"
 # define EUNKN "ERROR: unknown error"
 # define PATHE "ERROR: Commands Path"
@@ -53,6 +54,7 @@
 # define GETCWDE "getcwd: cannot access parent directories"
 # define MINIERID "not a valid identifier"
 # define MINIEROP "invalid option"
+# define ALLOERRO "ERROR: allocation fails"
 # define CMD_NOT_FOUND 127
 
 //extern int	final_exit_code;

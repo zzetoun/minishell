@@ -20,11 +20,11 @@ int		env_key(t_env_info *env, char *key);
 int		set_env(t_env_info *env, char *key, char *value);
 int		ft_key_cmp(const char *str, const char *key);
 int		ft_env_setup(t_env_info *env, char **envp, size_t idx);
-int		ft_add_new_env(t_env_info *env, char *key, char *value);
+int		add_new_env(t_env_info *env, char *key, char *value);
 
 char	*get_env(t_env_info *env, char *key);
 
-char	**ft_env_to_str(t_env_info *env);
+char	**env_tostr(t_env_info *env);
 
 void	ft_set_key_value(t_envp *new_env, char *envp, char *key, char *value);
 

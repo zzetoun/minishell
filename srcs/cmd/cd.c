@@ -39,8 +39,7 @@ static int	change_dir(t_data *data, char *path, t_env_info *env)
 	{
 		if (errno == ESTALE)
 			errno = ENOENT;
-		errmsg_cmd("cd", path, strerror(errno), errno);
-		return (errno);
+		return (errmsg_cmd("cd", path, strerror(errno), errno));
 	}
 	wd = getcwd(buff, PATH_MAX);
 	if (!wd)

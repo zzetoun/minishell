@@ -18,38 +18,31 @@ static int	init_directory(t_data *data)
 
 	data->working_dir = ft_strdup(getcwd(buff, PATH_MAX));
 	if (!data->working_dir)
-		return (0);
+		return (1);
 	if (get_env(data->env, "OLDPWD"))
 	{
 		data->old_working_dir = ft_strdup(get_env(data->env, "OLDPWD"));
 		if (!data->old_working_dir)
-			return (0);
+			return (1);
 	}
 	else
 		data->old_working_dir = NULL;
-	return (1);
+	return (0);
 }
 
 int	setup_mini(t_data *data, char **envp)
 {
-	if (!ft_env_setup(data->env, envp, -1))
-	{
-		errmsg_cmd("Fatal", NULL, ENVERRO, 1);
-		return (0);
-	}
-	if (!init_directory(data))
-	{
-		errmsg_cmd("Fatal", NULL, WDERROR, 1);
-		return (0);
-	}
+	if (ft_env_setup(data->env, envp, -1))
+		return (errmsg_cmd("Fatal", NULL, ENVERRO, EXIT_FAILURE));
+	if (init_directory(data))
+		return (errmsg_cmd("Fatal", NULL, WDERROR, EXIT_FAILURE));
 	data->token = NULL;
 	data->user_input = NULL;
 	data->cmd = NULL;
 	data->pid = -1;
 	errno = 0;
-	linked_list_print(data->env, envp, 1);
 	//final_exit_code = 0;
-	return (1);
+	return (0);
 }
 
 void	setup_io(t_command *cmd)
