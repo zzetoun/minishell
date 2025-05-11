@@ -33,9 +33,9 @@ static int	init_directory(t_data *data)
 int	setup_mini(t_data *data, char **envp)
 {
 	if (ft_env_setup(data->env, envp, -1))
-		return (errmsg_cmd("Fatal", NULL, ENVERRO, EXIT_FAILURE));
+		return (errmsg("Fatal", NULL, ENVERRO, EXIT_FAILURE));
 	if (init_directory(data))
-		return (errmsg_cmd("Fatal", NULL, WDERROR, EXIT_FAILURE));
+		return (errmsg("Fatal", NULL, WDERROR, EXIT_FAILURE));
 	data->token = NULL;
 	data->user_input = NULL;
 	data->cmd = NULL;

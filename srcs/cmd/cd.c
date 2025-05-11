@@ -39,12 +39,12 @@ static int	change_dir(t_data *data, char *path, t_env_info *env)
 	{
 		if (errno == ESTALE)
 			errno = ENOENT;
-		return (errmsg_cmd("cd", path, strerror(errno), errno));
+		return (errmsg("cd", path, strerror(errno), errno));
 	}
 	wd = getcwd(buff, PATH_MAX);
 	if (!wd)
 	{
-		errmsg_cmd(CDERROR, GETCWDE, strerror(errno), errno);
+		errmsg(CDERROR, GETCWDE, strerror(errno), errno);
 		wd = ft_strjoin(data->working_dir, "/");
 		wd = ft_strjoin_free(wd, path);
 	}
@@ -64,16 +64,16 @@ int	ft_cd(t_data *data, char **args, t_env_info *env)
 	{
 		path = get_env(env, "HOME");
 		if (!path || *path == '\0' || ft_isspace(*path))
-			return (errmsg_cmd("cd", NULL, "HOME not set", EXIT_FAILURE));
+			return (errmsg("cd", NULL, "HOME not set", EXIT_FAILURE));
 		return (!change_dir(data, path, env));
 	}
 	if (args[1])
-		return (errmsg_cmd("cd", NULL, TOARG, EXIT_FAILURE));
+		return (errmsg("cd", NULL, TOARG, EXIT_FAILURE));
 	if (str_compare(args[0], "-"))
 	{
 		path = get_env(env, "OLDPWD");
 		if (!path)
-			return (errmsg_cmd("cd", NULL, "OLDPWD not set", EXIT_FAILURE));
+			return (errmsg("cd", NULL, "OLDPWD not set", EXIT_FAILURE));
 		else if (chdir(path) == 0)
 			ft_printf(1, "%s\n", path);
 		return (!change_dir(data, path, env));

@@ -17,7 +17,7 @@ int	str_compare(char const *s1, char const *s2)
 	int	result;
 
 	if (!s1 || !s2)
-		return (errmsg_cmd(NULL, "Compare Error: strings NULL", NULL, 1));
+		return (errmsg(NULL, "Compare Error: strings NULL", NULL, 1));
 	result = (!ft_strncmp(s1, s2, ft_strlen(s2)));
 	result *= (ft_strlen(s1) == strlen(s2));
 	return (result);
@@ -38,5 +38,7 @@ int	execute_cmd(t_data *data, t_command *cmd, t_env_info *env)
 		value = ft_unset(env, cmd->args);
 	else if (str_compare(cmd->command, "env"))
 		value = ft_env(env, cmd->args, -1);
+		else if (str_compare(cmd->command, "echo"))
+		value = ft_echo(env, cmd->args);
 	return (value);
 }

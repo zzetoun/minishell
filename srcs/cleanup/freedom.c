@@ -60,7 +60,7 @@ void	ft_free_ptr(void *pointer)
 	}
 }
 
-void	ft_free_env(t_env_info *env)
+void	free_env(t_env_info *env)
 {
 	t_envp	*list;
 

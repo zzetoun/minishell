@@ -16,9 +16,8 @@
 /* ============ ERROR & EXIT HANDLING ============ */
 void	ft_free_fd(t_command *cmd);
 void	ft_prnt_error(int option, char *error);
-void	errmsg(char *error, char *detail, int quotes);
 void	exit_error(int option, char **array, char *error);
 
-int		errmsg_cmd(char *cmd, char *detail, char *error, int err_nb);
+int		errmsg(char *cmd, char *detail, char *error, int err_nb);
 
 #endif

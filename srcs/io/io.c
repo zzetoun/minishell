@@ -45,16 +45,16 @@ int	redirect_io(t_io_fds *io)
 		return (r);
 	io->stdin_backup = dup(STDIN_FILENO);
 	if (io->stdin_backup == -1)
-		r = errmsg_cmd("dup", "stdin backup", strerror(errno), EXIT_FAILURE);
+		r = errmsg("dup", "stdin backup", strerror(errno), EXIT_FAILURE);
 	io->stdout_backup = dup(STDOUT_FILENO);
 	if (io->stdout_backup == -1)
-		r = errmsg_cmd("dup", "stdout backup", strerror(errno), EXIT_FAILURE);
+		r = errmsg("dup", "stdout backup", strerror(errno), EXIT_FAILURE);
 	if (io->fd_in != -1)
 		if (dup2(io->fd_in, STDIN_FILENO) == -1)
-			r = errmsg_cmd("dup2", io->infile, strerror(errno), EXIT_FAILURE);
+			r = errmsg("dup2", io->infile, strerror(errno), EXIT_FAILURE);
 	if (io->fd_out != -1)
 		if (dup2(io->fd_out, STDOUT_FILENO) == -1)
-			r = errmsg_cmd("dup2", io->outfile, strerror(errno), EXIT_FAILURE);
+			r = errmsg("dup2", io->outfile, strerror(errno), EXIT_FAILURE);
 	return (r);
 }
 

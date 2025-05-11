@@ -12,30 +12,23 @@
 
 #include "../include/minishell.h"
 
-int	errmsg_cmd(char *cmd, char *detail, char *errmsg, int err_nb)
+int	errmsg(char *cmd, char *detail, char *error, int err_nb)
 {
 	if (detail && cmd)
 	{
 		if (str_compare(cmd, "export") || str_compare(cmd, "unset"))
-			ft_printf(2, "-Minishell: %s: `%s': %s\n", cmd, detail, errmsg);
+			ft_printf(2, "-Minishell: %s: `%s': %s\n", cmd, detail, error);
 		else
-			ft_printf(2, "-Minishell: %s: %s: %s\n", cmd, detail, errmsg);
+			ft_printf(2, "-Minishell: %s: %s: %s\n", cmd, detail, error);
 	}
 	else if (cmd)
-		ft_printf(2, "-Minishell: %s: %s\n", cmd, errmsg);
+		ft_printf(2, "-Minishell: %s: %s\n", cmd, error);
 	else
-		ft_printf(2, "-Minishell: %s \n", errmsg);
+		ft_printf(2, "-Minishell: %s \n", error);
 	return (err_nb);
 	
 }
 
-void	errmsg(char *error, char *detail, int quotes)
-{
-	if (quotes)
-		ft_printf(2, "minishell:  `%s' %s\n", error, detail);
-	else
-		ft_printf(2, "minishell: %s: %s\n", error, detail);
-}
 
 // void	exit_error(int	option, char **array, char *error)
 // {

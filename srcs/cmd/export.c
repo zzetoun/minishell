@@ -15,26 +15,31 @@
 static int	set_export(t_env_info *env, char *arg)
 {
 	char	*s;
-	int		error;
+	int		result;
 
-	error = 0;
+	result = 0;
 	if (ft_strlen(ft_strchr(arg, '=')) >= 1)
 	{
 		s = ft_substr(arg, 0, ft_strlen(arg) - ft_strlen(ft_strchr(arg, '=')));
 		if (ft_strlen(ft_strchr(arg, '=')) == 1)
 		{
 			if (!env_key(env, s))
-				error = set_env(env, s, NULL);
+				result = set_env(env, s, NULL);
 			else
-				error = add_new_env(env, s, "");
+				result = add_new_env(env, s, "");
 		}
 		else
-			error = set_env(env, s, ft_strchr(arg, '=') + 1);
+		{
+			//I need to pars ft_strchr(arg, '=') + 1
+			// if It's only single " or single ' error message
+			// if it's closed I need to skip it and add it without it
+			result = set_env(env, s, ft_strchr(arg, '=') + 1);
+		}
 		free(s);
 	}
 	else if (env_key(env, arg))
-		error = add_new_env(env, arg, NULL);
-	return (error);
+		result = add_new_env(env, arg, NULL);
+	return (result);
 }
 
 static char	**ft_env_to_export(t_envp *en, size_t size)
@@ -64,16 +69,16 @@ int	export_args_check(char *arg, char *cmd)
 	int	i;
 
 	if (!arg || (!ft_isalpha(arg[0]) && arg[0] != '_' && !ft_isspace(arg[0])))
-		return (errmsg_cmd(cmd, arg, MINIERID, EXIT_FAILURE));
+		return (errmsg(cmd, arg, MINIERID, EXIT_FAILURE));
 	else if (str_compare(cmd, "unset") && ft_strchr(arg, '='))
-		return (errmsg_cmd(cmd, arg, MINIERID, EXIT_FAILURE));
+		return (errmsg(cmd, arg, MINIERID, EXIT_FAILURE));
 	i = -1;
 	while (arg[++i])
 	{
 		if (arg[i] == '=' && str_compare(cmd, "export"))
 			break ;
 		else if (!ft_isalnum(arg[i]) && arg[i] != '_' && ft_isspace(arg[i]))
-			return (errmsg_cmd(cmd, arg, MINIERID, EXIT_FAILURE));
+			return (errmsg(cmd, arg, MINIERID, EXIT_FAILURE));
 	}
 	return (0);
 }

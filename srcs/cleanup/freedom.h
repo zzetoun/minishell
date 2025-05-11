@@ -16,7 +16,7 @@
 void	ft_free_ptr(void *pointer);
 void	ft_close_fd(int	fd[]);
 void	ft_free_array(char **array);
-void	ft_free_env(t_env_info *env);
-void	ft_free_env_data(t_envp *envp);
+void	free_env(t_env_info *env);
+void	free_env_data(t_envp *envp);
 
 #endif

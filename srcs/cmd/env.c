@@ -53,13 +53,13 @@ int	ft_env(t_env_info *env, char **args, size_t idx)
 				ft_printf(1, "%s\n", envp[idx]);
 			ft_free_array(envp);
 			if (!path)
-				return (errmsg_cmd("env", NULL, "command not found", 127));
+				return (errmsg("env", NULL, "command not found", 127));
 			free(path);
 		}
 		else
-			return (errmsg_cmd("env", NULL, "No such file or directory", 127));
+			return (errmsg("env", NULL, "No such file or directory", 127));
 	}
 	else
-		return (errmsg_cmd("env", NULL, "no options or arguments", 1));
+		return (errmsg("env", NULL, "no options or arguments", 1));
 	return (0);
 }

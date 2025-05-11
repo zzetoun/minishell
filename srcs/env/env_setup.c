@@ -54,7 +54,7 @@ int	ft_env_setup(t_env_info *env, char **envp, size_t idx)
 	{
 		new_env = ft_calloc(1, sizeof(t_envp));
 		if (!new_env)
-			return (ft_free_env(env), 1);
+			return (free_env(env), errmsg(NULL, NULL, strerror(errno), errno));
 		ft_set_key_value(new_env, envp[idx], NULL, NULL);
 		new_env->idx = idx;
 		new_env->next = NULL;
@@ -114,7 +114,12 @@ int	set_env(t_env_info *env, char *key, char *value)
 		if (!ft_strncmp(envp->key, key, ft_strlen(key)))
 		{
 			ft_free_ptr(envp->value);
-			envp->value = ft_strdup(value);
+			if (value && *value && (*value == '\"' || *value == '\''))
+				value++;
+			if (value && *value && value[ft_strlen(value) - 1] == '\"')
+				envp->value = ft_substr(value, 0, ft_strlen(value) - 1);
+			else
+				envp->value = ft_strdup(value);
 			ft_free_ptr(envp->str);
 			envp->str = ft_strjoin(key, "=");
 			envp->str = ft_strjoin_free(envp->str, value);
