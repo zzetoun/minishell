@@ -13,8 +13,9 @@
 #ifndef STRUCT_MINI_H
 # define STRUCT_MINI_H
 
-# include "minishell.h"
-
+//# include "minishell.h"
+#include <stddef.h>
+#include <signal.h>
 typedef struct s_token
 {
 	char			*str;
@@ -88,7 +89,9 @@ enum e_token_types
 	TRUNC,
 	HEREDOC,
 	APPEND,
-	END
+	END,
+    REDIR_IN,
+    REDIR_OUT,
 };
 
 enum e_quoting_status

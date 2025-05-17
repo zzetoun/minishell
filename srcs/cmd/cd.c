@@ -11,7 +11,7 @@
 /******************************************************************************/
 
 #include "../include/minishell.h"
-
+#include <ctype.h>
 static void	update_wds(t_data *data, char *wd, t_env_info *env)
 {
 	set_env(env, "OLDPWD=", get_env(env, "PWD"));
@@ -56,12 +56,13 @@ static int	change_dir(t_data *data, char *path, t_env_info *env)
 int	ft_cd(t_data *data, char **args, t_env_info *env)
 {
 	char	*path;
-
-	if (!args || !args[0] || ft_isspace(args[0][0])
+                                    //TODO FIX to ft_isspace
+	if (!args || !args[0] || isspace(args[0][0])
 		|| args[0][0] == '\0' || str_compare(args[0], "--"))
 	{
 		path = get_env(env, "HOME");
-		if (!path || *path == '\0' || ft_isspace(*path))
+                                    //TODO FIX to ft_isspace
+		if (!path || *path == '\0' || isspace(*path))
 			return (ft_printf(2, "Minishell: cd: HOME not set\n"), 1);
 		return (!change_dir(data, path, env));
 	}

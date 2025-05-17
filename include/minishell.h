@@ -28,6 +28,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "struct_mini.h"
+# include "../libft/libft.h"
 # include "../srcs/io/io.h"
 # include "../srcs/cmd/cmd.h"
 # include "../srcs/exc/exc.h"
