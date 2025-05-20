@@ -97,7 +97,6 @@ static char	*replace_heredoc_with_tmpfile_2(char *line, const char *fname, char 
         memcpy(newl + pre_len + 4 + strlen(fname), after, suf_len);
     }
     newl[pre_len + 3 + strlen(fname) + (suf_len ? 1 + suf_len : 0)] = '\0';
-    free(line);
     return (newl);
 }
 
@@ -132,11 +131,17 @@ static char	*handle_heredoc_3(char *line, int idx)
 char	*check_if_additional(char *line)
 {
     int	idx;
+    char *tmp;
 
     idx = 0;
     while (strstr(line, "<<"))
     {
-        line = handle_heredoc_3(line, idx);
+        tmp = handle_heredoc_3(line, idx);
+        if (tmp != line)
+        {
+            free(line);
+            line = tmp;
+        }
         idx++;
     }
     return (line);

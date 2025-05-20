@@ -16,6 +16,7 @@
 //# include "minishell.h"
 #include <stddef.h>
 #include <signal.h>
+
 typedef struct s_token
 {
 	char			*str;

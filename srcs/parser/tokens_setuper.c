@@ -34,9 +34,7 @@ t_token *setup_tokens(const char **user_input)
     root->prev = NULL;
     root->type = get_token_type(user_input[i]);
     root->str = ft_strdup(user_input[i]);
-    if (!root)
-        return (free(root), NULL);
-    root->next = malloc(sizeof(t_token));
+    root->next = (t_token *)malloc(sizeof(t_token));
     if (!root->next)
         return (free(root->str),free(root), NULL);
     current = root->next;

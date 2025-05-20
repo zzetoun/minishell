@@ -10,25 +10,6 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
-//static char *copy_until_quote(char *line, size_t *i, char quote)
-//{
-//    size_t start = *i;
-//    (*i)++;
-//    while (line[*i] && line[*i] != quote)
-//        (*i)++;
-//    if (line[*i] == quote)
-//        (*i)++;
-//    return ft_strndup(line + start, *i - start);
-//}
-//
-//static char *copy_until_space(char *line, size_t *i)
-//{
-//    size_t start = *i;
-//    while (line[*i] && line[*i] != ' ' && line[*i] != '\'' && line[*i] != '\"')
-//        (*i)++;
-//    return ft_strndup(line + start, *i - start);
-//}
-
 static char **append_tok(char **arr, size_t *n, const char *s, size_t len) {
     char **tmp = realloc(arr, sizeof(*arr)*(*n+2));
     if (!tmp) { perror("realloc"); exit(1); }
@@ -75,25 +56,3 @@ char **minishell_split(const char *input)
     }
     return (argv);
 }
-
-//t_data  *setup_parsered_data(t_data **data, const char *user_input)
-//{
-//    char    **tokens;
-//    size_t  i;
-//    t_data *temp;
-//
-//    temp = *data;
-//    i = 0;
-//    if (validate_input(user_input) != 0)
-//        return (fprintf(stderr, "Error: invalid input\n"), NULL);
-//    else
-//    {
-//        tokens = minishell_split(user_input);
-//        if (!tokens)
-//            return (fprintf(stderr, "Error with split by tokens\n"), NULL);
-//        while (tokens[i])
-//        {
-//            temp->token = get_token_type(tokens[i]);
-//        }
-//    }
-//}
