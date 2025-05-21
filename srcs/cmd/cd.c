@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
+#include <ctype.h>
 static void	update_wds(t_data *data, char *wd, t_env_info *env)
 {
 	set_env(env, "OLDPWD", get_env(env, "PWD"));
