@@ -1,22 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imickhai <imickhai@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/23 12:40:44 by imickhai          #+#    #+#             */
-/*   Updated: 2024/12/23 12:57:33 by imickhai         ###   ########.fr       */
+/*   Created: 2025/05/23 20:10:39 by zzetoun           #+#    #+#             */
+/*   Updated: 2025/05/23 20:42:10 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../include/minishell.h"
 
-void	ft_lstdelone(t_list *lst, void (*del)(void*))
+void	exit_full(t_data *data, int exit_num)
 {
-	if (lst && del)
+	if (data)
 	{
-		del(lst->content);
-		free(lst);
+		if (data->cmd && data->cmd->io_fds)
+			ft_close_fds(data->cmd, 1);
+		ft_freedom(data, 1);
 	}
+	exit(exit_num);
 }

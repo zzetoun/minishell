@@ -11,6 +11,14 @@
 /* ************************************************************************** */
 
 #ifndef EXC_H
-#define EXC_H
+# define EXC_H
+
+int		cmd_is_dir(char *cmd);
+int		execute(t_data *data);
+int		str_compare(char const *s1, char const *s2);
+int		check_cmd_not_found(t_data *data, t_command *cmd);
+int		execute_cmd(t_data *data, t_command *cmd);
+
+char	*get_cmd_path(t_data *data, char *name);
 
 #endif

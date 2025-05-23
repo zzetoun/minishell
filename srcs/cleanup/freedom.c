@@ -36,6 +36,20 @@
 // 	}
 // }
 
+void	ft_close_fds(t_command *cmds, int close_backups)
+{
+	if (cmds->io_fds)
+	{
+		if (cmds->io_fds->fd_in != -1)
+			close(cmds->io_fds->fd_in);
+		if (cmds->io_fds->fd_out != -1)
+			close(cmds->io_fds->fd_out);
+		if (close_backups)
+			restore_io(cmds->io_fds);
+	}
+	close_pipe_fds(cmds, NULL);
+}
+
 void	ft_free_array(char **array)
 {
 	char **ptr;
@@ -76,4 +90,10 @@ void	free_env(t_env_info *env)
 		env->head = list;
 	}
 	env->size = 0;
+}
+
+void	ft_freedom(t_data *data, int error)
+{
+	(void) data;
+	(void) error;
 }

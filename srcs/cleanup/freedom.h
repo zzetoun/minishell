@@ -14,9 +14,10 @@
 # define FREEDOM_H
 
 void	ft_free_ptr(void *pointer);
-void	ft_close_fd(int	fd[]);
 void	ft_free_array(char **array);
 void	free_env(t_env_info *env);
-void	free_env_data(t_envp *envp);
+void	exit_full(t_data *data, int exit_num);
+void	ft_freedom(t_data *data, int error);
+void	ft_close_fds(t_command *cmds, int close_backups);
 
 #endif

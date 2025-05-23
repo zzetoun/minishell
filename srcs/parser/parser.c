@@ -5,62 +5,83 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/21 15:26:03 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/05/21 15:26:07 by zzetoun          ###   ########.fr       */
+/*   Created: 2025/05/10 16:59:14 by zzetoun           #+#    #+#             */
+/*   Updated: 2025/05/10 17:44:45 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <ctype.h>
-#include <readline/readline.h>
-#include <readline/history.h>
+#include "../include/minishell.h"
 
-static char **append_tok(char **arr, size_t *n, const char *s, size_t len) {
-    char **tmp = realloc(arr, sizeof(*arr)*(*n+2));
-    if (!tmp) { perror("realloc"); exit(1); }
-    arr = tmp;
-    char *tok = strndup(s, len);
-    arr[*n]   = tok;
-    arr[*n+1] = NULL;
-    (*n)++;
-    return (arr);
-}
+// static char	*copy_until_quote(char *line, size_t *i, char quote)
+// {
+//     size_t	start;
 
-char **minishell_split(const char *input)
+// 	start = *i;
+//     (*i)++;
+//     while (line[*i] && line[*i] != quote)
+//         (*i)++;
+//     if (line[*i] == quote)
+//         (*i)++;
+//     return (ft_substr(line, start, *i - start));
+// }
+
+// static char	*copy_until_space(char *line, size_t *i)
+// {
+//     size_t start;
+	
+// 	start = *i;
+//     while (line[*i] && line[*i] != ' ' && line[*i] != '\'' && line[*i] != '\"')
+//         (*i)++;
+// 		return (ft_substr(line, start, *i - start));
+// }
+
+// char **minishell_split(char *input)
+// {
+//     char *line = setup_env_in_line(input);
+//     char **result = NULL;
+//     size_t count = 0;
+//     size_t i = 0;
+
+//     while (line[i])
+//     {
+//         while (line[i] == ' ')
+//             i++;
+//         if (line[i] == '\0')
+//             break;
+//         char *part = NULL;
+//         if (line[i] == '\'' || line[i] == '\"')
+//             part = copy_until_quote(line, &i, line[i]);
+//         else
+//             part = copy_until_space(line, &i);
+
+//         if (part)
+//         {
+//             char **new_result = realloc(result, sizeof(char *) * (count + 2));
+//             if (!new_result)
+//             {
+//                 free(part);
+//                 break;
+//             }
+//             result = new_result;
+//             result[count++] = part;
+//             result[count] = NULL;
+//         }
+//     }
+//     return result;
+// }
+
+
+void	cmd_args_split(t_command *cmd, char *input)
 {
-    char **argv = NULL;
-    size_t argc = 0;
-    const char *p = input;
+	char	*args;
+	int	 idx;
 
-    while (*p) {
-        while (*p && isspace((unsigned char)*p)) p++;
-        if (!*p)
-            break;
-        if ((p[0]=='<' && p[1]=='<') || (p[0]=='>' && p[1]=='>')) {
-            argv = append_tok(argv, &argc, p, 2);
-            p += 2;
-            continue;
-        }
-        if (*p=='<'||*p=='>'||*p=='|') {
-            argv = append_tok(argv, &argc, p, 1);
-            p++;
-            continue;
-        }
-        if (*p=='\''||*p=='"') {
-            char q = *p++;
-            const char *start = p;
-            while (*p && *p!=q) p++;
-            argv = append_tok(argv, &argc, start, p-start);
-            if (*p==q) p++;
-            continue;
-        }
-        const char *start = p;
-        while (*p && !isspace((unsigned char)*p)
-               && *p!='<' && *p!='>' && *p!='|') p++;
-        argv = append_tok(argv, &argc, start, p-start);
-    }
-    return (argv);
+	args = ft_strchr(input, ' ');
+	ft_printf(1, "args: {%s}\n", args);
+	cmd->command = ft_substr(input, 0, ft_strlen(input) - ft_strlen(args));
+	ft_printf(1, "cmd: {%s}\n", cmd->command);
+	cmd->args = ft_split(args, ' ');
+	idx = -1;
+	while (cmd->args && cmd->args[++idx])
+		ft_printf(1, "arg[%d]= {%s}\n", idx, cmd->args[idx]);
 }

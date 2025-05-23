@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-#include <ctype.h>
+
 static void	update_wds(t_data *data, char *wd, t_env_info *env)
 {
 	set_env(env, "OLDPWD", get_env(env, "PWD"));
@@ -68,7 +68,7 @@ int	ft_cd(t_data *data, char **args, t_env_info *env)
 		return (!change_dir(data, path, env));
 	}
 	if (args[1])
-		return (errmsg("cd", NULL, TOARG, EXIT_FAILURE));
+		return (errmsg("cd", NULL, ARGERR03, EXIT_FAILURE));
 	if (str_compare(args[0], "-"))
 	{
 		path = get_env(env, "OLDPWD");

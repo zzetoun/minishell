@@ -26,7 +26,6 @@ int	errmsg(char *cmd, char *detail, char *error, int err_nb)
 	else
 		ft_printf(2, "-Minishell: %s \n", error);
 	return (err_nb);
-	
 }
 
 

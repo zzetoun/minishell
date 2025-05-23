@@ -71,7 +71,7 @@ int	add_new_env(t_env_info *env, char *key, char *value)
 
 	new_env = ft_calloc(1, sizeof(t_envp));
 	if (!new_env)
-	return (free_env(env), errmsg(NULL, NULL, strerror(errno), errno));
+		return (free_env(env), errmsg(NULL, NULL, strerror(errno), errno));
 	new_env->idx = env->size;
 	if (key || value)
 		ft_set_key_value(new_env, NULL, key, value);
