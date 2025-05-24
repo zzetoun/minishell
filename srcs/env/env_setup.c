@@ -50,7 +50,7 @@ int	ft_env_setup(t_env_info *env, char **envp, size_t idx)
 	if (!envp || !*envp)
 		return (ft_env_setup_null(env));
 	last = NULL;
-	while (++idx < ft_darray_len(envp))
+	while (++idx < ft_array_len(envp))
 	{
 		new_env = ft_calloc(1, sizeof(t_envp));
 		if (!new_env)

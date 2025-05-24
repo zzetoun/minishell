@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 16:59:14 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/05/10 17:44:45 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/05/24 16:36:00 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,7 @@
 //     return result;
 // }
 
-
-void	cmd_args_split(t_command *cmd, char *input)
+bool	cmd_args_split(t_command *cmd, char *input)
 {
 	char	*args;
 	int	 idx;
@@ -84,4 +83,5 @@ void	cmd_args_split(t_command *cmd, char *input)
 	idx = -1;
 	while (cmd->args && cmd->args[++idx])
 		ft_printf(1, "arg[%d]= {%s}\n", idx, cmd->args[idx]);
+	return (true);
 }

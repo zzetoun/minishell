@@ -6,10 +6,9 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 17:01:55 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/05/23 17:02:18 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/05/24 14:18:24 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../include/minishell.h"
 

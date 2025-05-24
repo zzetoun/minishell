@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 16:47:56 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/05/23 19:48:00 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/05/24 16:45:01 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,11 @@ int	redirect_io(t_io_fds *io)
 			status = errmsg("dup2", io->outfile, strerror(errno), 1);
 	return (status);
 }
-/* check_infile_outfile:
+/* check_io:
 *	Checks if the infile and outfile are set correctly.
 *	Returns 1 on success, 0 on failure.
 */
-int	check_infile_outfile(t_io_fds *io)
+bool	check_io(t_io_fds *io)
 {
 	if (!io || (!io->infile && !io->outfile))
 		return (EXIT_SUCCESS);

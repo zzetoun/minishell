@@ -52,7 +52,7 @@ void	ft_close_fds(t_command *cmds, int close_backups)
 
 void	ft_free_array(char **array)
 {
-	char **ptr;
+	char	**ptr;
 
 	if (!array)
 		return ;
@@ -65,6 +65,7 @@ void	ft_free_array(char **array)
 	free(array);
 	array = NULL;
 }
+
 void	ft_free_ptr(void *pointer)
 {
 	if (pointer != NULL)
@@ -92,8 +93,25 @@ void	free_env(t_env_info *env)
 	env->size = 0;
 }
 
-void	ft_freedom(t_data *data, int error)
+void	ft_freedom(t_data *data, bool clear_history)
 {
-	(void) data;
-	(void) error;
+	if (data && data->user_input)
+	{
+		ft_free_ptr(data->user_input);
+		data->user_input = NULL;
+	}
+	// if (data && data->token)
+	// 	clear_token();
+	// if (data && data->cmd)
+	// 	clear_cmd();
+	if (clear_history)
+	{
+		if (data && data->working_dir)
+			ft_free_ptr(data->working_dir);
+		if (data && data->old_working_dir)
+			ft_free_ptr(data->old_working_dir);
+		if (data && data->env)
+			free_env(data->env);
+		rl_clear_history();
+	}
 }

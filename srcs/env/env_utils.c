@@ -12,18 +12,6 @@
 
 #include "../include/minishell.h"
 
-size_t	ft_darray_len(char **str)
-{
-	size_t	size;
-
-	size = 0;
-	if (!str || !*str)
-		return (0);
-	while (str[size])
-		size++;
-	return (size);
-}
-
 int	env_key(t_env_info *env, char *key)
 {
 	t_envp	*envp;

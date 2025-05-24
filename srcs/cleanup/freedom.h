@@ -17,7 +17,7 @@ void	ft_free_ptr(void *pointer);
 void	ft_free_array(char **array);
 void	free_env(t_env_info *env);
 void	exit_full(t_data *data, int exit_num);
-void	ft_freedom(t_data *data, int error);
+void	ft_freedom(t_data *data, bool clear_history);
 void	ft_close_fds(t_command *cmds, int close_backups);
 
 #endif

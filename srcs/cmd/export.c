@@ -29,12 +29,7 @@ static int	set_export(t_env_info *env, char *arg)
 				result = add_new_env(env, s, "");
 		}
 		else
-		{
-			//I need to pars ft_strchr(arg, '=') + 1
-			// if It's only single " or single ' error message
-			// if it's closed I need to skip it and add it without it
 			result = set_env(env, s, ft_strchr(arg, '=') + 1);
-		}
 		free(s);
 	}
 	else if (env_key(env, arg))
@@ -48,7 +43,7 @@ static char	**ft_env_to_export(t_envp *en, size_t size)
 
 	s = ft_calloc(size + 1, sizeof(char *));
 	if (!s)
-		return (0);
+		return (NULL);
 	while (en)
 	{
 		if (ft_strchr(en->str, '='))

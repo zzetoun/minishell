@@ -13,12 +13,9 @@
 #ifndef ENV_H
 # define ENV_H
 
-size_t	ft_darray_len(char **str);
-
 int		ft_env_setup_null(t_env_info *env);
 int		env_key(t_env_info *env, char *key);
 int		set_env(t_env_info *env, char *key, char *value);
-int		ft_key_cmp(const char *str, const char *key);
 int		ft_env_setup(t_env_info *env, char **envp, size_t idx);
 int		add_new_env(t_env_info *env, char *key, char *value);
 

@@ -1,14 +1,14 @@
-/******************************************************************************/
-/*																			*/
-/*														:::	  ::::::::   */
-/*   minishell.h										:+:	  :+:	:+:   */
-/*													+:+ +:+		 +:+	 */
-/*   By: zzetoun <zzetoun@student.42abudhabi.ae>	+#+  +:+	   +#+		*/
-/*												+#+#+#+#+#+   +#+		   */
-/*   Created: 2025/04/08 17:02:27 by zzetoun		   #+#	#+#			 */
-/*   Updated: 2025/04/30 21:38:35 by zzetoun		  ###   ########.fr	   */
-/*																			*/
-/******************************************************************************/
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/24 14:46:46 by zzetoun           #+#    #+#             */
+/*   Updated: 2025/05/24 14:46:46 by zzetoun          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -51,22 +51,21 @@
 # define PARSER01 "parsing ERROR: no command to execute!"
 # define CMDERR01 "command not found"
 # define CMDERR02 "is a directory"
-# define ARGEER01 "ERROR: use ./minishell"
-# define ARGEER02 "ERROR: use ./minishell -c \"input line\""
-# define ARGERR03 "ERROR: too many arguments"
-# define ARGERR04 "ERROR: numeric argument required"
-# define ENVERRO "ERROR: Could not initialize environment"
+# define ARGERR0R "no options or arguments allowed"
+# define EXITRR01 "numeric argument required"
+# define EXITRR02 "too many arguments"
+# define ENVERR01 "ERROR: Could not initialize environment"
+# define ENVERR02 "No such file or directory"
 # define WDERROR "ERROR: Could not initialize working directories"
 # define CDERROR "cd: error retrieving current directory"
 # define GETCWDE "getcwd: cannot access parent directories"
 # define MINIERID "not a valid identifier"
 # define MINIEROP "invalid option"
-# define ALLOERRO "ERROR: allocation fails"
 # define CMD_NOT_FOUND 127
 # define CMD_NOT_EXECU 128
 
-extern int	final_exit_code;
+extern int	g_final_exit_code;
 
-void	setup_minishell(t_token *token);
+bool		setup_mini(t_data *data, char **envp);
 
 #endif

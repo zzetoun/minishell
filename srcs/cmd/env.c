@@ -42,24 +42,23 @@ int	ft_env(t_env_info *env, char **args, size_t idx)
 {
 	char	**envp;
 	char	*path;
-
-	if (!args)
+	ft_printf(1, "I enter env\n");
+	if (args)
+		return (errmsg("env", NULL, ARGERR0R, EXIT_FAILURE));
+	if (get_env(env, "PATH"))
 	{
-		if (get_env(env, "PATH"))
-		{
-			envp = env_tostr(env);
-			path = find_path(env);
-			while (path && envp[++idx])
-				ft_printf(1, "%s\n", envp[idx]);
-			ft_free_array(envp);
-			if (!path)
-				return (errmsg("env", NULL, "command not found", 127));
-			free(path);
-		}
-		else
-			return (errmsg("env", NULL, "No such file or directory", 127));
+		envp = env_tostr(env);
+		if (!envp)
+			return (errmsg("malloc", NULL, MALLERR, EXIT_FAILURE));
+		path = find_path(env);
+		while (path && envp[++idx])
+			ft_printf(1, "%s\n", envp[idx]);
+		ft_free_array(envp);
+		if (!path)
+			return (errmsg("env", NULL, "command not found", CMD_NOT_FOUND));
+		free(path);
 	}
 	else
-		return (errmsg("env", NULL, "no options or arguments", 1));
-	return (0);
+		return (errmsg("env", NULL, "No such file or directory", CMD_NOT_FOUND));
+	return (EXIT_SUCCESS);
 }

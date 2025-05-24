@@ -14,10 +14,7 @@
 # define CONTROLLERS_H
 
 /* ============ ERROR & EXIT HANDLING ============ */
-void	ft_free_fd(t_command *cmd);
-void	ft_prnt_error(int option, char *error);
-void	exit_error(int option, char **array, char *error);
-
+bool	how_to_message(bool return_val);
 int		errmsg(char *cmd, char *detail, char *error, int err_nb);
 
 #endif

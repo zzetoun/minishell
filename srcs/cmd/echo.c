@@ -6,55 +6,60 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 19:03:45 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/05/23 14:16:24 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/05/24 14:53:37 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-static void echo_var_prnt(t_env_info *env, char *arg)
+/* new_line_check:
+*	Returns true if arg is a dash followed only by 
+*   one or more 'n' chars (e.g. "-n", "-nnn").
+*/
+static bool	new_line_check(char *arg)
 {
-	if (arg && *arg && *arg == '?')
-		ft_printf(1, "%d", errno);
-	else if (arg && *arg && !env_key(env, arg))
-		ft_printf(1, "%s", get_env(env, arg));
-}
-	
-static void	echo_s_prnt(char *arg)
-{
-	while (arg && *arg)
-	{
-		if (*arg != '\'')
-			ft_printf(1, "%c", *arg);
-		arg++;
-	}
-}
+	int	idx;
 
-static void	echo_prnt(t_env_info *env, char *arg)
-{
-	if (*arg == '\'')
-		return (echo_s_prnt(++arg));
-	else if (*arg == '$')
-		return (echo_var_prnt(env, ++arg));
+	idx = 0;
+	if (arg[idx++] != '-')
+		return (false);
+	while (arg[idx] && arg[idx] == 'n')
+		idx++;
+	if (!arg[idx])
+		return (true);
 	else
-		return (echo_s_prnt(arg));
+		return (false);
 }
-
-int	ft_echo(t_env_info *env, char **args)
+/* ft_echo:
+*	Prints all args separated by spaces and adds a newline unless "-n"
+*   flag was first.
+*	Supports only the single "-n" style option. Always returns EXIT_SUCCESS.
+*	prints space after each args, last one is not printed.
+*/
+int	ft_echo(char **args)
 {
-	char	*new_line;
+	bool	new_line;
+	size_t	array_size;
 
 	new_line = NULL;
-	if (args && *args && str_compare(*args, "-n"))
-		new_line = *args;
+	if (args && *args && new_line_check(*args))
+	{
+		new_line = true;
+		args++;
+	}
 	else
-		new_line = NULL;
+		new_line = false;
+	array_size = ft_array_len(args);
 	while (args && *args)
 	{
-		echo_prnt(env, *args);
+		if (array_size > 1)
+			ft_printf(1, "%s ", *args);
+		else
+			ft_printf(1, "%s", *args);
 		args++;
+		array_size--;
 	}
 	if (!new_line)
 		ft_printf(1, "\n");
-	return (0);
+	return (EXIT_SUCCESS);
 }

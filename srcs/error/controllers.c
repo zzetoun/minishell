@@ -12,6 +12,11 @@
 
 #include "../include/minishell.h"
 
+/* errmsg:
+*	Prints an error message to the standard error, prefixed with the
+*	program name, for all cases
+*	Returns with the specified error number.
+*/
 int	errmsg(char *cmd, char *detail, char *error, int err_nb)
 {
 	if (detail && cmd)
@@ -27,19 +32,12 @@ int	errmsg(char *cmd, char *detail, char *error, int err_nb)
 		ft_printf(2, "-Minishell: %s \n", error);
 	return (err_nb);
 }
-
-
-// void	exit_error(int	option, char **array, char *error)
-// {
-// 	ft_free_array(array);
-// 	ft_prnt_error(option, error);
-// }
-
-// void	ft_prnt_error(int	option, char *error)
-// {
-// 	if (option == 1)
-// 		perror(error);
-// 	else
-// 		ft_printf(2, "%s\n", error);
-// 	exit(EXIT_FAILURE);
-// }
+/* how_to_message:
+*	Prints a how_to message. Used if start-up arguments are invalid.
+*/
+bool	how_to_message(bool return_val)
+{
+	ft_printf(2, "Usage: ./minishell\n");
+	ft_printf(2, "Usage: ./minishell -c \"input line\"\n");
+	return (return_val);
+}

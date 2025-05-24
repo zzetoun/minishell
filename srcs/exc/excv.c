@@ -6,14 +6,14 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 14:50:44 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/05/23 20:54:00 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/05/24 17:04:52 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "../include/minishell.h"
 
-int	final_exit_code;
+int	g_final_exit_code;
 
 /* get_children:
 *	Waits for children to terminate after cleaning up fds and the command
@@ -83,17 +83,21 @@ static int	create_children(t_data *data)
 */
 static int	prep_for_exec(t_data *data)
 {
+	ft_printf(1, "I am inside excute in prepareing\n");
 	if (!data || !data->cmd)
 		return (EXIT_SUCCESS);
+	ft_printf(1, "I am inside excute in prepareing after if (!data || !data->cmd)\n");
 	if (!data->cmd->command)
 	{
 		if (data->cmd->io_fds
-			&& !check_infile_outfile(data->cmd->io_fds))
+			&& !check_io(data->cmd->io_fds))
 			return (EXIT_FAILURE);
+			ft_printf(1, "I am inside excute in prepareing after if (data->cmd->io_fds && !check_io(data->cmd->io_fds))\n");
 		return (EXIT_SUCCESS);
 	}
 	if (!create_pipes(data))
 		return (EXIT_FAILURE);
+	ft_printf(1, "I am inside excute in prepareing after create_pipes\n");
 	return (CMD_NOT_FOUND);
 }
 
@@ -107,11 +111,13 @@ int	execute(t_data *data)
 {
 	int	ret;
 
+	ft_printf(1, "I am inside excute before prepareing\n");
 	ret = prep_for_exec(data);
+	ft_printf(1, "I am inside excute after prepareing\n");
 	if (ret != CMD_NOT_FOUND)
 		return (ret);
 	if (!data->cmd->pipe_output && !data->cmd->prev
-		&& check_infile_outfile(data->cmd->io_fds))
+		&& check_io(data->cmd->io_fds))
 	{
 		redirect_io(data->cmd->io_fds);
 		ret = execute_cmd(data, data->cmd);

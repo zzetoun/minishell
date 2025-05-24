@@ -6,12 +6,13 @@
 #    By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/03 17:24:30 by zzetoun           #+#    #+#              #
-#    Updated: 2025/05/02 19:00:04 by zzetoun          ###   ########.fr        #
+#    Updated: 2025/05/24 14:06:01 by zzetoun          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
-SRCS	= ft_bzero.c		\
+SRCS	= ft_array_len.c	\
+		  ft_bzero.c		\
 		  ft_calloc.c		\
 		  ft_strdup.c		\
 		  ft_memset.c		\

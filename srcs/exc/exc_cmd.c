@@ -10,9 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../include/minishell.h"
 
+/* str_compare:
+*	Compares two strings for an exact match (both content and length).
+*	Behavior:
+*		1. If either s1 or s2 is NULL, returns its error code (1).
+*		2. Otherwise, it checks that the first strlen(s2) bytes of s1 
+*          and s2 are identical.
+*		3. It also verifies that(s1), (s2), that both
+*		   are exactly the same length.
+*	Return value:
+*		– 1 if both strings are non-NULL, same length, and identical.
+*		– 0 if both strings are non-NULL but differ in length or content.
+*		– -1 if an input pointer is NULL (error path via errmsg()).
+*/
 int	str_compare(char const *s1, char const *s2)
 {
 	int	result;
@@ -24,6 +36,11 @@ int	str_compare(char const *s1, char const *s2)
 	return (result);
 }
 
+/* execute_cmd:
+*	Executes the given command if it is a builtin command.
+*	Returns -1 if the command is not a builtin command.
+*	Returns 0 or 1 if the builtin command succeeded or failed.
+*/
 int	execute_cmd(t_data *data, t_command *cmd)
 {
 	int	value;
@@ -40,11 +57,12 @@ int	execute_cmd(t_data *data, t_command *cmd)
 	else if (str_compare(cmd->command, "env"))
 		value = ft_env(data->env, cmd->args, -1);
 	else if (str_compare(cmd->command, "echo"))
-		value = ft_echo(data->env, cmd->args);
+		value = ft_echo(cmd->args);
 	else if (str_compare(cmd->command, "exit"))
 		value = ft_exit(data, cmd->args);
 	return (value);
 }
+
 /* execute_sys_bin:
 *	Executes the command's system binary file if it can be found
 *	among the environment executable paths.
@@ -103,7 +121,7 @@ int	execute_command(t_data *data, t_command *cmd)
 
 	if (!cmd || !cmd->command)
 		exit_full(data, errmsg("child", NULL, PARSER01, EXIT_FAILURE));
-	if (!check_infile_outfile(cmd->io_fds))
+	if (!check_io(cmd->io_fds))
 		exit_full(data, EXIT_FAILURE);
 	set_pipe_fds(data->cmd, cmd);
 	redirect_io(cmd->io_fds);

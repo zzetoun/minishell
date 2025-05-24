@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 16:48:20 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/05/23 20:54:11 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/05/24 17:07:28 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	close_pipe_fds(t_command *cmds, t_command *_cmd)
 */
 int	create_pipes(t_data *data)
 {
-	int			*fd;
+	int			*fd;	
 	t_command	*tmp;
 
 	tmp = data->cmd;
@@ -49,16 +49,18 @@ int	create_pipes(t_data *data)
 	{
 		if (tmp->pipe_output || (tmp->prev && tmp->prev->pipe_output))
 		{
-			fd = malloc(sizeof * fd * 2);
+			fd = ft_calloc(2, sizeof *fd);
 			if (!fd || pipe(fd) != 0)
 			{
 				ft_freedom(data, 0);
+				ft_printf(1, "I am inside create pipe will exit fail\n");
 				return (0);
 			}
 			tmp->pipe_fd = fd;
 		}
 		tmp = tmp->next;
 	}
+	ft_printf(1, "I am inside create pipe will exit ok\n");
 	return (1);
 }
 

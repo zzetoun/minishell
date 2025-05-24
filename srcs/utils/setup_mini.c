@@ -30,19 +30,26 @@ static int	init_directory(t_data *data)
 	return (0);
 }
 
-int	setup_mini(t_data *data, char **envp)
+bool	setup_mini(t_data *data, char **envp)
 {
 	if (ft_env_setup(data->env, envp, -1))
-		return (errmsg("Fatal", NULL, ENVERRO, EXIT_FAILURE));
+	{
+		errmsg("Fatal", NULL, ENVERR01, EXIT_FAILURE);
+		return (false);
+	}
 	if (init_directory(data))
-		return (errmsg("Fatal", NULL, WDERROR, EXIT_FAILURE));
+	{
+		errmsg("Fatal", NULL, WDERROR, EXIT_FAILURE);
+		return (false);
+	}
 	data->token = NULL;
 	data->user_input = NULL;
 	data->cmd = NULL;
 	data->pid = -1;
 	errno = 0;
-	//final_exit_code = 0;
-	return (0);
+	g_final_exit_code = 0;
+
+	return (true);
 }
 
 void	setup_io(t_command *cmd)
