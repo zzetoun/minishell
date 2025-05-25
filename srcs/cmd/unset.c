@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 22:58:21 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/05/10 16:08:36 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/05/25 20:10:13 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,16 @@ static void	free_env_in(t_env_info *env, char *key)
 
 int	ft_unset(t_env_info *env, char **args)
 {
-	if (!args || !*args)
+	int	idx;
+
+	idx = 1;
+	if (!args || !*args || !args[idx])
 		return (1);
-	while (args && *args)
+	while (args[idx])
 	{
-		if (!export_args_check(*args, "unset"))
-			free_env_in(env, *args);
-		args++;
+		if (!export_args_check(args[idx], "unset"))
+			free_env_in(env, args[idx]);
+		idx++;
 	}
 	return (1);
 }

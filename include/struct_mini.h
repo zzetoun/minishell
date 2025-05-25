@@ -39,7 +39,7 @@ typedef struct s_envp
 typedef struct s_env_info
 {
 	t_envp		*head;
-	int			shlvl;
+	int			shlvl; // need to find away to pass it later on
 	size_t		size;
 }	t_env_info;
 

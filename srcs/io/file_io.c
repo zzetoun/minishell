@@ -6,10 +6,9 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 16:47:56 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/05/24 16:45:01 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/05/25 19:39:42 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../include/minishell.h"
 
@@ -42,6 +41,7 @@ int	restore_io(t_io_fds *io)
 	}
 	return (status);
 }
+
 /* redirect_io:
 *	Duplicates the input and output fds to the standard input and output.
 *	Backs up the standard input and output before replacing them in order
@@ -57,18 +57,19 @@ int	redirect_io(t_io_fds *io)
 		return (status);
 	io->stdin_backup = dup(STDIN_FILENO);
 	if (io->stdin_backup == -1)
-		status = errmsg("dup", "stdin backup", strerror(errno), 1);
+		status = errmsg("dup", "stdin backup", strerror(errno), errno);
 	io->stdout_backup = dup(STDOUT_FILENO);
 	if (io->stdout_backup == -1)
-		status = errmsg("dup", "stdout backup", strerror(errno), 1);
+		status = errmsg("dup", "stdout backup", strerror(errno), errno);
 	if (io->fd_in != -1)
 		if (dup2(io->fd_in, STDIN_FILENO) == -1)
-			status = errmsg("dup2", io->infile, strerror(errno), 1);
+			status = errmsg("dup2", io->infile, strerror(errno), errno);
 	if (io->fd_out != -1)
 		if (dup2(io->fd_out, STDOUT_FILENO) == -1)
-			status = errmsg("dup2", io->outfile, strerror(errno), 1);
+			status = errmsg("dup2", io->outfile, strerror(errno), errno);
 	return (status);
 }
+
 /* check_io:
 *	Checks if the infile and outfile are set correctly.
 *	Returns 1 on success, 0 on failure.
@@ -76,9 +77,9 @@ int	redirect_io(t_io_fds *io)
 bool	check_io(t_io_fds *io)
 {
 	if (!io || (!io->infile && !io->outfile))
-		return (EXIT_SUCCESS);
+		return (true);
 	if ((io->infile && io->fd_in == -1)
 		|| (io->outfile && io->fd_out == -1))
-		return (EXIT_FAILURE);
-	return (EXIT_SUCCESS);
+		return (false);
+	return (true);
 }

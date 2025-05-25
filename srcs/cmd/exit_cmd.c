@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 22:49:06 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/05/24 15:53:37 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/05/25 20:13:41 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,8 @@ static bool	silent_exit_check(t_data *data)
 /* ft_exit:
 *	Executes the exit builtin.
 *	If alone, prints exit and exits the shell with the provided exit code, or 0.
-*	If piped, exits the child process with the provided exit code and does not exit
+*	If piped, exits the child process with the provided exit code and 
+*	does not exit
 *	minishell.
 *	In case of failure due to invalid arguments, does not exit the shell
 *	and returns an error exit code (1 or 2) instead.
@@ -86,14 +87,14 @@ int	ft_exit(t_data *data, char **args)
 	error = false;
 	if (!silent_exit_check(data) && data->interactive)
 		ft_printf(2, "exit\n");
-	if (!args || !args[0])
+	if (!args || !args[1])
 		exit_code = g_final_exit_code;
 	else
 	{
-		exit_code = get_exit_code(args[0], &error);
+		exit_code = get_exit_code(args[1], &error);
 		if (error)
-			exit_code = errmsg("exit", args[0], EXITRR01, 255);
-		else if (args[1])
+			exit_code = errmsg("exit", args[1], EXITRR01, 255);
+		else if (args[2])
 			return (errmsg("exit", NULL, EXITRR02, 1));
 	}
 	exit_full(data, exit_code);

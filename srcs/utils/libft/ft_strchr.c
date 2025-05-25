@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 18:06:23 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/05/07 18:06:28 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/05/25 19:01:47 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,18 @@
 
 char	*ft_strchr(const char *s, int c)
 {
-	int	i;
+	int	idx;
 
 	if (!s)
 		return (NULL);
 	if (!(unsigned char)c)
 		return ((char *)&s[ft_strlen(s)]);
-	i = 0;
-	while (s[i] != '\0')
+	idx = 0;
+	while (s[idx] != '\0')
 	{
-		if (s[i] == (unsigned char)c)
-			return ((char *)&s[i]);
-		i++;
+		if (s[idx] == (unsigned char)c)
+			return ((char *)&s[idx]);
+		idx++;
 	}
 	return (NULL);
 }

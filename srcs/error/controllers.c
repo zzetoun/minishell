@@ -32,6 +32,7 @@ int	errmsg(char *cmd, char *detail, char *error, int err_nb)
 		ft_printf(2, "-Minishell: %s \n", error);
 	return (err_nb);
 }
+
 /* how_to_message:
 *	Prints a how_to message. Used if start-up arguments are invalid.
 */

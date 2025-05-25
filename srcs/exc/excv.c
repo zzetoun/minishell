@@ -6,14 +6,11 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 14:50:44 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/05/24 17:04:52 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/05/25 19:47:55 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../include/minishell.h"
-
-int	g_final_exit_code;
 
 /* get_children:
 *	Waits for children to terminate after cleaning up fds and the command
@@ -50,6 +47,7 @@ static int	get_children(t_data *data)
 		status = save_status;
 	return (status);
 }
+
 /* create_children:
 *	Creates a child process for each command to execute, except in the
 *	case of a builtin command that is not piped, which executes in the
@@ -67,9 +65,9 @@ static int	create_children(t_data *data)
 	{
 		data->pid = fork();
 		if (data->pid == -1)
-			return (errmsg("fork", NULL, strerror(errno), EXIT_FAILURE));
+			return (errmsg("fork", NULL, strerror(errno), errno));
 		else if (data->pid == 0)
-			execute_cmd(data, cmd);
+			execute_command(data, cmd);
 		cmd = cmd->next;
 	}
 	return (get_children(data));
@@ -83,21 +81,16 @@ static int	create_children(t_data *data)
 */
 static int	prep_for_exec(t_data *data)
 {
-	ft_printf(1, "I am inside excute in prepareing\n");
 	if (!data || !data->cmd)
 		return (EXIT_SUCCESS);
-	ft_printf(1, "I am inside excute in prepareing after if (!data || !data->cmd)\n");
 	if (!data->cmd->command)
 	{
-		if (data->cmd->io_fds
-			&& !check_io(data->cmd->io_fds))
+		if (data->cmd->io_fds && !check_io(data->cmd->io_fds))
 			return (EXIT_FAILURE);
-			ft_printf(1, "I am inside excute in prepareing after if (data->cmd->io_fds && !check_io(data->cmd->io_fds))\n");
 		return (EXIT_SUCCESS);
 	}
 	if (!create_pipes(data))
 		return (EXIT_FAILURE);
-	ft_printf(1, "I am inside excute in prepareing after create_pipes\n");
 	return (CMD_NOT_FOUND);
 }
 
@@ -111,16 +104,14 @@ int	execute(t_data *data)
 {
 	int	ret;
 
-	ft_printf(1, "I am inside excute before prepareing\n");
 	ret = prep_for_exec(data);
-	ft_printf(1, "I am inside excute after prepareing\n");
 	if (ret != CMD_NOT_FOUND)
 		return (ret);
 	if (!data->cmd->pipe_output && !data->cmd->prev
 		&& check_io(data->cmd->io_fds))
 	{
 		redirect_io(data->cmd->io_fds);
-		ret = execute_cmd(data, data->cmd);
+		ret = execute_bcmd(data, data->cmd);
 		restore_io(data->cmd->io_fds);
 	}
 	if (ret != CMD_NOT_FOUND)

@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 18:06:49 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/05/07 18:07:10 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/05/25 19:21:24 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,8 @@ static char	**ft_assign(const char *s, char c, char **sp_str)
 		while (s[idx] && s[idx] != c)
 			sp_str[jdx][kdx++] = s[idx++];
 		if (kdx > 0)
-			sp_str[jdx++][kdx] = '\0';
+			jdx++;
 	}
-	sp_str[jdx] = NULL;
 	return (sp_str);
 }
 

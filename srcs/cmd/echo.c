@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 19:03:45 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/05/24 14:53:37 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/05/25 20:12:09 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ static bool	new_line_check(char *arg)
 	else
 		return (false);
 }
+
 /* ft_echo:
 *	Prints all args separated by spaces and adds a newline unless "-n"
 *   flag was first.
@@ -39,24 +40,26 @@ static bool	new_line_check(char *arg)
 int	ft_echo(char **args)
 {
 	bool	new_line;
+	int		idx;
 	size_t	array_size;
 
 	new_line = NULL;
-	if (args && *args && new_line_check(*args))
+	idx = 1;
+	if (args && *args && new_line_check(args[idx]))
 	{
 		new_line = true;
-		args++;
+		idx++;
 	}
 	else
 		new_line = false;
 	array_size = ft_array_len(args);
-	while (args && *args)
+	while (args[idx])
 	{
 		if (array_size > 1)
-			ft_printf(1, "%s ", *args);
+			ft_printf(1, "%s ", args[idx]);
 		else
-			ft_printf(1, "%s", *args);
-		args++;
+			ft_printf(1, "%s", args[idx]);
+		idx++;
 		array_size--;
 	}
 	if (!new_line)

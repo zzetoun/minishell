@@ -108,22 +108,22 @@ static void	export_print(char **envp, size_t size)
 int	ft_export(t_env_info *env, char **args)
 {
 	char	**envp;
-	char	*arg;
 	int		error;
+	int		idx;
 
 	error = 0;
+	idx = 1;
 	envp = ft_env_to_export(env->head, env->size);
 	if (!envp)
 		return (error);
-	if (!args || !*args)
+	if (!args || !*args || !args[idx])
 		export_print(envp, env->size);
-	while (args && *args)
+	while (args[idx])
 	{
-		arg = *args;
-		error = export_args_check(arg, "export");
+		error = export_args_check(args[idx], "export");
 		if (!error)
-			error = set_export(env, arg);
-		args++;
+			error = set_export(env, args[idx]);
+		idx++;
 	}
 	return (error);
 }

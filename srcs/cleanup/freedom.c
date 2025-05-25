@@ -36,7 +36,25 @@
 // 	}
 // }
 
-void	ft_close_fds(t_command *cmds, int close_backups)
+void	ft_free_io(t_io_fds *io)
+{
+	if (!io)
+		return ;
+	restore_io(io);
+	if (io->heredoc_delimiter)
+	{
+		unlink(io->infile);
+		ft_free_ptr(io->heredoc_delimiter);
+	}
+	if (io->infile)
+		ft_free_ptr(io->infile);
+	if (io->outfile)
+		ft_free_ptr(io->outfile);
+	if (io)
+		ft_free_ptr(io);
+}
+
+void	ft_close_fds(t_command *cmds, bool close_backups)
 {
 	if (cmds->io_fds)
 	{

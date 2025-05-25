@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 16:48:20 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/05/24 17:07:28 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/05/25 19:40:51 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@ void	close_pipe_fds(t_command *cmds, t_command *_cmd)
 		if (cmds != _cmd && cmds->pipe_fd)
 		{
 			close(cmds->pipe_fd[0]);
+			cmds->pipe_fd[0] = -1;
 			close(cmds->pipe_fd[1]);
+			cmds->pipe_fd[1] = -1;
 		}
 		cmds = cmds->next;
 	}
@@ -49,18 +51,16 @@ int	create_pipes(t_data *data)
 	{
 		if (tmp->pipe_output || (tmp->prev && tmp->prev->pipe_output))
 		{
-			fd = ft_calloc(2, sizeof *fd);
+			fd = ft_calloc(2, sizeof(*fd));
 			if (!fd || pipe(fd) != 0)
 			{
 				ft_freedom(data, 0);
-				ft_printf(1, "I am inside create pipe will exit fail\n");
 				return (0);
 			}
 			tmp->pipe_fd = fd;
 		}
 		tmp = tmp->next;
 	}
-	ft_printf(1, "I am inside create pipe will exit ok\n");
 	return (1);
 }
 
@@ -73,14 +73,14 @@ int	create_pipes(t_data *data)
 *		pipe_fd[1] = write end of pipe.
 *	Returns 1 when the pipe file descriptors are set.
 */
-int	set_pipe_fds(t_command *cmds, t_command *c)
+int	set_pipe_fds(t_command *cmds, t_command *_cmd)
 {
-	if (!c)
+	if (!_cmd)
 		return (0);
-	if (c->prev && c->prev->pipe_output)
-		dup2(c->prev->pipe_fd[0], STDIN_FILENO);
-	if (c->pipe_output)
-		dup2(c->pipe_fd[1], STDOUT_FILENO);
-	close_pipe_fds(cmds, c);
+	if (_cmd->prev && _cmd->prev->pipe_output)
+		dup2(_cmd->prev->pipe_fd[0], STDIN_FILENO);
+	if (_cmd->pipe_output)
+		dup2(_cmd->pipe_fd[1], STDOUT_FILENO);
+	close_pipe_fds(cmds, _cmd);
 	return (1);
 }

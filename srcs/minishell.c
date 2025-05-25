@@ -41,19 +41,17 @@ static bool	first_check(t_data *data, int ac, char **av)
 */
 void	minishell_interactive(t_data *data)
 {
-	/* remove after parsting */
-	data->cmd = ft_calloc(1, sizeof(t_command));
-	setup_io(data->cmd);
-	/* remove ends here after parsting */
 	while (1)
 	{
 		set_signals_interactive();
 		data->user_input = readline(PROMPT);
+		add_history(data->user_input); // ---->>> should be moved inside parsing after parsing is chechked <<<-----
 		set_signals_noninteractive();
-		if (cmd_args_split(data->cmd, data->user_input)) // -->>>>> parsing is here  <<<<<----
+		if (cmd_args_split(data, data->user_input)) // -->>>>> parsing is here  <<<<<----
 			g_final_exit_code = execute(data);
 		else
 			g_final_exit_code = 1;
+		ft_printf(1, ">> g_final_exit_code : [%d] <<\n", g_final_exit_code);
 		ft_freedom(data, false);
 	}
 }
@@ -81,7 +79,7 @@ void	minishell_noninteractive(t_data *data, char *arg)
 	while (user_inputs[++idx])
 	{
 		data->user_input = ft_strdup(user_inputs[idx]);
-		if (cmd_args_split(data->cmd, data->user_input)) // -->>>>> parsing is here  <<<<<----
+		if (cmd_args_split(data, data->user_input)) // -->>>>> parsing is here  <<<<<----
 			g_final_exit_code = execute(data);
 		else
 			g_final_exit_code = 1;
@@ -139,7 +137,7 @@ int	main(int ac, char **av, char **envp)
 // 		data.user_input = readline(PROMPT);
 // 		add_history(data.user_input);
 // 		cmd_args_split(&cmd, data.user_input);
-// 		errno = execute_cmd(&data, &cmd);
+// 		errno = execute_bcmd(&data, &cmd);
 // 	}
 // 	return (0);
 // }

@@ -58,18 +58,18 @@ int	ft_cd(t_data *data, char **args, t_env_info *env)
 {
 	char	*path;
 
-	if (!args || !args[0] || ft_isspace(args[0][0])
-		|| args[0][0] == '\0' || str_compare(args[0], "--")
-		|| str_compare(args[0], "~"))
+	if (!args || !args[1] || ft_isspace(args[1][0])
+		|| args[1][0] == '\0' || str_compare(args[1], "--")
+		|| str_compare(args[1], "~"))
 	{
 		path = get_env(env, "HOME");
 		if (!path || *path == '\0' || ft_isspace(*path))
 			return (errmsg("cd", NULL, "HOME not set", EXIT_FAILURE));
 		return (!change_dir(data, path, env));
 	}
-	if (args[1])
+	if (args[2])
 		return (errmsg("cd", NULL, ARGERR0R, EXIT_FAILURE));
-	if (str_compare(args[0], "-"))
+	if (str_compare(args[1], "-"))
 	{
 		path = get_env(env, "OLDPWD");
 		if (!path)
@@ -78,5 +78,5 @@ int	ft_cd(t_data *data, char **args, t_env_info *env)
 			ft_printf(1, "%s\n", path);
 		return (!change_dir(data, path, env));
 	}
-	return (!change_dir(data, args[0], env));
+	return (!change_dir(data, args[1], env));
 }

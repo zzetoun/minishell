@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 14:51:57 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/05/23 20:07:30 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/05/25 19:39:49 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,3 @@ int	check_cmd_not_found(t_data *data, t_command *cmd)
 		return (errmsg(cmd->command, NULL, strerror(errno), CMD_NOT_EXECU));
 	return (EXIT_SUCCESS);
 }
-

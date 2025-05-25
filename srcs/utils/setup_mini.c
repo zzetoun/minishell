@@ -48,7 +48,6 @@ bool	setup_mini(t_data *data, char **envp)
 	data->pid = -1;
 	errno = 0;
 	g_final_exit_code = 0;
-
 	return (true);
 }
 
@@ -56,9 +55,12 @@ void	setup_io(t_command *cmd)
 {
 	if (!cmd->io_fds)
 	{
-		cmd->io_fds = calloc(1, sizeof * cmd->io_fds);
+		cmd->io_fds = ft_calloc(1, sizeof * cmd->io_fds);
 		if (!cmd->io_fds)
+		{
+			errmsg("malloc", NULL, MALLERR, EXIT_FAILURE);
 			return ;
+		}
 		cmd->io_fds->infile = NULL;
 		cmd->io_fds->outfile = NULL;
 		cmd->io_fds->heredoc_delimiter = NULL;

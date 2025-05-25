@@ -12,6 +12,8 @@
 
 #include "../include/minishell.h"
 
+int	g_final_exit_code;
+
 /* str_compare:
 *	Compares two strings for an exact match (both content and length).
 *	Behavior:
@@ -36,12 +38,12 @@ int	str_compare(char const *s1, char const *s2)
 	return (result);
 }
 
-/* execute_cmd:
+/* execute_bcmd:
 *	Executes the given command if it is a builtin command.
 *	Returns -1 if the command is not a builtin command.
 *	Returns 0 or 1 if the builtin command succeeded or failed.
 */
-int	execute_cmd(t_data *data, t_command *cmd)
+int	execute_bcmd(t_data *data, t_command *cmd)
 {
 	int	value;
 
@@ -125,10 +127,10 @@ int	execute_command(t_data *data, t_command *cmd)
 		exit_full(data, EXIT_FAILURE);
 	set_pipe_fds(data->cmd, cmd);
 	redirect_io(cmd->io_fds);
-	ft_close_fds(data->cmd, 0);
-	if (ft_strchr(cmd->command, '/') == NULL)
+	ft_close_fds(data->cmd, false);
+	if (!ft_strchr(cmd->command, '/'))
 	{
-		ret = execute_cmd(data, cmd);
+		ret = execute_bcmd(data, cmd);
 		if (ret != CMD_NOT_FOUND)
 			exit_full(data, ret);
 		ret = execute_sys_bin(data, cmd);

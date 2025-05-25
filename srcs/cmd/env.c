@@ -42,8 +42,8 @@ int	ft_env(t_env_info *env, char **args, size_t idx)
 {
 	char	**envp;
 	char	*path;
-	ft_printf(1, "I enter env\n");
-	if (args)
+
+	if (!args && args[1])
 		return (errmsg("env", NULL, ARGERR0R, EXIT_FAILURE));
 	if (get_env(env, "PATH"))
 	{
@@ -59,6 +59,6 @@ int	ft_env(t_env_info *env, char **args, size_t idx)
 		free(path);
 	}
 	else
-		return (errmsg("env", NULL, "No such file or directory", CMD_NOT_FOUND));
+		return (errmsg("env", NULL, ENVERR02, CMD_NOT_FOUND));
 	return (EXIT_SUCCESS);
 }
