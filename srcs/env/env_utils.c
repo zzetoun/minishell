@@ -12,6 +12,48 @@
 
 #include "../include/minishell.h"
 
+char	*get_env(t_env_info *env, char *key)
+{
+	t_envp	*envp;
+
+	envp = env->head;
+	while (envp)
+	{
+		if (ft_strncmp(envp->key, key, ft_strlen(key)) == 0)
+			return (envp->value);
+		envp = envp->next;
+	}
+	return (NULL);
+}
+
+int	set_env(t_env_info *env, char *key, char *value)
+{
+	t_envp	*envp;
+
+	envp = env->head;
+	while (envp && key)
+	{
+		if (str_compare(key, "_"))
+			return (0);
+		if (!ft_strncmp(envp->key, key, ft_strlen(key)))
+		{
+			ft_free_ptr(envp->value);
+			if (value && *value && (*value == '\"' || *value == '\''))
+				value++;
+			if (value && *value && value[ft_strlen(value) - 1] == '\"')
+				envp->value = ft_substr(value, 0, ft_strlen(value) - 1);
+			else
+				envp->value = ft_strdup(value);
+			ft_free_ptr(envp->str);
+			envp->str = ft_strjoin(key, "=");
+			envp->str = ft_strjoin_free(envp->str, value);
+			return (0);
+		}
+		envp = envp->next;
+	}
+	return (add_new_env(env, key, value));
+	return (1);
+}
 int	env_key(t_env_info *env, char *key)
 {
 	t_envp	*envp;

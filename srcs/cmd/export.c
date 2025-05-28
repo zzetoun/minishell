@@ -102,7 +102,6 @@ static void	export_print(char **envp, size_t size)
 	idx = -1;
 	while (envp[++idx])
 		ft_printf(1, "declare -x %s\n", envp[idx]);
-	ft_free_array(envp);
 }
 
 int	ft_export(t_env_info *env, char **args)
@@ -125,5 +124,6 @@ int	ft_export(t_env_info *env, char **args)
 			error = set_export(env, args[idx]);
 		idx++;
 	}
+	ft_free_array(envp);
 	return (error);
 }
