@@ -15,9 +15,9 @@
 static void	ft_set_shlvl(t_env_info *env)
 {
 	if (get_env(env, "SHLVL"))
-	set_env(env, "SHLVL", ft_itoa(ft_atoi(get_env(env, "SHLV")) + 1));
+		set_env(env, "SHLVL", ft_itoa(ft_atoi(get_env(env, "SHLV")) + 1));
 	else
-	set_env(env, "SHLVL", ft_itoa(1));
+		set_env(env, "SHLVL", ft_itoa(1));
 }
 
 void	ft_set_key_value(t_envp *new_env, char *envp, char *key, char *value)
