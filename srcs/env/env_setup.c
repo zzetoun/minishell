@@ -15,12 +15,9 @@
 static void	ft_set_shlvl(t_env_info *env)
 {
 	if (get_env(env, "SHLVL"))
-	{
-		env->shlvl = ft_atoi(get_env(env, "SHLV")) + 1;
-		set_env(env, "SHLVL", ft_itoa(env->shlvl));
-	}
+	set_env(env, "SHLVL", ft_itoa(ft_atoi(get_env(env, "SHLV")) + 1));
 	else
-		env->shlvl = 0;
+	set_env(env, "SHLVL", ft_itoa(1));
 }
 
 void	ft_set_key_value(t_envp *new_env, char *envp, char *key, char *value)
@@ -93,7 +90,6 @@ int	ft_env_setup_null(t_env_info *env)
 		return (1);
 	if (add_new_env(env, "SHLVL", "1"))
 		return (1);
-	env->shlvl = ft_atoi(get_env(env, "SHLV"));
 	if (add_new_env(env, "_", "/usr/bin/env"))
 		return (1);
 	return (0);
