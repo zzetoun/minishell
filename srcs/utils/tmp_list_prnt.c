@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 13:46:55 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/05/08 13:52:31 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/05/29 18:43:13 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	linked_list_print(t_env_info *env, char **_envp, int option)
 	envp = env->head;
 	idx = 0;
 	ft_printf(1, "env size: {%d}\n", env->size);
-	ft_printf(1, "env shlvl: {%d}\n", env->shlvl);
 	while (envp)
 	{
 		if (option == 2 && _envp)
