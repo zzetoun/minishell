@@ -47,6 +47,7 @@
 # define EUNKN "ERROR: unknown error"
 # define PATHE "ERROR: Commands Path"
 # define ARGUE "ERROR: Commands error"
+# define HERDOCER "here-document delimited by end-of-file: wanted"
 # define MALLERR "an unexpected error occured"
 # define PARSER01 "parsing ERROR: no command to execute!"
 # define CMDERR01 "command not found"

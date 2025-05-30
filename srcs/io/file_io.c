@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 16:47:56 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/05/25 19:39:42 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/05/30 13:35:50 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,7 @@ bool	check_io(t_io_fds *io)
 {
 	if (!io || (!io->infile && !io->outfile))
 		return (true);
-	if ((io->infile && io->fd_in == -1)
-		|| (io->outfile && io->fd_out == -1))
+	if ((io->infile && io->fd_in == -1) || (io->outfile && io->fd_out == -1))
 		return (false);
 	return (true);
 }

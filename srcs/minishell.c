@@ -68,7 +68,7 @@ void	minishell_interactive(t_data *data)
 *	-> ls is the second
 */
 void	minishell_noninteractive(t_data *data, char *arg)
-{
+{ 
 	char	**user_inputs;
 	int		idx;
 
