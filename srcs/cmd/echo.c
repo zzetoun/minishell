@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 19:03:45 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/05/25 20:12:09 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/05/30 20:15:56 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ static bool	new_line_check(char *arg)
 
 	idx = 0;
 	if (arg[idx++] != '-')
-		return (false);
+		return (true);
 	while (arg[idx] && arg[idx] == 'n')
 		idx++;
 	if (!arg[idx])
-		return (true);
-	else
 		return (false);
+	else
+		return (true);
 }
 
 /* ft_echo:
@@ -43,15 +43,13 @@ int	ft_echo(char **args)
 	int		idx;
 	size_t	array_size;
 
-	new_line = NULL;
+	new_line = true;
 	idx = 1;
-	if (args && *args && new_line_check(args[idx]))
+	if (args && *args && !new_line_check(args[idx]))
 	{
-		new_line = true;
+		new_line = false;
 		idx++;
 	}
-	else
-		new_line = false;
 	array_size = ft_array_len(args);
 	while (args[idx])
 	{
@@ -62,7 +60,7 @@ int	ft_echo(char **args)
 		idx++;
 		array_size--;
 	}
-	if (!new_line)
+	if (new_line)
 		ft_printf(1, "\n");
 	return (EXIT_SUCCESS);
 }
