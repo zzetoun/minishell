@@ -64,7 +64,7 @@ t_command *last_command(t_command *cmd)
     return (cmd);
 }
 
-char **append_arg(char **args, const char *arg)
+char **append_arg_1(char **args, const char *arg)
 {
     int i = 0;
     char **new_args;
@@ -163,6 +163,7 @@ bool	cmd_args_split(t_data *data, char *input)
     int		i;
     t_command *cmd;
 
+
     input = setup_env_in_line(input, data);
     split = minishell_split(input);
     if (!split) {
@@ -205,10 +206,10 @@ bool	cmd_args_split(t_data *data, char *input)
             if (!cmd->command)
             {
                 cmd->command = ft_strdup(split[i]);
-                cmd->args = append_arg(cmd->args, split[i]);
+                cmd->args = append_arg_1(cmd->args, split[i]);
             }
             else {
-                cmd->args = append_arg(cmd->args, split[i]);
+                cmd->args = append_arg_1(cmd->args, split[i]);
             }
         }
         i++;

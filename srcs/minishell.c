@@ -122,6 +122,7 @@ char *ft_replace_substr(const char *str, const char *target, const char *replace
     *dst = '\0';
     return result;
 }
+
 //static void     print_tokenezation(t_data *data)
 //{
 //    t_command *current;
@@ -170,9 +171,12 @@ void	minishell_interactive(t_data *data)
     int last_exit_code;
 
     last_exit_code = 0;
+
     while (1)
     {
+        set_signals_interactive();
         data->user_input = readline(PROMPT);
+        set_signals_noninteractive();
         if (cmd_args_split(data, data->user_input))
         {
             t_command *cmd = data->cmd;
@@ -203,7 +207,6 @@ void	minishell_interactive(t_data *data)
         ft_printf(1, ">> g_final_exit_code : [%d] <<\n", g_final_exit_code);
         ft_freedom(data, false);
         ft_free_cmds(data);
-        ft_free_cmds(data);
     }
 }
 
@@ -220,7 +223,7 @@ void	minishell_interactive(t_data *data)
 *	-> ls is the second
 */
 void	minishell_noninteractive(t_data *data, char *arg)
-{
+{ 
 	char	**user_inputs;
 	int		idx;
 
@@ -267,7 +270,7 @@ int	main(int ac, char **av, char **envp)
 	if (!first_check(&data, ac, av) || !setup_mini(&data, envp))
 		exit_full(NULL, EXIT_FAILURE);
 	if (data.interactive)
-		minishell_interactive(&data);
+        minishell_interactive(&data);
 	else
 		minishell_noninteractive(&data, av[2]);
 	exit_full(&data, g_final_exit_code);

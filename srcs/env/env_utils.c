@@ -19,7 +19,7 @@ char	*get_env(t_env_info *env, char *key)
 	envp = env->head;
 	while (envp)
 	{
-		if (ft_strncmp(envp->key, key, ft_strlen(key)) == 0)
+		if (str_compare(envp->key, key))
 			return (envp->value);
 		envp = envp->next;
 	}

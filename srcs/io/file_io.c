@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 16:47:56 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/05/25 19:39:42 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/05/30 16:00:36 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	restore_io(t_io_fds *io)
 	if (!io)
 		return ;
 	if (io->stdin_backup != -1)
-    {
+	{
 		close(io->stdin_backup);
 		io->stdin_backup = -1;
 	}
@@ -66,8 +66,7 @@ bool	check_io(t_io_fds *io)
 {
 	if (!io || (!io->infile && !io->outfile))
 		return (true);
-	if ((io->infile && io->fd_in == -1)
-		|| (io->outfile && io->fd_out == -1))
+	if ((io->infile && io->fd_in == -1) || (io->outfile && io->fd_out == -1))
 		return (false);
 	return (true);
 }

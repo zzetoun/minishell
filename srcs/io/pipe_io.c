@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 16:48:20 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/05/25 19:40:51 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/05/30 13:37:28 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ void	close_pipe_fds(t_command *cmds, t_command *_cmd)
 /* create_pipes:
 *	Creates a set of pipes for each piped command in the list
 *	of commands.
-*	Returns 1 if successful, 0 in case of failure.
+*	Returns true if successful, false in case of failure.
 */
-int	create_pipes(t_data *data)
+bool	create_pipes(t_data *data)
 {
 	int			*fd;	
 	t_command	*tmp;
@@ -55,13 +55,13 @@ int	create_pipes(t_data *data)
 			if (!fd || pipe(fd) != 0)
 			{
 				ft_freedom(data, 0);
-				return (0);
+				return (false);
 			}
 			tmp->pipe_fd = fd;
 		}
 		tmp = tmp->next;
 	}
-	return (1);
+	return (true);
 }
 
 /* set_pipe_fds:

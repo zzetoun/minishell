@@ -29,17 +29,13 @@ size_t handle_env_variable(char *line, size_t i, char **result, t_data *data)
     size_t j;
 
     j = i + 1;
-    (void)data;
     while (line[j] && (ft_isalnum(line[j]) || line[j] == '_'))
         j++;
     char *env_var = ft_strndup(line + i + 1, j - i - 1);
-//    char *env_val = get_env(data->env, env_var);
-    char *env_val = getenv(env_var);
-    printf("Env_val: %s\n", env_val);
-    printf("Env_var: %s\n", env_var);
+    char *env_val = get_env(data->env, env_var);
     if (!env_val)
     {
-        env_val = ft_strdup("-1");
+        env_val = ft_strdup("-2");
     }
     if (env_val)
         *result = ft_strjoin_free_1(*result, env_val);

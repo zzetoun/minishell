@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 14:50:44 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/05/25 19:47:55 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/05/30 16:33:06 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int	execute(t_data *data)
     t_command *cur = data->cmd;
     while (cur)
     {
-        setup_last_exit_status(cur);
+//        setup_last_exit_status(cur);
         cur = cur->next;
     }
     if (ret != CMD_NOT_FOUND)

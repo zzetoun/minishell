@@ -373,7 +373,7 @@ To ensure the Minishell is robust and error‑free, consider the following edge 
 
 ### 11. Non‑Interactive & Scripting Mode
 - **Script File Execution:**  
-  - **Situation:** `./minishell script.sh`.  
+  - **Situation:** `./minishell script.sh`. 
   - **Action:** Read and execute without prompt, exit at EOF.  
 - **`exit` in Script:**  
   - **Situation:** `exit` inside a script.  

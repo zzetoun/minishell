@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 15:46:28 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/05/25 17:02:42 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/05/30 16:02:34 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	add_back_cmd(t_command **list, t_command *new_node)
 	}
 }
 
-t_command	*last_cmd(t_command *cmd)
+t_command	*get_last_cmd(t_command *cmd)
 {
 	while (cmd->next != NULL)
 		cmd = cmd->next;
