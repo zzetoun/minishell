@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 17:41:34 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/05/25 18:30:45 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/05/30 16:02:43 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 /* ##### commands parsing & cleanup & setup ##### */
 t_command	*add_new_cmd(bool value);
-t_command	*last_cmd(t_command *cmd);
+t_command	*get_last_cmd(t_command *cmd);
 void		add_back_cmd(t_command **list, t_command *new_node);
 void		list_del_cmd(t_command *list, void (*del)(void *));
 void		list_clear_cmd(t_command **list, void (*del)(void *));
