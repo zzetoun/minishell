@@ -38,7 +38,8 @@ int	errmsg(char *cmd, char *detail, char *error, int err_nb)
 */
 bool	how_to_message(bool return_val)
 {
-	ft_printf(2, "Usage: ./minishell\n");
-	ft_printf(2, "Usage: ./minishell -c \"input line\"\n");
-	return (return_val);
+        ft_printf(2, "Usage: ./minishell\n");
+        ft_printf(2, "Usage: ./minishell -c \"input line\"\n");
+        ft_printf(2, "Usage: ./minishell script.sh\n");
+        return (return_val);
 }
