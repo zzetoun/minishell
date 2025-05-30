@@ -13,7 +13,8 @@
 #ifndef STRUCT_MINI_H
 # define STRUCT_MINI_H
 
-# include "minishell.h"
+//# include "minishell.h"
+#include <unistd.h>
 
 typedef struct s_token
 {
@@ -39,7 +40,6 @@ typedef struct s_envp
 typedef struct s_env_info
 {
 	t_envp		*head;
-	int			shlvl; // need to find away to pass it later on
 	size_t		size;
 }	t_env_info;
 
@@ -55,8 +55,22 @@ typedef struct s_io_fds
 	int		stdout_backup;
 }	t_io_fds;
 
+enum e_token_types
+{
+    SPACES = 1,
+    WORD,
+    VAR,
+    PIPE,
+    INPUT,
+    TRUNC,
+    HEREDOC,
+    APPEND,
+    END
+};
+
 typedef struct s_command
 {
+    enum e_token_types  token_type;
 	char				*command;
 	char				*path;
 	char				**args;
@@ -78,19 +92,6 @@ typedef struct s_data
 	t_command	*cmd;
 	pid_t		pid;
 }	t_data;
-
-enum e_token_types
-{
-	SPACES = 1,
-	WORD,
-	VAR,
-	PIPE,
-	INPUT,
-	TRUNC,
-	HEREDOC,
-	APPEND,
-	END
-};
 
 enum e_quoting_status
 {

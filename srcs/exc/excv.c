@@ -105,7 +105,13 @@ int	execute(t_data *data)
 	int	ret;
 
 	ret = prep_for_exec(data);
-	if (ret != CMD_NOT_FOUND)
+    t_command *cur = data->cmd;
+    while (cur)
+    {
+        setup_last_exit_status(cur);
+        cur = cur->next;
+    }
+    if (ret != CMD_NOT_FOUND)
 		return (ret);
 	if (!data->cmd->pipe_output && !data->cmd->prev
 		&& check_io(data->cmd->io_fds))
@@ -116,5 +122,6 @@ int	execute(t_data *data)
 	}
 	if (ret != CMD_NOT_FOUND)
 		return (ret);
-	return (create_children(data));
+    return (create_children(data));
 }
+

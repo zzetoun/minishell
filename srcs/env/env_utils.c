@@ -52,7 +52,6 @@ int	set_env(t_env_info *env, char *key, char *value)
 		envp = envp->next;
 	}
 	return (add_new_env(env, key, value));
-	return (1);
 }
 int	env_key(t_env_info *env, char *key)
 {

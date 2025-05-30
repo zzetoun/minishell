@@ -12,15 +12,12 @@
 
 #include "../include/minishell.h"
 
-static void	ft_set_shlvl(t_env_info *env)
+static void ft_set_shlvl(t_env_info *env)
 {
-	if (get_env(env, "SHLVL"))
-	{
-		env->shlvl = ft_atoi(get_env(env, "SHLV")) + 1;
-		set_env(env, "SHLVL", ft_itoa(env->shlvl));
-	}
-	else
-		env->shlvl = 0;
+    if (get_env(env, "SHLVL"))
+        set_env(env, "SHLVL", ft_itoa(ft_atoi(get_env(env, "SHLV")) + 1));
+    else
+        add_new_env(env, "SHLVL", "1");
 }
 
 void	ft_set_key_value(t_envp *new_env, char *envp, char *key, char *value)
@@ -80,22 +77,19 @@ int	ft_env_setup(t_env_info *env, char **envp, size_t idx)
 	return (0);
 }
 
-int	ft_env_setup_null(t_env_info *env)
+int ft_env_setup_null(t_env_info *env)
 {
-	char	buff[PATH_MAX];
-
-	env->size = 0;
-	if (add_new_env(env, "OLDPWD", NULL))
-		return (1);
-	if (add_new_env(env, "PATH", PATHEN))
-		return (1);
-	if (add_new_env(env, "PWD", getcwd(buff, PATH_MAX)))
-		return (1);
-	if (add_new_env(env, "SHLVL", "1"))
-		return (1);
-	env->shlvl = ft_atoi(get_env(env, "SHLV"));
-	if (add_new_env(env, "_", "/usr/bin/env"))
-		return (1);
-	return (0);
+    char    buff[PATH_MAX];
+    env->size = 0;
+    if (add_new_env(env, "OLDPWD", NULL))
+        return (1);
+    if (add_new_env(env, "PATH", PATHEN))
+        return (1);
+    if (add_new_env(env, "PWD", getcwd(buff, PATH_MAX)))
+        return (1);
+    if (add_new_env(env, "SHLVL", "1"))
+        return (1);
+    if (add_new_env(env, "_", "/usr/bin/env"))
+        return (1);
+    return (0);
 }
-

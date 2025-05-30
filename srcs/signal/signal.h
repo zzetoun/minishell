@@ -12,6 +12,7 @@
 
 #ifndef SIGNAL_H
 # define SIGNAL_H
+#include "../../include/minishell.h"
 
 void	signal_reset_prompt(int signo);
 void	set_signals_interactive(void);
