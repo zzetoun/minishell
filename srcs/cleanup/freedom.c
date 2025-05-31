@@ -45,6 +45,7 @@ void	clear_cmd(t_command **lst, void (*del)(void *))
 	slst = *lst;
 	while (*lst != NULL)
 	{
+        printf("command=[%s] i am inside clear_cmd\n", slst->command);
 		next = (*lst)->next;
 		if (slst->command)
 			(*del)(slst->command);
@@ -56,6 +57,7 @@ void	clear_cmd(t_command **lst, void (*del)(void *))
 			ft_free_io(slst->io_fds);
 		(*del)(slst);
 		*lst = next;
+        printf("command=[%s] i am inside clear_cmd at end loop\n", slst->command);
 	}
 }
 

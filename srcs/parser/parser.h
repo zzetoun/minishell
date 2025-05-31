@@ -18,14 +18,16 @@
 #include <stdbool.h>
 
 /* ##### commands parsing & cleanup & setup ##### */
-t_command	*add_new_cmd(bool value);
+t_command	        *add_new_cmd(bool value);
 t_command	*get_last_cmd(t_command *cmd);
-void		add_back_cmd(t_command **list, t_command *new_node);
+void		        add_back_cmd(t_command **list, t_command *new_node);
 void		list_del_cmd(t_command *list, void (*del)(void *));
 void		list_clear_cmd(t_command **list, void (*del)(void *));
-char        *setup_env_in_line(char *line, t_data *data);
-char        *ft_strndup(const char *s, size_t n);
-
-bool		cmd_args_split(t_data *data, char *input);
+char                *setup_env_in_line(char *line, t_data *data);
+char                *ft_strndup(const char *s, size_t n);
+int                 has_quotes(const char *str);
+enum e_token_types  get_current_token_type(const char *str);
+bool                cmd_args_split(t_data *data, char *input);
+void                add_back_cmd_token_type(t_command **cmd, t_command *new_node, enum e_token_types token_type);
 
 #endif

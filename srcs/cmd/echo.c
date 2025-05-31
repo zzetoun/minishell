@@ -45,7 +45,7 @@ int	ft_echo(char **args)
 
 	new_line = true;
 	idx = 1;
-	if (args && *args && !new_line_check(args[idx]))
+	if (args && args[idx] && !new_line_check(args[idx]))
 	{
 		new_line = false;
 		idx++;

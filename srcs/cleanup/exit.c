@@ -16,6 +16,7 @@ void	exit_full(t_data *data, int exit_num)
 {
 	if (data)
 	{
+        printf("command=[%s] i am inside exit full\n", data->cmd->command);
 		if (data->cmd && data->cmd->io_fds)
 			ft_close_fds(data->cmd, 1);
 		ft_freedom(data, 1);

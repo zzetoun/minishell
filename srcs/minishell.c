@@ -135,9 +135,9 @@ char *ft_replace_substr(const char *str, const char *target, const char *replace
 //        char *cmd = current->command;
 //        switch (tt) {
 //            case WORD:
-//                printf("Token Type: WORD\nCommand: %s, Args: ", cmd);
+//                printf("Token Type: WORD\nCommand: [%s]", cmd);
 //                for (int i = 0; args && args[i]; i++)
-//                    printf("%s ", args[i]);
+//                    printf(", Args[%d]: [%s] ",i , args[i]);
 //                printf("\n");
 //                break;
 //            case PIPE:
@@ -171,7 +171,6 @@ void	minishell_interactive(t_data *data)
     int last_exit_code;
 
     last_exit_code = 0;
-
     while (1)
     {
         set_signals_interactive();
@@ -179,6 +178,7 @@ void	minishell_interactive(t_data *data)
         set_signals_noninteractive();
         if (cmd_args_split(data, data->user_input))
         {
+//            print_tokenezation(data);
             t_command *cmd = data->cmd;
             char *exit_str = ft_itoa(last_exit_code);
             while (cmd)
@@ -194,7 +194,6 @@ void	minishell_interactive(t_data *data)
                 }
                 cmd = cmd->next;
             }
-//            print_tokenezation(data);
             free(exit_str);
             g_final_exit_code = execute(data);
             last_exit_code = g_final_exit_code;
@@ -205,7 +204,7 @@ void	minishell_interactive(t_data *data)
             last_exit_code = 1;
         }
         ft_printf(1, ">> g_final_exit_code : [%d] <<\n", g_final_exit_code);
-        ft_freedom(data, false);
+        //ft_freedom(data, false);
         ft_free_cmds(data);
     }
 }

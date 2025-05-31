@@ -144,26 +144,16 @@ int has_quotes_1(const char *str)
 //    return (new_node);
 //}
 
-static int has_quotes(const char *str)
-{
-    if (!str || !*str)
-        return (-1);
-    while(*str)
-    {
-        if (*str == '\'' || *str == '"')
-            return (1);
-        str++;
-    }
-    return (0);
-}
-
 bool	cmd_args_split(t_data *data, char *input)
 {
     char	**split;
     int		i;
     t_command *cmd;
 
-
+    if (input)
+        add_history(input);
+    else
+        return (false);
     input = setup_env_in_line(input, data);
     split = minishell_split(input);
     if (!split) {
@@ -173,29 +163,28 @@ bool	cmd_args_split(t_data *data, char *input)
     i = 0;
     while (split[i])
     {
+        if (!cmd)
+        {
+            add_back_cmd(&data->cmd, add_new_cmd(false));
+            cmd = last_command(data->cmd);
+            setup_io(cmd);
+        }
         if (strcmp(split[i], "|") == 0)
         {
+            cmd->pipe_output = 1;
             add_back_cmd(&data->cmd, add_new_cmd(false));
             cmd = last_command(data->cmd);
             setup_io(cmd);
             i++;
             continue;
         }
-        if (!data->cmd)
-        {
-            add_back_cmd(&data->cmd, add_new_cmd(false));
-            setup_io(data->cmd);
-        }
         cmd = last_command(data->cmd);
-        if (strcmp(split[i], "<") == 0 && split[i+1]) {
+        if (strcmp(split[i], "<") == 0 && split[i+1])
             cmd->io_fds->infile = ft_strdup(split[++i]);
-        }
-        else if (strcmp(split[i], ">") == 0 && split[i+1]) {
+        else if (strcmp(split[i], ">") == 0 && split[i+1])
             cmd->io_fds->outfile = ft_strdup(split[++i]);
-        }
-        else if (strcmp(split[i], ">>") == 0 && split[i+1]) {
+        else if (strcmp(split[i], ">>") == 0 && split[i+1])
             cmd->io_fds->outfile = ft_strdup(split[++i]);
-        }
         else if (strcmp(split[i], "<<") == 0 && split[i+1])
         {
             cmd->io_fds->heredoc_delimiter = ft_strdup(split[++i]);
@@ -205,6 +194,7 @@ bool	cmd_args_split(t_data *data, char *input)
         {
             if (!cmd->command)
             {
+                cmd->token_type = WORD;
                 cmd->command = ft_strdup(split[i]);
                 cmd->args = append_arg_1(cmd->args, split[i]);
             }
@@ -218,7 +208,8 @@ bool	cmd_args_split(t_data *data, char *input)
     return (true);
 }
 
-//static void add_back_cmd_token_type(t_command **cmd, t_command *new_node, enum e_token_types token_type) {
+//static void add_back_cmd_token_type(t_command **cmd, t_command *new_node, enum e_token_types token_type) //TODO fix the tokenezation proccess bc my partner cannot works without tokenezation
+//{
 //    if (!cmd || !new_node) {
 //        return; // Handle null pointers gracefully
 //    }
@@ -236,7 +227,53 @@ bool	cmd_args_split(t_data *data, char *input)
 //        new_node->prev = start; // Set the previous pointer for the new node
 //    }
 //}
+
+//static enum e_token_types   get_current_token_type(char *str)
+//{
+//    if (*str == '|')
+//        return (PIPE);
+//    else if (*str == '>' && str[1] == '>')
+//        return (APPEND);
+//    else if (*str == '<' && str[1] == '<')
+//        return (HEREDOC);
+//    else if (*str == '<')
+//        return (INPUT);
+//    else if (*str == '>')
+//        return (TRUNC);
+//    else if (*str == ' ')
+//        return (SPACES);
+//    else
+//        return (WORD);
+//}
 //
+//static char **append_arg(char **args, char *arg) {
+//    size_t count;
+//
+//    count = 0;
+//    if (args)
+//    {
+//        while (args[count])
+//            count++;
+//    }
+//    char **new_args = malloc((count + 2) * sizeof(char *));
+//    if (!new_args) {
+//        perror("malloc");
+//        exit(EXIT_FAILURE);
+//    }
+//    for (size_t i = 0; i < count; i++)
+//        new_args[i] = args[i];
+//    new_args[count] = strdup(arg);
+//    if (!new_args[count]) {
+//        perror("strdup");
+//        exit(EXIT_FAILURE);
+//    }
+//    new_args[count + 1] = NULL;
+//    if (args) {
+//        free(args);
+//    }
+//    return (new_args);
+//}
+
 //bool cmd_args_split(t_data *data, char *input) {
 //    size_t i = 0;
 //    t_command *current_cmd = NULL;
@@ -244,7 +281,7 @@ bool	cmd_args_split(t_data *data, char *input)
 //    if (!input || !*input)
 //        return false;
 //    add_history(input);
-//    input = setup_env_in_line(input); // Process environment variables
+//    input = setup_env_in_line(input, data); // Process environment variables
 //    while (input[i] != '\0') {
 //        enum e_token_types token_type = get_current_token_type(&input[i]);
 //
@@ -262,7 +299,7 @@ bool	cmd_args_split(t_data *data, char *input)
 //                setup_io(current_cmd);
 //            }
 //            if (token_type == INPUT && input[i + 1]) {
-//                current_cmd->io_fds->infile = ft_strdup(&input[++i]);
+//                current_cmd->io_fds->infile = ft_strdup(&input[i]);
 //            } else if ((token_type == TRUNC || token_type == APPEND) && input[i + 1]) {
 //                current_cmd->io_fds->outfile = ft_strdup(&input[++i]);
 //            } else if (token_type == HEREDOC && input[i + 1]) {
