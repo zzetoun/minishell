@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 14:51:57 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/05/25 19:39:49 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/05/31 14:09:44 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	cmd_is_dir(char *cmd)
 
 int	check_cmd_not_found(t_data *data, t_command *cmd)
 {
-	if (!ft_strchr(cmd->command, '/') && !get_env(data->env, "PATH"))
+	if (!ft_strchr(cmd->command, '/') && get_env(data->env, "PATH"))
 		return (errmsg(cmd->command, NULL, CMDERR01, CMD_NOT_FOUND));
 	if (access(cmd->command, F_OK) != 0)
 		return (errmsg(cmd->command, NULL, strerror(errno), CMD_NOT_FOUND));
