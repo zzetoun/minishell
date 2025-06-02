@@ -1,7 +1,7 @@
 //
 // Created by IqMent on 09.05.2025.
 //
-#include "parser.h"
+#include "../parser/parser.h"
 #include <string.h>
 
 char *ft_strndup(const char *str, size_t n)

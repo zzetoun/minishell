@@ -129,7 +129,6 @@ static char	*handle_heredoc_3(char *line, int idx, t_data *data)
     free(delim);
     return (replace_heredoc_with_tmpfile_2(line, fname, pos, quoted, quote_char));
 }
-
 char	*check_if_additional(char *line, t_data *data)
 {
     int	idx;

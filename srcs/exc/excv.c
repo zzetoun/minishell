@@ -60,6 +60,7 @@ static int	create_children(t_data *data)
 {
 	t_command	*cmd;
 
+
 	cmd = data->cmd;
 	while (data->pid != 0 && cmd)
 	{
@@ -67,7 +68,17 @@ static int	create_children(t_data *data)
 		if (data->pid == -1)
 			return (errmsg("fork", NULL, strerror(errno), errno));
 		else if (data->pid == 0)
+		{
+			if (cmd->io_fds && cmd->io_fds->infile)
+				setup_input(cmd->io_fds);
+			if (cmd->io_fds && cmd->io_fds->outfile)
+				setup_truncate(cmd->io_fds);
+			if (cmd->io_fds && cmd->io_fds->append_file)
+				setup_append(cmd->io_fds);
 			execute_command(data, cmd);
+			close_exists_red_fds(cmd->io_fds);
+			restore_io(cmd->io_fds);
+		}
 		cmd = cmd->next;
 	}
 	return (get_children(data));
@@ -105,13 +116,7 @@ int	execute(t_data *data)
 	int	ret;
 
 	ret = prep_for_exec(data);
-//    t_command *cur = data->cmd;
-//    while (cur)
-//    {
-////        setup_last_exit_status(cur);
-//        cur = cur->next;
-//    }
-    if (ret != CMD_NOT_FOUND)
+	if (ret != CMD_NOT_FOUND)
 		return (ret);
 	if (!data->cmd->pipe_output && !data->cmd->prev
 		&& check_io(data->cmd->io_fds))
@@ -122,6 +127,5 @@ int	execute(t_data *data)
 	}
 	if (ret != CMD_NOT_FOUND)
 		return (ret);
-    return (create_children(data));
+	return (create_children(data));
 }
-

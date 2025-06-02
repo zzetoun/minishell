@@ -47,6 +47,7 @@ typedef struct s_io_fds
 {
 	char	*infile;
 	char	*outfile;
+	char 	*append_file;
 	char	*heredoc_delimiter;
 	int		heredoc_quotes;
 	int		fd_in;

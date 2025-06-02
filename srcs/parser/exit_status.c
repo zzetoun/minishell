@@ -4,24 +4,37 @@
 
 #include "parser.h"
 
-void    setup_last_exit_status(t_command *current)
-{
-    size_t  i;
+//TODO setuping only here last status of the command for current command struct
 
-    i = 0;
-    while (current->args && current->args[i])
-    {
-        if (ft_strncmp(current->args[i], "$?", 2) == 0)
-        {
-            free(current->args[i]);
-            current->args[i] = ft_itoa(g_final_exit_code);
-            if (!current->args[i])
-            {
-                perror("Error allocating memory for exit status");
-                exit(EXIT_FAILURE);
-            }
-        }
-        i++;
-    }
-    return ;
+/**
+ * @brief funtionc
+ * @param cmd
+ * @param last_exit_code
+ */
+
+void 	setup_last_exit_code(t_command *cmd, int last_exit_code)
+{
+	t_command	*tmp;
+	size_t		i;
+
+	if (!cmd)
+		return;
+	tmp = cmd;
+	while (tmp)
+	{
+		i = (size_t) -1;
+		tmp->command = ft_replace_substr(tmp->command, "$?", ft_itoa(last_exit_code));
+		while (tmp->args && tmp->args[i++])
+		{
+			if (!tmp->args[i])
+				continue;
+			if (strstr(tmp->args[i], "$?"))
+			{
+				char *new = ft_replace_substr(tmp->args[i], "$?", ft_itoa(last_exit_code));
+				free(tmp->args[i]);
+				tmp->args[i] = new;
+			}
+		}
+		tmp = tmp->next;
+	}
 }

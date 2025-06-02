@@ -29,7 +29,7 @@ static void	update_wds(t_data *data, char *wd, t_env_info *env)
 	ft_free_ptr(wd);
 }
 
-static int	change_dir(t_data *data, char *path, t_env_info *env)
+static bool	change_dir(t_data *data, char *path, t_env_info *env)
 {
 	char	*wd;
 	char	buff[PATH_MAX];
@@ -39,7 +39,8 @@ static int	change_dir(t_data *data, char *path, t_env_info *env)
 	{
 		if (errno == ESTALE)
 			errno = ENOENT;
-		return (errmsg("cd", path, strerror(errno), errno));
+		errmsg("cd", path, strerror(errno), errno);
+		return (false);
 	}
 	wd = getcwd(buff, PATH_MAX);
 	if (!wd)
@@ -51,7 +52,7 @@ static int	change_dir(t_data *data, char *path, t_env_info *env)
 	else
 		wd = ft_strdup(buff);
 	update_wds(data, wd, env);
-	return (1);
+	return (true);
 }
 
 int	ft_cd(t_data *data, char **args, t_env_info *env)

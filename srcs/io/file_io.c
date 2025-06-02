@@ -44,12 +44,16 @@ void	redirect_io(t_io_fds *io)
 {
 	if (!io)
 		return ;
-	io->stdin_backup = dup(STDIN_FILENO);
+	io->stdin_backup = dup(STDIN_FILENO );
 	if (io->stdin_backup == -1)
 		errmsg("dup", "stdin backup", strerror(errno), errno);
 	io->stdout_backup = dup(STDOUT_FILENO);
 	if (io->stdout_backup == -1)
 		errmsg("dup", "stdout backup", strerror(errno), errno);
+	if (io->append_file)
+		setup_append(io);
+	if (io->outfile)
+		setup_truncate(io);
 	if (io->fd_in != -1)
 		if (dup2(io->fd_in, STDIN_FILENO) == -1)
 			errmsg("dup2", io->infile, strerror(errno), errno);

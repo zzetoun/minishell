@@ -64,3 +64,6 @@ int	ft_echo(char **args)
 		ft_printf(1, "\n");
 	return (EXIT_SUCCESS);
 }
+
+
+//TODO new varaint of echo

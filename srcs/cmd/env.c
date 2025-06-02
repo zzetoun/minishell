@@ -12,6 +12,24 @@
 
 #include "../../include/minishell.h"
 
+void	free_env(t_env_info *env)
+{
+	t_envp	*list;
+
+	list = env->head;
+	while (list)
+	{
+		list = list->next;
+		env->head->idx = 0;
+		free(env->head->str);
+		free(env->head->key);
+		free(env->head->value);
+		free(env->head);
+		env->head = list;
+	}
+	env->size = 0;
+}
+
 static char	*find_path(t_env_info *env)
 {
 	int		i;

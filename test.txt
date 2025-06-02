@@ -1,0 +1,133 @@
+# Automatically find all .c source files recursively in $(SRCDIR)
+CC          = cc -g#3 #-fsanitize=address,undefined -O0 -fno-omit-frame-pointer -fno-optimize-sibling-calls
+CFLAGS      = -Wall -Wextra -Werror -I$(INCDIR) -I/opt/vagrant/embedded/include
+.PHONY: all libft clean fclean re
+all: libft $(NAME)
+re: fclean all
+APPEND 
+>> g_final_exit_code : [0] <<
+[?2004h[44m* [0m[96m Minishell>$ [0m[?2004l
+>> g_final_exit_code : [1] <<
+[?2004h[44m* [0m[96m Minishell>$ [0m[?2004l
+>> g_final_exit_code : [1] <<
+[?2004h[44m* [0m[96m Minishell>$ [0m[?2004l
+>> g_final_exit_code : [1] <<
+[?2004h[44m* [0m[96m Minishell>$ [0m^C[?2004l
+
+[44m* [0m[96m Minishell>$ [0m[?2004h^C[?2004l
+
+[44m* [0m[96m Minishell>$ [0m[?2004h^C[?2004l
+
+[44m* [0m[96m Minishell>$ [0m[?2004h^C[?2004l
+
+[44m* [0m[96m Minishell>$ [0m[?2004h^C[?2004l
+
+[44m* [0m[96m Minishell>$ [0m[?2004h^C[?2004l
+
+[44m* [0m[96m Minishell>$ [0m[?2004h^C[?2004l
+
+[44m* [0m[96m Minishell>$ [0m[?2004h[?2004l
+>> g_final_exit_code : [1] <<
+[?2004h[44m* [0m[96m Minishell>$ [0m[?2004l
+>> g_final_exit_code : [1] <<
+[?2004h[44m* [0m[96m Minishell>$ [0m[?2004l
+>> g_final_exit_code : [1] <<
+[?2004h[44m* [0m[96m Minishell>$ [0m
+[?2004l>> g_final_exit_code : [1] <<
+[?2004h[44m* [0m[96m Minishell>$ [0m
+[?2004l>> g_final_exit_code : [1] <<
+[?2004h[44m* [0m[96m Minishell>$ [0mqwe
+[?2004lcommand=[qwe] i am inside exit full
+>> g_final_exit_code : [127] <<
+[?2004h[44m* [0m[96m Minishell>$ [0m
+[?2004l>> g_final_exit_code : [1] <<
+[?2004h[44m* [0m[96m Minishell>$ [0masd
+[?2004lcommand=[asd] i am inside exit full
+>> g_final_exit_code : [127] <<
+[?2004h[44m* [0m[96m Minishell>$ [0m
+[?2004l>> g_final_exit_code : [1] <<
+[?2004h[44m* [0m[96m Minishell>$ [0m
+[?2004l>> g_final_exit_code : [1] <<
+[?2004h[44m* [0m[96m Minishell>$ [0mczxc
+[?2004lcommand=[czxc] i am inside exit full
+>> g_final_exit_code : [127] <<
+[?2004h[44m* [0m[96m Minishell>$ [0m^C[?2004l
+[44m* [0m[96m Minishell>$ [0m[?2004h^C[?2004l
+[44m* [0m[96m Minishell>$ [0m[?2004h
+[?2004l>> g_final_exit_code : [1] <<
+[?2004h[44m* [0m[96m Minishell>$ [0m^C[?2004l
+[44m* [0m[96m Minishell>$ [0m[?2004h
+[?2004l>> g_final_exit_code : [1] <<
+[?2004h[44m* [0m[96m Minishell>$ [0m^C[?2004l
+[44m* [0m[96m Minishell>$ [0m[?2004h
+[?2004l>> g_final_exit_code : [1] <<
+[?2004h[44m* [0m[96m Minishell>$ [0m^C[?2004l
+[44m* [0m[96m Minishell>$ [0m[?2004h
+[?2004l>> g_final_exit_code : [1] <<
+[?2004h[44m* [0m[96m Minishell>$ [0m[?2004l
+>> g_final_exit_code : [1] <<
+[?2004h[44m* [0m[96m Minishell>$ [0m[?2004l
+>> g_final_exit_code : [1] <<
+[?2004h[44m* [0m[96m Minishell>$ [0m
+[?2004l>> g_final_exit_code : [1] <<
+[?2004h[44m* [0m[96m Minishell>$ [0m
+[?2004l>> g_final_exit_code : [1] <<
+[?2004h[44m* [0m[96m Minishell>$ [0m[?2004l[?2004h# **************************************************************************** #
+#                                  VARIABLES                                   #
+# **************************************************************************** #
+
+NAME        = minishell
+
+# libft
+LIBFT_DIR   = srcs/utils/libft
+LIBFT_LIB   = $(LIBFT_DIR)/libft.a
+
+# Directories
+SRCDIR      = srcs
+INCDIR      = include
+
+# Automatically find all .c source files recursively in $(SRCDIR)
+SRC         = $(shell find $(SRCDIR) -type f -name "*.c")
+OBJ         = $(SRC:.c=.o)
+
+# Compiler and flags
+CC          = cc -g#3 #-fsanitize=address,undefined -O0 -fno-omit-frame-pointer -fno-optimize-sibling-calls
+CFLAGS      = -Wall -Wextra -Werror -I$(INCDIR) -I/opt/vagrant/embedded/include
+LDFLAGS     = -L/opt/vagrant/embedded/lib/ -lreadline -lhistory
+
+# **************************************************************************** #
+#                                  RULES                                       #
+# **************************************************************************** #
+
+.PHONY: all libft clean fclean re
+
+all: libft $(NAME)
+
+# First, build the libft library by invoking its own Makefile
+libft:
+	@$(MAKE) --no-print-directory -C $(LIBFT_DIR)
+
+# Now build your shell, linking in libft.a
+$(NAME): $(OBJ)
+	$(CC) $(CFLAGS) $(OBJ) $(LDFLAGS) $(LIBFT_LIB) -o $(NAME)
+
+# Pattern rule to compile .c files to .o object files
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+clean:
+	@rm -f $(OBJ)
+	@$(MAKE) --no-print-directory -C $(LIBFT_DIR) clean
+
+fclean: clean
+	@rm -f $(NAME)
+	@$(MAKE) --no-print-directory -C $(LIBFT_DIR) fclean
+
+re: fclean all
+>> g_final_exit_code : [0] <<
+[?2004h[44m* [0m[96m Minishell>$ [0m^C[?2004l
+[44m* [0m[96m Minishell>$ [0m[?2004heee[?2004lAppend 
+>> g_final_exit_code : [0] <<
+[?2004h[44m* [0m[96m Minishell>$ [0m^C[?2004l
+[44m* [0m[96m Minishell>$ [0m[?2004h^C[?2004l
+[44m* [0m[96m Minishell>$ [0m[?2004h[?2004l[?2004h

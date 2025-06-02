@@ -25,19 +25,6 @@ enum e_token_types  get_current_token_type(const char *current)
     return (WORD);
 }
 
-int has_quotes(const char *str)
-{
-    if (!str)
-        return 0;
-    while (*str)
-    {
-        if (*str == '\'' || *str == '"')
-            return (1);
-        str++;
-    }
-    return (0);
-}
-
 char **append_arg(char **args, const char *arg) {
     size_t count = 0;
 

@@ -17,11 +17,8 @@
 void	ft_free_io(t_io_fds *io);
 void	ft_free_ptr(void *pointer);
 void	ft_free_array(char **array);
-void	free_env(t_env_info *env);
 void	exit_full(t_data *data, int exit_num);
 void	ft_freedom(t_data *data, bool clear_history);
-void	clear_cmd(t_command **lst, void (*del)(void *));
 void	ft_close_fds(t_command *cmds, bool close_backups);
-void    clear_cmd(t_command **lst, void (*del)(void *));
 
 #endif

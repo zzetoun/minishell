@@ -130,14 +130,10 @@ int	execute_command(t_data *data, t_command *cmd)
 	ft_close_fds(data->cmd, false);
 	if (!ft_strchr(cmd->command, '/'))
 	{
-        printf("I AM after ft_strchr\n");
 		ret = execute_bcmd(data, cmd);
-        printf("I AM AFTER cmd->command = [%s]\n", cmd->command);
-        printf("ret = [%d]\n", ret);
 		if (ret != CMD_NOT_FOUND)
 			exit_full(data, ret);
-        printf("I AM AFTER if (ret != CMD_NOT_FOUND)\n");
-		ret = execute_sys_bin(data, cmd);
+		ret = execute_sys_bin(data, cmd); //TODO check if its a good condition
 		if (ret != CMD_NOT_FOUND)
 			exit_full(data, ret);
 	}

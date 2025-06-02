@@ -21,7 +21,7 @@ size_t handle_single_quotes(char *line, size_t i, char **result)
         i++;
     *result = ft_strjoin_free_1(*result,
               ft_substr(line, start, i - start));
-    return i; // '
+    return i;
 }
 
 size_t handle_env_variable(char *line, size_t i, char **result, t_data *data)
@@ -35,7 +35,7 @@ size_t handle_env_variable(char *line, size_t i, char **result, t_data *data)
     char *env_val = get_env(data->env, env_var);
     if (!env_val)
     {
-        env_val = ft_strdup("-2");
+        env_val = ft_strdup("\n");
     }
     if (env_val)
         *result = ft_strjoin_free_1(*result, env_val);
@@ -48,32 +48,6 @@ void append_char(char **result, const char c)
     char str[2] = {c, '\0'};
     *result = ft_strjoin_free_1(*result, str);
 }
-
-//char *setup_env_in_line(char *line)
-//{
-//    char *result = ft_strdup("");
-//    size_t i = (size_t)-1;
-//    int in_double_quotes = 0;
-//
-//    while (line[++i])
-//    {
-//        if (line[i] == '"')
-//        {
-//            in_double_quotes = !in_double_quotes;
-//            append_char(&result, '"');
-//        }
-//        else if (line[i] == '\'' && !in_double_quotes)
-//            i = handle_single_quotes(line, i, &result);
-//        else if (line[i] == '$' && (in_double_quotes || (!in_double_quotes &&
-//                                    line[i + 1] != '"' && line[i + 1] != '\'')))
-//        {
-//            i = handle_env_variable(line, i, &result);
-//        }
-//        else
-//            append_char(&result, line[i]);
-//    }
-//    return result;
-//}
 
 char *setup_env_in_line(char *line, t_data *data)
 {

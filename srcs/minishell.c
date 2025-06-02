@@ -74,97 +74,6 @@ static void ft_free_cmds(t_data *data)
 *	is started without arguments and provides a prompt for user input.
 */
 
-char *ft_replace_substr(const char *str, const char *target, const char *replacement)
-{
-    if (!str || !target || !replacement)
-        return NULL;
-
-    size_t str_len = strlen(str);
-    size_t target_len = strlen(target);
-    size_t repl_len = strlen(replacement);
-
-    // Подсчёт количества вхождений
-    size_t count = 0;
-    const char *tmp = str;
-    while ((tmp = strstr(tmp, target)))
-    {
-        count++;
-        tmp += target_len;
-    }
-
-    if (count == 0)
-        return strdup(str);
-
-    // Выделение памяти под новую строку
-    size_t new_len = str_len - (count * target_len) + (count * repl_len);
-    char *result = malloc(new_len + 1);
-    if (!result)
-        return NULL;
-
-    // Замена
-    const char *src = str;
-    char *dst = result;
-
-    while (*src)
-    {
-        if (strncmp(src, target, target_len) == 0)
-        {
-            memcpy(dst, replacement, repl_len);
-            dst += repl_len;
-            src += target_len;
-        }
-        else
-        {
-            *dst++ = *src++;
-        }
-    }
-
-    *dst = '\0';
-    return result;
-}
-
-//static void     print_tokenezation(t_data *data)
-//{
-//    t_command *current;
-//
-//    current = data->cmd;
-//    while (current)
-//    {
-//        int tt = current->token_type;
-//        char **args = current->args;
-//        char *cmd = current->command;
-//        switch (tt) {
-//            case WORD:
-//                printf("Token Type: WORD\nCommand: [%s]", cmd);
-//                for (int i = 0; args && args[i]; i++)
-//                    printf(", Args[%d]: [%s] ",i , args[i]);
-//                printf("\n");
-//                break;
-//            case PIPE:
-//                printf("Token Type: PIPE\n");
-//                break;
-//            case INPUT:
-//                printf("Token Type: INPUT\nInfile: %s\n", current->io_fds->infile);
-//                break;
-//            case TRUNC:
-//                printf("Token Type: TRUNC\nOutfile: %s\n", current->io_fds->outfile);
-//                break;
-//            case APPEND:
-//                printf("Token Type: APPEND\nOutfile: %s\n", current->io_fds->outfile);
-//                break;
-//            case HEREDOC:
-//                printf("Token Type: HEREDOC\nDelimiter: %s\n", current->io_fds->heredoc_delimiter);
-//                break;
-//            default:
-//                printf("Unknown Token Type: %d\n", tt);
-//                break;
-//        }
-//        current = current->next;
-//    }
-//    return ;
-//}
-
-
 void	minishell_interactive(t_data *data)
 {
 
@@ -178,22 +87,8 @@ void	minishell_interactive(t_data *data)
         set_signals_noninteractive();
         if (cmd_args_split(data, data->user_input))
         {
-//            print_tokenezation(data);
-            t_command *cmd = data->cmd;
             char *exit_str = ft_itoa(last_exit_code);
-            while (cmd)
-            {
-                for (int i = 0; cmd->args && cmd->args[i]; i++)
-                {
-                    if (strstr(cmd->args[i], "$?"))
-                    {
-                        char *new = ft_replace_substr(cmd->args[i], "$?", exit_str);
-                        free(cmd->args[i]);
-                        cmd->args[i] = new;
-                    }
-                }
-                cmd = cmd->next;
-            }
+            setup_last_exit_code(data->cmd, last_exit_code);
             free(exit_str);
             g_final_exit_code = execute(data);
             last_exit_code = g_final_exit_code;
@@ -204,10 +99,30 @@ void	minishell_interactive(t_data *data)
             last_exit_code = 1;
         }
         ft_printf(1, ">> g_final_exit_code : [%d] <<\n", g_final_exit_code);
-        //ft_freedom(data, false);
         ft_free_cmds(data);
     }
 }
+
+
+//void	minishell_interactive(t_data *data)
+//{
+//	while (1)
+//	{
+//		set_signals_interactive();
+//		data->user_input = readline(PROMPT);
+//		add_history(data->user_input); // ---->>> should be moved inside parsing after parsing is chechked <<<-----
+//		set_signals_noninteractive();
+//		if (cmd_args_split(data, data->user_input)) // -->>>>> parsing is here  <<<<<----
+//		{
+//
+//			g_final_exit_code = execute(data);
+//		}
+//		else
+//			g_final_exit_code = 1;
+//		ft_printf(1, ">> g_final_exit_code : [%d] <<\n", g_final_exit_code);
+//		ft_freedom(data, false);
+//	}
+//}
 
 
 /* minishell_noninteractive:
