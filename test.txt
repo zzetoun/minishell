@@ -1,6 +1,0 @@
-# Automatically find all .c source files recursively in $(SRCDIR)
-.PHONY: all libft clean fclean re
-CC          = cc #-g3 -fsanitize=address,undefined -O0 -fno-omit-frame-pointer -fno-optimize-sibling-calls
-CFLAGS      = -Wall -Wextra -Werror -I$(INCDIR) -I/opt/vagrant/embedded/include
-all: libft $(NAME)
-re: fclean all
