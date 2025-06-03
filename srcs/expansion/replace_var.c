@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 17:02:34 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/06/02 20:25:27 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/06/03 21:36:04 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@ static bool	erase_var(t_token **t_node, char *str, int index)
 	idx = 0;
 	jdx = 0;
 	len = ft_strlen(str) - var_length(str + index);
-	new_str = (char *)ft_calloc(len + 1 ,sizeof(char));
+	new_str = (char *)ft_calloc(len + 1, sizeof(char));
 	if (!new_str)
 		return (true);
 	while (str[idx])
 	{
 		if (str[idx] == '$' && idx == index)
 		{
-			idx = idx + var_length(str + index) + 1;
+			idx += var_length(str + index) + 1;
 			if (str[idx] == '\0')
 				break ;
 		}
@@ -95,7 +95,7 @@ char	*replace_str_heredoc(char *str, char *var_value, int index)
 
 	tmp = NULL;
 	if (!var_value)
-		*str = '\0';
+		return (str);
 	else
 	{
 		tmp = str;

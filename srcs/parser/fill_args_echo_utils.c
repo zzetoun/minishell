@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 20:19:16 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/06/02 22:10:48 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/06/03 20:28:42 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*join_vars(t_token **t_node)
 	while (token->type == VAR && token->next->type == VAR
 		&& token->next->join == true)
 	{
-		str = ft_strjoin(str, token->next->str);
+		str = ft_strjoin_free(str, token->next->str);
 		token = token->next;
 	}
 	*t_node = token;
@@ -47,7 +47,7 @@ char	*join_vars(t_token **t_node)
 **  to loop through all the tokens that check these conditions 
 **  (type == VAR and join == true) before counting them as one argument
 */
-int	count_args(t_token *token)
+int	count_args_echo(t_token *token)
 {
 	int	idx;
 
@@ -69,21 +69,21 @@ int	count_args(t_token *token)
 	return (idx);
 }
 
-char	**copy_in_ntab(int len, char **ntab, t_command *l_cmd, t_token *token)
+char	**copy_in_ntab(int len, char **ntab, t_command *lcmd, t_token *tk)
 {
 	int	idx;
 
 	idx = -1;
 	while (++idx < len)
-		ntab[idx] = l_cmd->args[idx];
-	while (token->type == WORD || token->type == VAR)
+		ntab[idx] = lcmd->args[idx];
+	while (tk->type == WORD || tk->type == VAR)
 	{
-		if (token->join == true)
-			ntab[idx] = join_vars(&token);
+		if (tk->join == true)
+			ntab[idx] = join_vars(&tk);
 		else
-			ntab[idx] = ft_strdup(token->str);
+			ntab[idx] = ft_strdup(tk->str);
 		idx++;
-		token = token->next;
+		tk = tk->next;
 	}
 	ntab[idx] = NULL;
 	return (ntab);

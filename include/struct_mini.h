@@ -68,7 +68,7 @@ typedef struct s_command
 
 typedef struct s_data
 {
-	int			interactive;
+	bool		interactive;
 	t_env_info	*env;
 	t_token		*token;
 	char		*user_input;

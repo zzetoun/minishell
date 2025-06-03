@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 15:40:15 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/06/02 15:47:53 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/06/03 20:12:35 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,12 @@ void	add_back_token(t_token **list, t_token *new_node)
 void	del_one_token(t_token *list, void (*del)(void *))
 {
 	if (del && list && list->str)
-	{	
+	{
 		(*del)(list->str);
 		list->str = NULL;
 	}
 	if (del && list && list->str_backup)
-	{	
+	{
 		(*del)(list->str_backup);
 		list->str_backup = NULL;
 	}
@@ -68,7 +68,7 @@ void	del_one_token(t_token *list, void (*del)(void *))
 		list->prev->next = list->next;
 	if (list->next)
 		list->next->prev = list->prev;
-	ft_free_ptr(list);
+	(*del)(list);
 }
 
 void	clear_token(t_token **list, void (*del)(void *))

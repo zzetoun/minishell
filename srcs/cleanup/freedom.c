@@ -72,12 +72,9 @@ void	ft_free_ptr(void *pointer)
 void	ft_freedom(t_data *data, bool clear_history)
 {
 	if (data && data->user_input)
-	{
 		ft_free_ptr(data->user_input);
-		data->user_input = NULL;
-	}
-	// if (data && data->token)
-	// 	clear_token();
+	if (data && data->token)
+		clear_token(&data->token, &ft_free_ptr);
 	if (data && data->cmd)
 		clear_cmd(&data->cmd, &ft_free_ptr);
 	if (clear_history)

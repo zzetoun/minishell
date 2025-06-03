@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 22:49:06 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/05/25 20:13:41 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/06/03 19:52:06 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,5 +98,5 @@ int	ft_exit(t_data *data, char **args)
 			return (errmsg("exit", NULL, EXITRR02, 1));
 	}
 	exit_full(data, exit_code);
-	return (EXIT_SUCCESS);
+	return (2);
 }

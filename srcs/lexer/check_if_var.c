@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/15 23:40:24 by alexa             #+#    #+#             */
-/*   Updated: 2025/06/02 22:23:46 by zzetoun          ###   ########.fr       */
+/*   Created: 2025/06/03 21:40:01 by zzetoun           #+#    #+#             */
+/*   Updated: 2025/06/03 21:40:03 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	variable_check(t_token **t_node)
 	while ((*t_node)->str[++idx])
 	{
 		if ((*t_node)->str[idx] == '$')
-		{	
+		{
 			if ((*t_node)->prev && (*t_node)->prev->type == HEREDOC)
 				break ;
 			(*t_node)->type = VAR;

@@ -6,13 +6,13 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 15:46:28 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/06/03 14:25:48 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/06/03 15:20:39 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-t_command	*add_new_cmd()
+t_command	*add_new_cmd(void)
 {
 	t_command	*new_node;
 

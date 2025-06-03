@@ -27,6 +27,7 @@
 		"tuple": "c",
 		"type_traits": "c",
 		"__locale": "c",
-		"sstream": "c"
+		"sstream": "c",
+		"minishell.h": "c"
 	}
 }

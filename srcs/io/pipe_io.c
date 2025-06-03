@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 16:48:20 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/06/02 15:40:45 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/06/03 19:56:56 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,16 @@ void	close_pipe_fds(t_command *cmds, t_command *_cmd)
 	{
 		if (cmds != _cmd && cmds->pipe_fd)
 		{
-			close(cmds->pipe_fd[0]);
-			cmds->pipe_fd[0] = -1;
-			close(cmds->pipe_fd[1]);
-			cmds->pipe_fd[1] = -1;
+			if (cmds->pipe_fd[0] != -1)
+			{	
+				close(cmds->pipe_fd[0]);
+				cmds->pipe_fd[0] = -1;
+			}
+			if (cmds->pipe_fd[1] != -1)
+			{	
+				close(cmds->pipe_fd[1]);
+				cmds->pipe_fd[1] = -1;
+			}
 		}
 		cmds = cmds->next;
 	}
@@ -44,22 +50,22 @@ void	close_pipe_fds(t_command *cmds, t_command *_cmd)
 bool	create_pipes(t_data *data)
 {
 	int			*fd;	
-	t_command	*tmp;
+	t_command	*cmd;
 
-	tmp = data->cmd;
-	while (tmp)
+	cmd = data->cmd;
+	while (cmd)
 	{
-		if (tmp->pipe_output || (tmp->prev && tmp->prev->pipe_output))
+		if (cmd->pipe_output || (cmd->prev && cmd->prev->pipe_output))
 		{
 			fd = ft_calloc(2, sizeof(*fd));
 			if (!fd || pipe(fd) != 0)
 			{
-				ft_freedom(data, 0);
+				ft_freedom(data, false);
 				return (false);
 			}
-			tmp->pipe_fd = fd;
+			cmd->pipe_fd = fd;
 		}
-		tmp = tmp->next;
+		cmd = cmd->next;
 	}
 	return (true);
 }

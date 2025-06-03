@@ -6,13 +6,13 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 18:12:43 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/06/02 22:04:45 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/06/03 20:31:10 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	count_arguments(t_token *token)
+int	count_args(t_token *token)
 {
 	int	idx;
 
@@ -26,38 +26,40 @@ int	count_arguments(t_token *token)
 }
 
 /*
-**  This function fills the array of arguments of the get_last_cmd by default mode:
-**    - It allocates the array of arguments thanks to the count_args function
-**    - It loops through the tokens list while the nodes are of type
-**        VAR or WORD, and fills get_last_cmd->args[i] with the current token 
+*  This function fills the array of arguments of the get_last_cmd
+* 	by default mode:
+*    - It allocates the array of arguments thanks to the count_args_echo
+*	 function
+*    - It loops through the tokens list while the nodes are of type
+*        VAR or WORD, and fills get_last_cmd->args[i] with the current token
 */
-bool	create_args(t_token **t_node, t_command *get_last_cmd)
+bool	create_args(t_token **t_node, t_command *last_cmd)
 {
 	int		idx;
 	t_token	*token;
 
 	token = *t_node;
-	get_last_cmd->args = ft_calloc((count_arguments(token) + 2), sizeof(char *));
-	if (!get_last_cmd->args)
+	last_cmd->args = ft_calloc((count_args(token) + 2), sizeof(char *));
+	if (!last_cmd->args)
 	{
 		errmsg("malloc", NULL, MALLERR, EXIT_FAILURE);
 		return (false);
 	}
 	token = *t_node;
-	get_last_cmd->args[0] = ft_strdup(get_last_cmd->command);
+	last_cmd->args[0] = ft_strdup(last_cmd->command);
 	idx = 1;
 	while (token->type == WORD || token->type == VAR)
 	{
-		get_last_cmd->args[idx++] = ft_strdup(token->str);
+		last_cmd->args[idx++] = ft_strdup(token->str);
 		token = token->next;
 	}
-	get_last_cmd->args[idx] = NULL;
+	last_cmd->args[idx] = NULL;
 	*t_node = token;
 	return (true);
 }
 
 static char	**copy_to_ntab(
-	int len, char **ntab, t_command *get_last_cmd, t_token **t_node)
+	int len, char **ntab, t_command *last_cmd, t_token **t_node)
 {
 	int		idx;
 	t_token	*token;
@@ -65,7 +67,7 @@ static char	**copy_to_ntab(
 	idx = -1;
 	token = *t_node;
 	while (++idx < len)
-		ntab[idx] = get_last_cmd->args[idx];
+		ntab[idx] = last_cmd->args[idx];
 	while (token->type == WORD || token->type == VAR)
 	{
 		ntab[idx++] = ft_strdup(token->str);
@@ -75,7 +77,7 @@ static char	**copy_to_ntab(
 	return (ntab);
 }
 
-bool	add_args(t_token **t_node, t_command *get_last_cmd)
+bool	add_args(t_token **t_node, t_command *last_cmd)
 {
 	int		idx;
 	int		len;
@@ -90,14 +92,14 @@ bool	add_args(t_token **t_node, t_command *get_last_cmd)
 		token = token->next;
 	}
 	len = 0;
-	while (get_last_cmd->args[len])
+	while (last_cmd->args[len])
 		len++;
 	new_tab = ft_calloc((idx + len + 1), sizeof(char *));
 	if (!new_tab)
 		return (errmsg("malloc", NULL, MALLERR, false));
-	new_tab = copy_to_ntab(len, new_tab, get_last_cmd, t_node);
-	ft_free_array(get_last_cmd->args);
-	get_last_cmd->args = new_tab;
+	new_tab = copy_to_ntab(len, new_tab, last_cmd, t_node);
+	ft_free_array(last_cmd->args);
+	last_cmd->args = new_tab;
 	*t_node = token;
 	return (true);
 }

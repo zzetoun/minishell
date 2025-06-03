@@ -12,22 +12,22 @@
 
 #include "../include/minishell.h"
 
-static int	init_directory(t_data *data)
+static bool	init_directory(t_data *data)
 {
 	char	buff[PATH_MAX];
 
 	data->working_dir = ft_strdup(getcwd(buff, PATH_MAX));
 	if (!data->working_dir)
-		return (1);
+		return (false);
 	if (get_env(data->env, "OLDPWD"))
 	{
 		data->old_working_dir = ft_strdup(get_env(data->env, "OLDPWD"));
 		if (!data->old_working_dir)
-			return (1);
+			return (false);
 	}
 	else
 		data->old_working_dir = NULL;
-	return (0);
+	return (true);
 }
 
 bool	setup_mini(t_data *data, char **envp)
@@ -37,7 +37,7 @@ bool	setup_mini(t_data *data, char **envp)
 		errmsg("Fatal", NULL, ENVERR01, EXIT_FAILURE);
 		return (false);
 	}
-	if (init_directory(data))
+	if (!init_directory(data))
 	{
 		errmsg("Fatal", NULL, WDERROR, EXIT_FAILURE);
 		return (false);

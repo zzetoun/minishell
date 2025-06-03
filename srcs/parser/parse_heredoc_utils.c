@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/10 00:09:37 by alexa             #+#    #+#             */
-/*   Updated: 2025/06/02 20:53:56 by zzetoun          ###   ########.fr       */
+/*   Created: 2025/06/03 21:39:31 by zzetoun           #+#    #+#             */
+/*   Updated: 2025/06/03 21:39:33 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,11 +81,11 @@ static char	*get_expanded_var_line(t_data *data, char *line)
 *	true.
 */
 static bool	check_hdoc_input(t_data *data, char **line, t_io_fds *io, bool *ret)
-{	
-	if (!*line )
+{
+	if (!*line)
 	{
 		io->heredoc_delimiter = ft_strjoin_free(io->heredoc_delimiter, "\')");
-		errmsg(HERDOCER , NULL, io->heredoc_delimiter, EXIT_FAILURE);
+		errmsg(HERDOCER, NULL, io->heredoc_delimiter, EXIT_FAILURE);
 		*ret = true;
 		return (false);
 	}
@@ -108,7 +108,8 @@ static bool	check_hdoc_input(t_data *data, char **line, t_io_fds *io, bool *ret)
 }
 
 /* fill_heredoc:
-*	Copies user input into a temporary file. If user inputs an environment variable
+*	Copies user input into a temporary file. If user inputs an 
+*	environment variable
 *	like $USER, expands the variable before writing to the heredoc.
 *	Returns true on success, false on failure.
 */
@@ -122,13 +123,12 @@ bool	fill_heredoc(t_data *data, t_io_fds *io, int fd)
 	while (1)
 	{
 		set_signals_interactive();
-		line = readline("heredoc> ");
+		line = readline("> ");
 		set_signals_noninteractive();
 		if (!check_hdoc_input(data, &line, io, &ret))
 			break ;
-		ft_printf(fd, "%s", line);
+		ft_printf(fd, "%s\n", line);
 		ft_free_ptr(line);
 	}
-	ft_free_ptr(line);
 	return (ret);
 }

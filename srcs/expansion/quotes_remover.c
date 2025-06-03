@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/20 14:42:10 by alexa             #+#    #+#             */
-/*   Updated: 2025/06/02 19:54:05 by zzetoun          ###   ########.fr       */
+/*   Created: 2025/06/03 21:38:24 by zzetoun           #+#    #+#             */
+/*   Updated: 2025/06/03 21:38:26 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,7 @@ void	remove_quotes(t_token **t_node)
 	jdx = 0;
 	new_line = ft_calloc(count_len((*t_node)->str, 0, 0), sizeof(char));
 	if (!new_line)
-	{
-		errmsg("malloc", NULL, MALLERR, EXIT_FAILURE);
 		return ;
-	}
 	while ((*t_node)->str[idx])
 	{
 		if (if_quotes_and_default(t_node, idx))

@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/10 00:20:39 by alexa             #+#    #+#             */
-/*   Updated: 2025/06/02 22:15:35 by zzetoun          ###   ########.fr       */
+/*   Created: 2025/06/03 21:39:20 by zzetoun           #+#    #+#             */
+/*   Updated: 2025/06/03 21:39:21 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ bool	remove_old_file_ref(t_io_fds *io, bool infile)
 		if (io->heredoc_delimiter != NULL)
 		{
 			ft_free_ptr(io->heredoc_delimiter);
-			io->heredoc_delimiter = NULL;
 			unlink(io->infile);
 		}
 		ft_free_ptr(io->infile);

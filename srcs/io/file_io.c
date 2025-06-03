@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 16:47:56 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/05/30 16:00:36 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/06/03 20:41:06 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,13 @@ void	restore_io(t_io_fds *io)
 		return ;
 	if (io->stdin_backup != -1)
 	{
+		dup2(io->stdin_backup, STDIN_FILENO);
 		close(io->stdin_backup);
 		io->stdin_backup = -1;
 	}
 	if (io->stdout_backup != -1)
 	{
+		dup2(io->stdout_backup, STDOUT_FILENO);
 		close(io->stdout_backup);
 		io->stdout_backup = -1;
 	}

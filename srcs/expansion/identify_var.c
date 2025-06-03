@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 16:31:14 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/06/02 21:42:39 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/06/03 21:34:28 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ char	*identify_var(char *str)
 		}
 	}
 	var = ft_substr(str, start, var_length(str));
+	ft_printf(1, "var = [%s]", var);
 	if (!var)
 		return (NULL);
 	return (var);

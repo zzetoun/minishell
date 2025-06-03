@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 16:59:14 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/05/30 20:53:33 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/06/03 15:31:56 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,15 @@
 bool	cmd_args_split(t_data *data, char *input)
 {
 	char	*args;
-	int	 idx;
+	int		idx;
+	int		in_len;
 
-	add_back_cmd(&data->cmd, add_new_cmd(false));
+	add_back_cmd(&data->cmd, add_new_cmd());
 	setup_io(data->cmd);
 	args = ft_strchr(input, ' ');
 	ft_printf(1, "args: {%s}\n", args);
-	data->cmd->command = ft_substr(input, 0, ft_strlen(input) - ft_strlen(args));
+	in_len = ft_strlen(input);
+	data->cmd->command = ft_substr(input, 0, in_len - ft_strlen(args));
 	ft_printf(1, "cmd: {%s}\n", data->cmd->command);
 	data->cmd->args = ft_split(input, ' ');
 	idx = -1;
