@@ -6,7 +6,7 @@
 #    By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/03 17:24:30 by zzetoun           #+#    #+#              #
-#    Updated: 2025/05/24 14:06:01 by zzetoun          ###   ########.fr        #
+#    Updated: 2025/06/02 21:40:34 by zzetoun          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,8 @@ SRCS	= ft_array_len.c	\
 		  ft_putendl_fd.c	\
 		  ft_putnbr_fd.c	\
 		  ft_strmapi.c		\
-		  ft_striteri.c		
+		  ft_striteri.c		\
+		  ft_darray_to_str.c
 
 OBJS	= ${SRCS:.c=.o}
 

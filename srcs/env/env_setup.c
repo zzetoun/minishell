@@ -94,4 +94,3 @@ int	ft_env_setup_null(t_env_info *env)
 		return (1);
 	return (0);
 }
-

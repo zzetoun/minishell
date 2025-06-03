@@ -22,4 +22,6 @@ int		ft_unset(t_env_info *env, char **args);
 int		ft_export(t_env_info *env, char **args);
 int		ft_cd(t_data *data, char **arg, t_env_info *env);
 
+void	free_env(t_env_info *env);
+
 #endif

@@ -19,10 +19,10 @@ typedef struct s_token
 {
 	char			*str;
 	char			*str_backup;
-	int				var_exists;
+	bool			var_exists;
 	int				type;
 	int				status;
-	int				join;
+	bool			join;
 	struct s_token	*next;
 	struct s_token	*prev;
 }	t_token;
@@ -47,7 +47,7 @@ typedef struct s_io_fds
 	char	*infile;
 	char	*outfile;
 	char	*heredoc_delimiter;
-	int		heredoc_quotes;
+	bool	heredoc_quotes;
 	int		fd_in;
 	int		fd_out;
 	int		stdin_backup;
@@ -59,7 +59,7 @@ typedef struct s_command
 	char				*command;
 	char				*path;
 	char				**args;
-	int					pipe_output;
+	bool				pipe_output;
 	int					*pipe_fd;
 	t_io_fds			*io_fds;
 	struct s_command	*next;

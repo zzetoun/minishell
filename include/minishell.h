@@ -34,7 +34,9 @@
 # include "../srcs/exc/exc.h"
 # include "../srcs/env/env.h"
 # include "../srcs/parser/parser.h"
+# include "../srcs/lexer/lexer.h"
 # include "../srcs/signal/signal.h"
+# include "../srcs/expansion/expan.h"
 # include "../srcs/cleanup/freedom.h"
 # include "../srcs/error/controllers.h"
 # include "../srcs/utils/mini_utils.h"
@@ -47,8 +49,10 @@
 # define EUNKN "ERROR: unknown error"
 # define PATHE "ERROR: Commands Path"
 # define ARGUE "ERROR: Commands error"
-# define HERDOCER "here-document delimited by end-of-file: wanted"
+# define TOKENER "syntax error near unexpected token"
+# define HERDOCER "warning: here-document delimited by end-of-file (wanted `"
 # define MALLERR "an unexpected error occured"
+# define EOFERR "unexpected EOF while looking for matching"
 # define PARSER01 "parsing ERROR: no command to execute!"
 # define CMDERR01 "command not found"
 # define CMDERR02 "is a directory"
@@ -64,6 +68,8 @@
 # define MINIEROP "invalid option"
 # define CMD_NOT_FOUND 127
 # define CMD_NOT_EXECU 128
+
+# define HEREDOC_NAME "/tmp/.minishell_heredoc_"
 
 extern int	g_final_exit_code;
 

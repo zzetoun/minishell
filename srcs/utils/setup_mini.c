@@ -64,7 +64,7 @@ void	setup_io(t_command *cmd)
 		cmd->io_fds->infile = NULL;
 		cmd->io_fds->outfile = NULL;
 		cmd->io_fds->heredoc_delimiter = NULL;
-		cmd->io_fds->heredoc_quotes = 0;
+		cmd->io_fds->heredoc_quotes = false;
 		cmd->io_fds->fd_in = -1;
 		cmd->io_fds->fd_out = -1;
 		cmd->io_fds->stdin_backup = -1;

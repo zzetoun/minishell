@@ -12,53 +12,6 @@
 
 #include "../include/minishell.h"
 
-// static void		 ft_close_cmd_fd(t_command *cmd)
-// {
-// 	if (cmd->io_fds->fd_in != -1)
-// 	{
-// 		close(cmd->io_fds->fd_in);
-// 		cmd->io_fds->fd_in = -1;
-// 	}
-// 	if (cmd->io_fds->fd_out != -1)
-// 	{
-// 		close(cmd->io_fds->fd_out);
-// 		cmd->io_fds->fd_out = -1;
-// 	}
-// 	if (cmd->pipe_fd[0] != -1)
-// 	{
-// 		close(cmd->pipe_fd[0]);
-// 		cmd->pipe_fd[0] = -1;
-// 	}
-// 	if (cmd->pipe_fd[1] != -1)
-// 	{
-// 		close(cmd->pipe_fd[1]);
-// 		cmd->pipe_fd[1] = -1;
-// 	}
-// }
-
-void	clear_cmd(t_command **lst, void (*del)(void *))
-{
-	t_command	*next;
-	t_command	*slst;
-
-	next = NULL;
-	slst = *lst;
-	while (*lst != NULL)
-	{
-		next = (*lst)->next;
-		if (slst->command)
-			(*del)(slst->command);
-		if (slst->args)
-			ft_free_array(slst->args);
-		if (slst->pipe_fd)
-			(*del)(slst->pipe_fd);
-		if (slst->io_fds)
-			ft_free_io(slst->io_fds);
-		(*del)(slst);
-		*lst = next;
-	}
-}
-
 void	ft_free_io(t_io_fds *io)
 {
 	if (!io)
@@ -114,24 +67,6 @@ void	ft_free_ptr(void *pointer)
 		free(pointer);
 		pointer = NULL;
 	}
-}
-
-void	free_env(t_env_info *env)
-{
-	t_envp	*list;
-
-	list = env->head;
-	while (list)
-	{
-		list = list->next;
-		env->head->idx = 0;
-		free(env->head->str);
-		free(env->head->key);
-		free(env->head->value);
-		free(env->head);
-		env->head = list;
-	}
-	env->size = 0;
 }
 
 void	ft_freedom(t_data *data, bool clear_history)

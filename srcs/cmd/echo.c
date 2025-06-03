@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 19:03:45 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/05/30 20:15:56 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/06/02 18:26:15 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	ft_echo(char **args)
 
 	new_line = true;
 	idx = 1;
-	if (args && *args && !new_line_check(args[idx]))
+	if (args && args[idx] && !new_line_check(args[idx]))
 	{
 		new_line = false;
 		idx++;

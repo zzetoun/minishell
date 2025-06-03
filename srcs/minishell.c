@@ -12,6 +12,8 @@
 
 #include "../include/minishell.h"
 
+int	g_final_exit_code;
+
 /* first_check:
 *	Checks the arguments at program start up. Minishell can start either:
 *		* when no arguments are supplied.
@@ -45,13 +47,11 @@ void	minishell_interactive(t_data *data)
 	{
 		set_signals_interactive();
 		data->user_input = readline(PROMPT);
-		add_history(data->user_input); // ---->>> should be moved inside parsing after parsing is chechked <<<-----
 		set_signals_noninteractive();
-		if (cmd_args_split(data, data->user_input)) // -->>>>> parsing is here  <<<<<----
+		if (parse_user_input(data))
 			g_final_exit_code = execute(data);
 		else
 			g_final_exit_code = 1;
-		ft_printf(1, ">> g_final_exit_code : [%d] <<\n", g_final_exit_code);
 		ft_freedom(data, false);
 	}
 }
@@ -79,7 +79,7 @@ void	minishell_noninteractive(t_data *data, char *arg)
 	while (user_inputs[++idx])
 	{
 		data->user_input = ft_strdup(user_inputs[idx]);
-		if (cmd_args_split(data, data->user_input)) // -->>>>> parsing is here  <<<<<----
+		if (parse_user_input(data))
 			g_final_exit_code = execute(data);
 		else
 			g_final_exit_code = 1;

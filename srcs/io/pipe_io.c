@@ -6,11 +6,11 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 16:48:20 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/05/30 13:37:28 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/06/02 15:40:45 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../include/minishell.h"
 
 /* close_pipe_fds:
 *	Closes the pipe fds of all commands. A pointer to a command to skip

@@ -12,8 +12,6 @@
 
 #include "../include/minishell.h"
 
-int	g_final_exit_code;
-
 /* str_compare:
 *	Compares two strings for an exact match (both content and length).
 *	Behavior:

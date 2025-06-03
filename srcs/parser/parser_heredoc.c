@@ -118,14 +118,14 @@
 // /* parse_heredoc:
 // **   Create a pipe, get it, and set cmd->fd_in accordingly.
 // */
-// void parse_heredoc(t_data *data, t_command **last_cmd, t_token **token_lst)
+// void parse_heredoc(t_data *data, t_command **get_last_cmd, t_token **token_lst)
 // {
 // 	t_command	*cmd;
 // 	t_token		*temp;
 // 	int			pipefd[2];
 	
 // 	temp = *token_lst;
-// 	cmd  = get_last_cmd(*last_cmd);
+// 	cmd  = get_last_cmd(*get_last_cmd);
 // 	setup_io(cmd);
 // 	if (pipe(pipefd) == -1)
 // 		exit_full(data, errmsg("pipe", NULL, strerror(errno), 1));

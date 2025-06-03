@@ -23,8 +23,10 @@ int	errmsg(char *cmd, char *detail, char *error, int err_nb)
 	{
 		if (str_compare(cmd, "export") || str_compare(cmd, "unset"))
 			ft_printf(2, "-Minishell: %s: `%s': %s\n", cmd, detail, error);
-		else
+		else if (!str_compare(detail, "quotes"))
 			ft_printf(2, "-Minishell: %s: %s: %s\n", cmd, detail, error);
+		else
+			ft_printf(2, "-Minishell: %s `%s'\n", cmd, error);
 	}
 	else if (cmd)
 		ft_printf(2, "-Minishell: %s: %s\n", cmd, error);
