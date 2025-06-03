@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 18:27:13 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/06/04 01:42:31 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/06/04 03:49:00 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -16,21 +16,18 @@ void	ft_free_io(t_io_fds *io)
 {
 	if (!io)
 		return ;
-	if (io->stdin_backup != -1 || io->stdout_backup != -1)
-		restore_io(io);
-	
+	restore_io(io);
 	if (io->heredoc_delimiter)
 	{
-		if (io->infile)
-			unlink(io->infile);
+		unlink(io->infile);
 		ft_free_ptr(io->heredoc_delimiter);
 	}
-	
 	if (io->infile)
 		ft_free_ptr(io->infile);
 	if (io->outfile)
 		ft_free_ptr(io->outfile);
-	ft_free_ptr(io);
+	if (io)
+		ft_free_ptr(io);
 }
 
 void	ft_close_fds(t_command *cmds, bool close_backups)

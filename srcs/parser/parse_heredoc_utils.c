@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   parse_heredoc_utils.c                              :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 21:39:31 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/06/03 21:39:33 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/06/04 03:53:02 by zzetoun          ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../include/minishell.h"
 
@@ -20,26 +20,17 @@
 static char	*make_str_from_tab(char **tab)
 {
 	char	*str;
-	char	*tmp;
 	int		i;
 
 	i = -1;
 	while (tab[++i])
 	{
-		tmp = str;
 		if (i == 0)
 			str = ft_strdup(tab[0]);
 		else
-		{
-			str = ft_strjoin(tmp, tab[i]);
-			ft_free_ptr(tmp);
-		}
+			str = ft_strjoin_free(str, tab[i]);
 		if (tab[i + 1])
-		{
-			tmp = str;
-			str = ft_strjoin(tmp, " ");
-			ft_free_ptr(tmp);
-		}
+			str = ft_strjoin_free(str, " ");
 	}
 	ft_free_array(tab);
 	return (str);
