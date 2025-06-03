@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   freedom.c                                          :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 18:27:13 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/05/07 18:27:13 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/06/04 01:42:31 by zzetoun          ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../include/minishell.h"
 
@@ -16,23 +16,26 @@ void	ft_free_io(t_io_fds *io)
 {
 	if (!io)
 		return ;
-	restore_io(io);
+	if (io->stdin_backup != -1 || io->stdout_backup != -1)
+		restore_io(io);
+	
 	if (io->heredoc_delimiter)
 	{
-		unlink(io->infile);
+		if (io->infile)
+			unlink(io->infile);
 		ft_free_ptr(io->heredoc_delimiter);
 	}
+	
 	if (io->infile)
 		ft_free_ptr(io->infile);
 	if (io->outfile)
 		ft_free_ptr(io->outfile);
-	if (io)
-		ft_free_ptr(io);
+	ft_free_ptr(io);
 }
 
 void	ft_close_fds(t_command *cmds, bool close_backups)
 {
-	if (cmds->io_fds)
+	if (cmds && cmds->io_fds)
 	{
 		if (cmds->io_fds->fd_in != -1)
 			close(cmds->io_fds->fd_in);
@@ -56,8 +59,7 @@ void	ft_free_array(char **array)
 		ft_free_ptr(*ptr);
 		ptr++;
 	}
-	free(array);
-	array = NULL;
+	ft_free_ptr(array);
 }
 
 void	ft_free_ptr(void *pointer)
@@ -88,3 +90,4 @@ void	ft_freedom(t_data *data, bool clear_history)
 		rl_clear_history();
 	}
 }
+

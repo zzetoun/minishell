@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   fill_args_echo.c                                   :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 19:56:47 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/06/03 15:35:29 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/06/04 02:40:14 by zzetoun          ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../include/minishell.h"
 
@@ -57,14 +57,12 @@ bool	add_args_echo(t_token **t_node, t_command *last_cmd)
 
 	remove_empty_var_args(t_node);
 	token = *t_node;
-	len = 0;
-	while (last_cmd->args[len])
-		len++;
+	len = ft_array_len(last_cmd->args);
 	new_tab = ft_calloc((count_args_echo(token) + len + 1), sizeof(char *));
 	if (!new_tab)
 		return (errmsg("malloc", NULL, MALLERR, false));
 	new_tab = copy_in_ntab(len, new_tab, last_cmd, token);
-	ft_free_array(last_cmd->args);
+	free(last_cmd->args);
 	last_cmd->args = new_tab;
 	while (token->type == WORD || token->type == VAR)
 		token = token->next;

@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   replace_var.c                                      :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 17:02:34 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/06/03 21:36:04 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/06/04 01:06:53 by zzetoun          ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../include/minishell.h"
 
@@ -91,17 +91,13 @@ bool	replace_var(t_token **t_node, char *var_value, int index)
 */
 char	*replace_str_heredoc(char *str, char *var_value, int index)
 {
-	char	*tmp;
+	char	*new_str;
 
-	tmp = NULL;
 	if (!var_value)
 		return (str);
-	else
-	{
-		tmp = str;
-		str = del_and_replace(NULL, str, var_value, index);
-		ft_free_ptr(tmp);
-	}
-	ft_free_ptr(var_value);
-	return (str);
+	new_str = del_and_replace(NULL, str, var_value, index);
+	if (!new_str)
+		return (str);
+	ft_free_ptr(str);
+	return (new_str);
 }

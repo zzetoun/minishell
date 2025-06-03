@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   fill_args_default.c                                :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 18:12:43 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/06/03 20:31:10 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/06/04 03:23:29 by zzetoun          ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../include/minishell.h"
 
@@ -98,7 +98,7 @@ bool	add_args(t_token **t_node, t_command *last_cmd)
 	if (!new_tab)
 		return (errmsg("malloc", NULL, MALLERR, false));
 	new_tab = copy_to_ntab(len, new_tab, last_cmd, t_node);
-	ft_free_array(last_cmd->args);
+	free(last_cmd->args);
 	last_cmd->args = new_tab;
 	*t_node = token;
 	return (true);

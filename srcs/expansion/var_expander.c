@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   var_expander.c                                     :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 21:38:12 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/06/03 21:38:15 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/06/04 01:12:41 by zzetoun          ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../include/minishell.h"
 
@@ -78,15 +78,27 @@ void	var_expander(t_data *data, t_token **token_lst)
 */
 char	*var_expander_heredoc(t_data *data, char *str)
 {
-	int	i;
+	int		i;
+	char	*new;
+	char	*val;
 
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] == '$'
-			&& is_next_char_a_sep(str[i + 1]) == false
-			&& var_between_quotes(str, i) == false)
-			str = replace_str_heredoc(str, recover_val(NULL, str + i, data), i);
+		if (str[i] == '$' && !is_next_char_a_sep(str[i + 1])
+			&& !var_between_quotes(str, i))
+		{
+			val = recover_val(NULL, str + i, data);
+			new = replace_str_heredoc(str, val, i);
+			if (!new)
+				return (str);
+			str = new;
+			if (val)
+				i += ft_strlen(val);
+			else
+				i++;
+			ft_free_ptr(val);
+		}
 		else
 			i++;
 	}
