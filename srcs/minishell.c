@@ -35,39 +35,42 @@ static bool	first_check(t_data *data, int ac, char **av)
 	return (true);
 }
 
-static bool	mini_setup_mini(t_data *data)
-{
-    data->token = NULL;
-    data->user_input = NULL;
-    data->cmd = NULL;
-    data->pid = -1;
-    errno = 0;
-    g_final_exit_code = 0;
-    return (true);
-}
+//static bool	mini_setup_mini(t_data *data)
+//{
+//    data->token = NULL;
+//    data->user_input = NULL;
+//    data->cmd = NULL;
+//    data->pid = -1;
+//    errno = 0;
+//    g_final_exit_code = 0;
+//    return (true);
+//}
 
-static void ft_free_cmds(t_data *data)
-{
-    t_command *command;
-
-    command = data->cmd;
-    while (command)
-    {
-        free(command->command);
-        ft_free_array(command->args);
-        if (command->io_fds)
-        {
-            free(command->io_fds->infile);
-            free(command->io_fds->outfile);
-            free(command->io_fds->heredoc_delimiter);
-            free(command->io_fds);
-        }
-        t_command *next_command = command->next;
-        free(command);
-        command = next_command;
-    }
-    mini_setup_mini(data);
-}
+//static void ft_free_cmds(t_data *data)
+//{
+//    t_command *command;
+//	t_command *next_command;
+//
+//	if (!data || !data->cmd)
+//		return ;
+//    command = data->cmd;
+//    while (command)
+//    {
+//        ft_free_ptr(command->command);
+//        ft_free_array(command->args);
+//        if (command->io_fds)
+//        {
+//            ft_free_ptr(command->io_fds->infile);
+//            ft_free_ptr(command->io_fds->outfile);
+//            ft_free_ptr(command->io_fds->heredoc_delimiter);
+//            ft_free_ptr(command->io_fds);
+//        }
+//		next_command = command->next;
+//		ft_free_ptr(command);
+//		command = next_command;
+//	}
+//    //mini_setup_mini(data);
+//}
 
 /* minishell_interactive:
 *	Runs parsing and execution in interactive mode, i.e. when minishell
@@ -84,11 +87,17 @@ void	minishell_interactive(t_data *data)
     {
         set_signals_interactive();
         data->user_input = readline(PROMPT);
+		if (!validate_input(data->user_input))
+		{
+			ft_free_ptr(data->user_input);
+			data->user_input = NULL;
+			continue;
+		}
         set_signals_noninteractive();
         if (cmd_args_split(data, data->user_input))
         {
             char *exit_str = ft_itoa(last_exit_code);
-            setup_last_exit_code(data->cmd, last_exit_code);
+            //setup_last_exit_code(data->cmd, last_exit_code); //TODO setup last exit code but in execution!!!!!!!
             free(exit_str);
             g_final_exit_code = execute(data);
             last_exit_code = g_final_exit_code;
@@ -99,31 +108,16 @@ void	minishell_interactive(t_data *data)
             last_exit_code = 1;
         }
         ft_printf(1, ">> g_final_exit_code : [%d] <<\n", g_final_exit_code);
-        ft_free_cmds(data);
+		if (data->user_input) {
+			ft_free_ptr(data->user_input);
+			data->user_input = NULL;
+		}
+		if (data->cmd) {
+			clear_cmd(&data->cmd, &ft_free_ptr);
+			data->cmd = NULL;
+		}
     }
 }
-
-
-//void	minishell_interactive(t_data *data)
-//{
-//	while (1)
-//	{
-//		set_signals_interactive();
-//		data->user_input = readline(PROMPT);
-//		add_history(data->user_input); // ---->>> should be moved inside parsing after parsing is chechked <<<-----
-//		set_signals_noninteractive();
-//		if (cmd_args_split(data, data->user_input)) // -->>>>> parsing is here  <<<<<----
-//		{
-//
-//			g_final_exit_code = execute(data);
-//		}
-//		else
-//			g_final_exit_code = 1;
-//		ft_printf(1, ">> g_final_exit_code : [%d] <<\n", g_final_exit_code);
-//		ft_freedom(data, false);
-//	}
-//}
-
 
 /* minishell_noninteractive:
 *	Runs parsing and execution in noninteractive mode, i.e. when

@@ -39,7 +39,7 @@ void	add_back_cmd(t_command **list, t_command *new_node)
     }
     if (list && *list && new_node)
     {
-        while (start->next != NULL)
+        while (start->next)
             start = start->next;
         start->next = new_node;
         new_node->prev = start;

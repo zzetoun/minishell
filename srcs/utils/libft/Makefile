@@ -50,7 +50,8 @@ SRCS	= ft_array_len.c	\
 		  ft_putendl_fd.c	\
 		  ft_putnbr_fd.c	\
 		  ft_strmapi.c		\
-		  ft_striteri.c		
+		  ft_striteri.c		\
+		  ft_darray_to_str.c
 
 OBJS	= ${SRCS:.c=.o}
 

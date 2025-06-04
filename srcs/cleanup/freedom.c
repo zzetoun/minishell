@@ -19,13 +19,16 @@ void	ft_free_io(t_io_fds *io)
 	restore_io(io);
 	if (io->heredoc_delimiter)
 	{
-		unlink(io->infile);
+		if (io->infile)
+			unlink(io->infile);
 		ft_free_ptr(io->heredoc_delimiter);
 	}
 	if (io->infile)
 		ft_free_ptr(io->infile);
 	if (io->outfile)
 		ft_free_ptr(io->outfile);
+	if (io->append_file)
+		ft_free_ptr(io->append_file);
 	if (io)
 		ft_free_ptr(io);
 }
@@ -77,7 +80,7 @@ void	ft_freedom(t_data *data, bool clear_history)
 		data->user_input = NULL;
 	}
 	// if (data && data->token)
-	// 	clear_token();
+//	clear_token();//TODO clear the tokens
 	if (data && data->cmd)
 		clear_cmd(&data->cmd, &ft_free_ptr);
 	if (clear_history)

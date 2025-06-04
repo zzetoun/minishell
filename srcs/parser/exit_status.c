@@ -11,7 +11,6 @@
  * @param cmd
  * @param last_exit_code
  */
-
 void 	setup_last_exit_code(t_command *cmd, int last_exit_code)
 {
 	t_command	*tmp;

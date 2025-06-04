@@ -25,46 +25,6 @@ enum e_token_types  get_current_token_type(const char *current)
     return (WORD);
 }
 
-char **append_arg(char **args, const char *arg) {
-    size_t count = 0;
-
-    // Count existing arguments
-    if (args) {
-        while (args[count]) {
-            count++;
-        }
-    }
-
-    // Allocate memory for the new array (existing + new + NULL terminator)
-    char **new_args = malloc((count + 2) * sizeof(char *));
-    if (!new_args) {
-        perror("malloc");
-        exit(EXIT_FAILURE);
-    }
-
-    // Copy existing arguments to the new array
-    for (size_t i = 0; i < count; i++) {
-        new_args[i] = args[i];
-    }
-
-    // Add the new argument
-    new_args[count] = strdup(arg);
-    if (!new_args[count]) {
-        perror("strdup");
-        exit(EXIT_FAILURE);
-    }
-
-    // Null-terminate the array
-    new_args[count + 1] = NULL;
-
-    // Free the old array if it exists
-    if (args) {
-        free(args);
-    }
-
-    return new_args;
-}
-
 bool tokenize_input(t_data *data, const char *input) {
     size_t i = 0;
     t_command *current_cmd = NULL;

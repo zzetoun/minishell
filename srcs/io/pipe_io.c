@@ -27,10 +27,16 @@ void	close_pipe_fds(t_command *cmds, t_command *_cmd)
 	{
 		if (cmds != _cmd && cmds->pipe_fd)
 		{
-			close(cmds->pipe_fd[0]);
-			cmds->pipe_fd[0] = -1;
-			close(cmds->pipe_fd[1]);
-			cmds->pipe_fd[1] = -1;
+			if (cmds->pipe_fd[0] != -1)
+			{
+				close(cmds->pipe_fd[0]);
+				cmds->pipe_fd[0] = -1;
+			}
+			if (cmds->pipe_fd[1] != -1)
+			{
+				close(cmds->pipe_fd[1]);
+				cmds->pipe_fd[1] = -1;
+			}
 		}
 		cmds = cmds->next;
 	}

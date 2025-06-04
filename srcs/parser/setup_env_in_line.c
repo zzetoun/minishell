@@ -3,25 +3,31 @@
 //
 #include "parser.h"
 
-static char *ft_strjoin_free_1(char *s1, const char *s2)
-{
-    char *res;
-
-    res = ft_strjoin(s1, s2);
-    free(s1);
-    return res;
-}
+//static char *ft_strjoin_free_1(char *s1, const char *s2)
+//{
+//    char *res;
+//
+//    res = ft_strjoin(s1, s2);
+//    free(s1);
+//    return res;
+//}
 
 size_t handle_single_quotes(char *line, size_t i, char **result)
 {
     size_t start;
+	char 	*sub_str;
 
     start = ++i;
-    while (line[i] && line[i] != '\'')
-        i++;
-    *result = ft_strjoin_free_1(*result,
-              ft_substr(line, start, i - start));
-    return i;
+    while (line[i] && line[i] != '\'') {
+		i++;
+	}
+	sub_str = ft_substr(line, start, i - start);
+	if (!sub_str)
+		sub_str = ft_strdup("");
+    *result = ft_strjoin_free(*result,
+              sub_str);
+	ft_free_ptr(sub_str);
+    return (i);
 }
 
 size_t handle_env_variable(char *line, size_t i, char **result, t_data *data)
@@ -38,15 +44,15 @@ size_t handle_env_variable(char *line, size_t i, char **result, t_data *data)
         env_val = ft_strdup("\n");
     }
     if (env_val)
-        *result = ft_strjoin_free_1(*result, env_val);
-//    ft_free_ptr(env_var);
+        *result = ft_strjoin_free(*result, env_val);
+    ft_free_ptr(env_var);
     return j - 1;
 }
 
 void append_char(char **result, const char c)
 {
     char str[2] = {c, '\0'};
-    *result = ft_strjoin_free_1(*result, str);
+    *result = ft_strjoin_free(*result, str);
 }
 
 char *setup_env_in_line(char *line, t_data *data)

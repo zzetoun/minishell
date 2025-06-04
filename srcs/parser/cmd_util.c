@@ -3,23 +3,20 @@
 void	clear_cmd(t_command **lst, void (*del)(void *))
 {
 	t_command	*next;
-	t_command	*slst;
 
 	next = NULL;
-	slst = *lst;
 	while (*lst != NULL)
 	{
 		next = (*lst)->next;
-		if (slst->command)
-			(*del)(slst->command);
-		if (slst->args)
-			ft_free_array(slst->args);
-		if (slst->pipe_fd)
-			(*del)(slst->pipe_fd);
-		if (slst->io_fds)
-			ft_free_io(slst->io_fds);
-		(*del)(slst);
+		if ((*lst)->command)
+			(*del)((*lst)->command);
+		if ((*lst)->args)
+			ft_free_array((*lst)->args);
+		if ((*lst)->pipe_fd)
+			(*del)((*lst)->pipe_fd);
+//		if ((*lst)->io_fds)
+//			ft_free_io((*lst)->io_fds);
+		(*del)((*lst));
 		*lst = next;
 	}
-	*lst = NULL; // TODO ask george
 }

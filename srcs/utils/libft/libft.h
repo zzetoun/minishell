@@ -40,6 +40,7 @@ char	*ft_strdup(const char *s1);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strrchr(const char *s, int c);
 char	*ft_strnstr(const char *ha, const char *ne, size_t len);
+char	*ft_darray_to_str(char **darray, char *seperator);
 
 char	*ft_itoa(int n);
 char	*ft_str_tolower(char *s);

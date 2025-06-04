@@ -24,11 +24,13 @@ void	restore_io(t_io_fds *io)
 		return ;
 	if (io->stdin_backup != -1)
 	{
+		dup2(io->stdin_backup, STDIN_FILENO);
 		close(io->stdin_backup);
 		io->stdin_backup = -1;
 	}
 	if (io->stdout_backup != -1)
 	{
+		dup2(io->stdout_backup, STDOUT_FILENO);
 		close(io->stdout_backup);
 		io->stdout_backup = -1;
 	}
@@ -54,12 +56,17 @@ void	redirect_io(t_io_fds *io)
 		setup_append(io);
 	if (io->outfile)
 		setup_truncate(io);
-	if (io->fd_in != -1)
+	if (io->fd_in != -1 && io->fd_in != STDIN_FILENO)
+	{
 		if (dup2(io->fd_in, STDIN_FILENO) == -1)
 			errmsg("dup2", io->infile, strerror(errno), errno);
-	if (io->fd_out != -1)
-		if (dup2(io->fd_out, STDOUT_FILENO) == -1)
-			errmsg("dup2", io->outfile, strerror(errno), errno);
+	}
+//	if (io->fd_in != -1)
+//		if (dup2(io->fd_in, STDIN_FILENO) == -1)
+//			errmsg("dup2", io->infile, strerror(errno), errno); //TODO chech heredoc
+//	if (io->fd_out != -1)
+//		if (dup2(io->fd_out, STDOUT_FILENO) == -1)
+//			errmsg("dup2", io->outfile, strerror(errno), errno);
 }
 
 /* check_io:

@@ -15,6 +15,7 @@
 
 //# include "minishell.h"
 #include <unistd.h>
+#include <stdbool.h>
 
 typedef struct s_token
 {
@@ -49,11 +50,12 @@ typedef struct s_io_fds
 	char	*outfile;
 	char 	*append_file;
 	char	*heredoc_delimiter;
-	int		heredoc_quotes;
+	bool	heredoc_quotes;
 	int		fd_in;
 	int		fd_out;
 	int		stdin_backup;
 	int		stdout_backup;
+	int		heredoc_pipe[2];
 }	t_io_fds;
 
 enum e_token_types

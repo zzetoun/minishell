@@ -26,7 +26,10 @@ void 	setup_truncate(t_io_fds *io)
 	if (dup2(io->fd_out, STDOUT_FILENO) == -1)
 		errmsg("dup2", io->outfile, strerror(errno), errno);
 }
-
+/**
+ * @brief this function setups the input file descriptor when we have a '<'
+ * @param io
+ */
 void 	setup_input(t_io_fds *io)
 {
 	if (!io)
@@ -39,6 +42,13 @@ void 	setup_input(t_io_fds *io)
 		errmsg("dup2", io->infile, strerror(errno), errno);
 }
 
+/**
+ * @brief this function setups the output file descriptor when we have a '>>'
+ * @param io
+ * We are going through the command list and checking if there is an append file -
+ * if so, we open it with O_WRONLY | O_CREAT | O_APPEND flags. And -
+ * change current file descriptor to the stdout (1) descriptor. Like file output becomes to new file :)
+ */
 void 	setup_append(t_io_fds *io)
 {
 	if (!io)
@@ -55,6 +65,14 @@ void 	setup_append(t_io_fds *io)
 		io->fd_out = -1;
 	}
 }
+
+/**
+ * @brief this function setups the input file descriptor when we have a '<<'
+ * @param io
+ * We are going through the command list and checking if there is a heredoc delimiter -
+ * if so, we open it with O_WRONLY | O_CREAT | O_APPEND flags. And -
+ * change current file descriptor to the stdin (0) descriptor. Like file input becomes to new file :)
+ */
 
 void 	close_exists_red_fds(t_io_fds *fds)
 {
