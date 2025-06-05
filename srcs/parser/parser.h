@@ -37,7 +37,6 @@ bool		add_args_echo(t_token **t_node, t_command *last_cmd);
 bool		create_args_echo(t_token **t_node, t_command *last_cmd);
 
 char		*join_vars(t_token **t_node);
-char		*get_relative_path(char *file_to_open);
 char		**copy_in_ntab(int len, char **ntab, t_command *lcmd, t_token *tk);
 
 int			count_args(t_token *token);

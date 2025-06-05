@@ -66,11 +66,14 @@
 # define MINIERID "not a valid identifier"
 # define MINIEROP "invalid option"
 # define CMD_NOT_FOUND 127
-# define CMD_NOT_EXECU 128
+# define CMD_NOT_EXECU 126
 
 # define HEREDOC_NAME "/tmp/.minishell_heredoc_"
 
 extern int	g_final_exit_code;
+
+void		minishell_interactive(t_data *data);
+void		minishell_noninteractive(t_data *data, char *arg);
 
 bool		setup_mini(t_data *data, char **envp);
 

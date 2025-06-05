@@ -1,0 +1,7 @@
+
+echo "I am line 1" >> text2.txt
+echo "I am line 2" >> text2.txt
+echo "" >> text2.txt
+echo "\n\n\n\n\n\n\n" >> text2.txt
+echo "I Am line 5" >> text2.txt
+ls

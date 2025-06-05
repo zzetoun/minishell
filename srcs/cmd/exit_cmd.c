@@ -31,26 +31,26 @@ static int	ft_atoi_error(const char *str, bool *error)
 
 static int	get_exit_code(char *arg, bool *error)
 {
-	unsigned long long	i;
+	unsigned long long	idx;
 
 	if (!arg)
 		return (g_final_exit_code);
-	i = 0;
-	while (ft_isspace(arg[i]))
-		i++;
-	if (arg[i] == '\0')
+	idx = 0;
+	while (ft_isspace(arg[idx]))
+		idx++;
+	if (arg[idx] == '\0')
 		(*error) = true;
-	i += (arg[i] == '-' || arg[i] == '+');
-	if (!ft_isdigit(arg[i]))
+	idx += (arg[idx] == '-' || arg[idx] == '+');
+	if (!ft_isdigit(arg[idx]))
 		(*error) = true;
-	while (arg[i])
+	while (arg[idx])
 	{
-		if (!ft_isdigit(arg[i]) && !ft_isspace(arg[i]))
+		if (!ft_isdigit(arg[idx]) && !ft_isspace(arg[idx]))
 			(*error) = true;
-		i++;
+		idx++;
 	}
-	i = ft_atoi_error(arg, error);
-	return (i % 256);
+	idx = ft_atoi_error(arg, error);
+	return (idx % 256);
 }
 
 /* silent_exit_check:

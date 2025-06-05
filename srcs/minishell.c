@@ -43,15 +43,21 @@ static bool	first_check(t_data *data, int ac, char **av)
 */
 void	minishell_interactive(t_data *data)
 {
+	int	exit_code_tmp;
+
+	exit_code_tmp = 1;
 	while (1)
 	{
 		set_signals_interactive();
 		data->user_input = readline(PROMPT);
 		set_signals_noninteractive();
 		if (parse_user_input(data))
+		{
 			g_final_exit_code = execute(data);
+			exit_code_tmp = g_final_exit_code;
+		}
 		else
-			g_final_exit_code = 1;
+			g_final_exit_code = exit_code_tmp;
 		ft_freedom(data, false);
 	}
 }
@@ -71,7 +77,9 @@ void	minishell_noninteractive(t_data *data, char *arg)
 {
 	char	**user_inputs;
 	int		idx;
+	int	exit_code_tmp;
 
+	exit_code_tmp = 1;
 	user_inputs = ft_split(arg, ';');
 	if (!user_inputs)
 		exit_full(data, EXIT_FAILURE);
@@ -80,21 +88,23 @@ void	minishell_noninteractive(t_data *data, char *arg)
 	{
 		data->user_input = ft_strdup(user_inputs[idx]);
 		if (parse_user_input(data))
+		{
 			g_final_exit_code = execute(data);
+			exit_code_tmp = g_final_exit_code;
+		}
 		else
-			g_final_exit_code = 1;
-		ft_freedom(data, false);
+			g_final_exit_code = exit_code_tmp;
 	}
 	ft_free_array(user_inputs);
 }
 
 static void	welcome_msg(void)
 {
-	printf("\n\t###############################\n");
-	printf("\t#                             #\n");
-	printf("\t#  Minishell by Zorz & Igor   #\n");
-	printf("\t#                             #\n");
-	printf("\t###############################\n\n");
+	ft_printf(1, "\n\t###############################\n");
+	ft_printf(1, "\t#                             #\n");
+	ft_printf(1, "\t#  Minishell by Zorz & Igor   #\n");
+	ft_printf(1, "\t#                             #\n");
+	ft_printf(1, "\t###############################\n\n");
 }
 
 /* main:
@@ -119,25 +129,3 @@ int	main(int ac, char **av, char **envp)
 	exit_full(&data, g_final_exit_code);
 	return (0);
 }
-
-// int	main (int ac, char **av, char **envp)
-// {
-// 	(void) ac;
-// 	(void) av;
-// 	t_data		data;
-// 	t_env_info	env;
-// 	t_command	cmd;
-
-// 	data.cmd = &cmd;
-// 	data.env = &env;
-// 	welcome_msg();
-// 	setup_mini(&data, envp);
-// 	while (1)
-// 	{
-// 		data.user_input = readline(PROMPT);
-// 		add_history(data.user_input);
-// 		cmd_args_split(&cmd, data.user_input);
-// 		errno = execute_bcmd(&data, &cmd);
-// 	}
-// 	return (0);
-// }
