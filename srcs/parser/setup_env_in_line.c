@@ -39,7 +39,12 @@ size_t handle_env_variable(char *line, size_t i, char **result, t_data *data)
 
 void append_char(char **result, const char c)
 {
-    *result = ft_strjoin_free(*result,&c);
+	char tmp[2];
+
+	tmp[0] = c;
+	tmp[1] = '\0';
+    //*result = ft_strjoin_free(*result,&c);
+	*result = ft_strjoin_free(*result, tmp);
 }
 
 char *setup_env_in_line(char *line, t_data *data)

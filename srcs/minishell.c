@@ -122,35 +122,75 @@ void	minishell_interactive(t_data *data)
 *	-> echo hello is the first command run
 *	-> ls is the second
 */
-void	minishell_noninteractive(t_data *data, char *arg)
-{ 
-	char	**user_inputs;
-	int		idx;
+//void	minishell_noninteractive(t_data *data, char *arg)
+//{
+//	char	**user_inputs;
+//	int		idx;
+//
+//	user_inputs = ft_split(arg, ';');
+//	if (!user_inputs)
+//		exit_full(data, EXIT_FAILURE);
+//	idx = -1;
+//	while (user_inputs[++idx])
+//	{
+//		data->user_input = ft_strdup(user_inputs[idx]);
+//		if (cmd_args_split(data, data->user_input)) // -->>>>> parsing is here  <<<<<----
+//            execute(data);
+////			g_final_exit_code = execute(data);
+////		else
+////			g_final_exit_code = 1;
+//		ft_freedom(&data, false);
+//	}
+//	ft_free_array(user_inputs);
+//}
 
-	user_inputs = ft_split(arg, ';');
+//static void	welcome_msg(void)
+//{
+//	printf("\n\t###############################\n");
+//	printf("\t#                             #\n");
+//	printf("\t#  Minishell by Zorz & Igor   #\n");
+//	printf("\t#                             #\n");
+//	printf("\t###############################\n\n");
+//}
+
+void	minishell_noninteractive(t_data *data, char *arg)
+{
+	char	**user_inputs;
+	int		 i;
+	int		 last_exit_code;
+
+	user_inputs = ft_split(arg, ';');          /* разбиваем по ‘;’ */
 	if (!user_inputs)
 		exit_full(data, EXIT_FAILURE);
-	idx = -1;
-	while (user_inputs[++idx])
-	{
-		data->user_input = ft_strdup(user_inputs[idx]);
-		if (cmd_args_split(data, data->user_input)) // -->>>>> parsing is here  <<<<<----
-            execute(data);
-//			g_final_exit_code = execute(data);
-//		else
-//			g_final_exit_code = 1;
-		ft_freedom(&data, false);
-	}
-	ft_free_array(user_inputs);
-}
 
-static void	welcome_msg(void)
-{
-	printf("\n\t###############################\n");
-	printf("\t#                             #\n");
-	printf("\t#  Minishell by Zorz & Igor   #\n");
-	printf("\t#                             #\n");
-	printf("\t###############################\n\n");
+	last_exit_code = 1;
+	i = -1;
+	while (user_inputs[++i])
+	{
+		/* ── 1. сохраняем строку пользователя ───────────────────── */
+		data->user_input = ft_strtrim(user_inputs[i], " \t\n");
+
+
+		/* ── 2. режим «неинтерактив» для сигналов ───────────────── */
+		set_signals_noninteractive();
+
+		/* ── 3. парсинг + исполнение ────────────────────────────── */
+		if (cmd_args_split(data, data->user_input))
+		{
+			g_final_exit_code = execute(data);
+			last_exit_code = g_final_exit_code;
+		}
+		else
+			g_final_exit_code = last_exit_code;
+
+		/* ── 4. очистка ──────────────────────────────────────────── */
+		ft_printf(1, ">> g_final_exit_code : [%d] <<\n", g_final_exit_code);
+		//ft_free_ptr(data->user_input);
+		clear_cmd(&data->cmd, &ft_free_ptr);  /* освобождаем список команд */
+		/* ft_freedom(&data, false);          ← вызов при необходимости */
+	}
+
+	ft_free_array(user_inputs);
 }
 
 /* main:
@@ -163,7 +203,7 @@ int	main(int ac, char **av, char **envp)
 	t_data		data;
 	t_env_info	env;
 
-	welcome_msg();
+	//welcome_msg();
 	ft_memset(&data, 0, sizeof(t_data));
 	data.env = &env;
 	if (!first_check(&data, ac, av) || !setup_mini(&data, envp))
