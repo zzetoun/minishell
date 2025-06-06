@@ -18,12 +18,12 @@ static void	update_wds(t_data *data, char *wd, t_env_info *env)
 	set_env(env, "PWD", wd);
 	if (data->old_working_dir)
 	{
-		free(data->old_working_dir);
+		ft_free_ptr(data->old_working_dir);
 		data->old_working_dir = ft_strdup(data->working_dir);
 	}
 	if (data->working_dir)
 	{
-		free(data->working_dir);
+		ft_free_ptr(data->working_dir);
 		data->working_dir = ft_strdup(wd);
 	}
 	ft_free_ptr(wd);

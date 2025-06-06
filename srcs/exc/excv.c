@@ -56,10 +56,10 @@ static int	get_children(t_data *data)
 *	builtin was executed alone.
 *	Returns false if there was a fork error.
 */
+
 static int	create_children(t_data *data)
 {
 	t_command	*cmd;
-
 
 	cmd = data->cmd;
 	while (data->pid != 0 && cmd)
@@ -76,8 +76,13 @@ static int	create_children(t_data *data)
 			if (cmd->io_fds && cmd->io_fds->append_file)
 				setup_append(cmd->io_fds);
 			execute_command(data, cmd);
+
+			if (data->cmd->io_fds->heredoc_delimiter)
+				ft_free_ptr(data->cmd->io_fds->heredoc_delimiter);
 			close_exists_red_fds(cmd->io_fds);
 			restore_io(cmd->io_fds);
+			//printf("Child process %d finished execution.\n", data->pid);
+			//exit(0);
 		}
 		cmd = cmd->next;
 	}

@@ -41,19 +41,26 @@ static char	*get_delim(char *delim, bool *quotes)
 	return (ft_strdup(delim));
 }
 
-/* parse_heredoc:
-*	Creates a temporary heredoc file which will be filled with
-*	user input.
-*/
 void	parse_heredoc(t_data *data, t_command **l_cmd)
 {
 	t_command	*cmd;
 	t_io_fds	*io;
+	char		*old_delim;
+	char		*new_delim;
 
 	cmd = get_last_cmd(*l_cmd);
-	io = cmd->io_fds;
-	io->heredoc_delimiter = get_delim(io->heredoc_delimiter, &(io->heredoc_quotes));
-
+	io  = cmd->io_fds;
+	old_delim = io->heredoc_delimiter;
+	new_delim = get_delim(old_delim, &io->heredoc_quotes);
+	if (!new_delim)
+	{
+		ft_free_ptr(old_delim);
+		io->heredoc_delimiter = NULL;
+		io->fd_in = -1;
+		return ;
+	}
+	io->heredoc_delimiter = new_delim;
+	ft_free_ptr(old_delim);
 	if (!get_heredoc(data, io))
 		io->fd_in = -1;
 }

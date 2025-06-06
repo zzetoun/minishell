@@ -49,7 +49,7 @@ void	close_pipe_fds(t_command *cmds, t_command *_cmd)
 */
 bool	create_pipes(t_data *data)
 {
-	int			*fd;	
+	int			*fd;
 	t_command	*tmp;
 
 	tmp = data->cmd;
@@ -60,7 +60,7 @@ bool	create_pipes(t_data *data)
 			fd = ft_calloc(2, sizeof(*fd));
 			if (!fd || pipe(fd) != 0)
 			{
-				ft_freedom(data, 0);
+				ft_freedom(&data, 0);
 				return (false);
 			}
 			tmp->pipe_fd = fd;

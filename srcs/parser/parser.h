@@ -52,6 +52,8 @@ void			 	close_exists_red_fds(t_io_fds *fds);
 void			 	setup_append(t_io_fds *io);
 void				parse_heredoc(t_data *data, t_command **last_cmd);
 bool				fill_heredoc(t_data *data, t_io_fds *io, int fd);
+void				list_clear_cmd(t_command **list, void (*del)(void *));
+
 
 
 //                                      END OF REDIRECTION AND HEREDOC SETUP                                          //

@@ -82,40 +82,32 @@ void	minishell_interactive(t_data *data)
 
     int last_exit_code;
 
-    last_exit_code = 0;
+    last_exit_code = 1;
     while (1)
     {
         set_signals_interactive();
         data->user_input = readline(PROMPT);
-		if (!validate_input(data->user_input))
-		{
+		if (!validate_input(data->user_input)) {
 			ft_free_ptr(data->user_input);
-			data->user_input = NULL;
 			continue;
 		}
         set_signals_noninteractive();
         if (cmd_args_split(data, data->user_input))
         {
-            char *exit_str = ft_itoa(last_exit_code);
-            //setup_last_exit_code(data->cmd, last_exit_code); //TODO setup last exit code but in execution!!!!!!!
-            free(exit_str);
             g_final_exit_code = execute(data);
             last_exit_code = g_final_exit_code;
         }
         else
-        {
-            g_final_exit_code = 1;
-            last_exit_code = 1;
-        }
+            g_final_exit_code = last_exit_code;
         ft_printf(1, ">> g_final_exit_code : [%d] <<\n", g_final_exit_code);
-		if (data->user_input) {
+		if (data->user_input && data->user_input[0] != '\0')
+		{
+			add_history(data->user_input);
 			ft_free_ptr(data->user_input);
-			data->user_input = NULL;
 		}
-		if (data->cmd) {
-			clear_cmd(&data->cmd, &ft_free_ptr);
-			data->cmd = NULL;
-		}
+		clear_cmd(&data->cmd, &ft_free_ptr);
+//		ft_freedom(&data, true);
+		//list_clear_cmd(&data->cmd, &ft_free_ptr);
     }
 }
 
@@ -147,7 +139,7 @@ void	minishell_noninteractive(t_data *data, char *arg)
 //			g_final_exit_code = execute(data);
 //		else
 //			g_final_exit_code = 1;
-		ft_freedom(data, false);
+		ft_freedom(&data, false);
 	}
 	ft_free_array(user_inputs);
 }
@@ -164,7 +156,6 @@ static void	welcome_msg(void)
 /* main:
 *	Begins minishell. Checks input and determines if
 *	minishell should be run interactively or not.
-*	Exits the shell with the exit status or the last command.
 */
 
 int	main(int ac, char **av, char **envp)
