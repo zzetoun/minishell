@@ -1,8 +1,18 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   setup_env_in_line.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: igorsergeevic <igorsergeevic@student.42    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/07 01:23:12 by igorsergeev       #+#    #+#             */
+/*   Updated: 2025/06/07 01:26:53 by igorsergeev      ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "parser.h"
 
-size_t handle_single_quotes(char *line, size_t i, char **result)
+size_t  handle_single_quotes(char *line, size_t i, char **result)
 {
     size_t	start;
 	char 	*sub_str;
@@ -18,11 +28,11 @@ size_t handle_single_quotes(char *line, size_t i, char **result)
     return (i);
 }
 
-size_t handle_env_variable(char *line, size_t i, char **result, t_data *data)
+size_t  handle_env_variable(char *line, size_t i, char **result, t_data *data)
 {
-    size_t j;
-	char *env_var;
-	char *env_val;
+    size_t  j;
+	char    *env_var;
+	char    *env_val;
 
     j = i + 1;
     while (line[j] && (ft_isalnum(line[j]) || line[j] == '_'))
@@ -34,20 +44,19 @@ size_t handle_env_variable(char *line, size_t i, char **result, t_data *data)
     if (env_val)
         *result = ft_strjoin_free(*result, env_val);
     ft_free_ptr(env_var);
-    return j - 1;
+    return (j - 1);
 }
 
-void append_char(char **result, const char c)
+void    append_char(char **result, const char c)
 {
 	char tmp[2];
 
 	tmp[0] = c;
 	tmp[1] = '\0';
-    //*result = ft_strjoin_free(*result,&c);
 	*result = ft_strjoin_free(*result, tmp);
 }
 
-char *setup_env_in_line(char *line, t_data *data)
+char    *setup_env_in_line(char *line, t_data *data)
 {
     char	*result;
 	size_t	i;

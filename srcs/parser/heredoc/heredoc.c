@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   heredoc.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: igorsergeevic <igorsergeevic@student.42    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/07 01:11:35 by igorsergeev       #+#    #+#             */
+/*   Updated: 2025/06/07 01:12:00 by igorsergeev      ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../parser.h"
 
@@ -49,7 +60,7 @@ void	parse_heredoc(t_data *data, t_command **l_cmd)
 	char		*new_delim;
 
 	cmd = get_last_cmd(*l_cmd);
-	io  = cmd->io_fds;
+	io = cmd->io_fds;
 	old_delim = io->heredoc_delimiter;
 	new_delim = get_delim(old_delim, &io->heredoc_quotes);
 	if (!new_delim)
@@ -63,5 +74,4 @@ void	parse_heredoc(t_data *data, t_command **l_cmd)
 	ft_free_ptr(old_delim);
 	if (!get_heredoc(data, io))
 		io->fd_in = -1;
-	//close(io->fd_in);
 }

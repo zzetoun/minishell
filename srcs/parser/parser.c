@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: igorsergeevic <igorsergeevic@student.42    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/07 01:20:51 by igorsergeev       #+#    #+#             */
+/*   Updated: 2025/06/07 03:13:28 by igorsergeev      ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "parser.h"
 #include <stdlib.h>
 #include <stdio.h>
@@ -75,48 +87,96 @@ static void if_not_cmd(t_data **data, t_command **cmd)
 {
 	if (!*cmd)
 	{
-		add_back_cmd(&(*data)->cmd, add_new_cmd(false));
+		if (!add_back_cmd(&(*data)->cmd, add_new_cmd(false)))
+			return (false);
 		*cmd = get_last_cmd((*data)->cmd);
 		setup_io(*cmd);
 	}
 	return ;
 }
 
-bool		cmd_args_split(t_data *data, char *input)
+static bool handle_token(t_data *data, t_command **cmd, char **split, int *i)
 {
-    char	**split;
-    int		i;
-    t_command *cmd;
+    if (str_compare(split[*i], "|"))
+        return setup_pipe_into_cmd(&data, cmd);
+
+    *cmd = get_last_cmd(data->cmd);
+    if (setup_current_cmd_redir(data, cmd, split, i))
+        return true;
+
+    if (str_compare(split[*i], "<<") && split[*i + 1])
+        return setup_heredoc_into_cmd(&data, cmd, split, i);
+
+    setup_current_cmd_command(&data, cmd, split[*i]);
+    return true;
+}
+
+static void cleanup(char **split, char *input)
+{
+    free_split(split);
+    // ft_free_ptr(input);
+}
+
+// bool		cmd_args_split(t_data *data, char *input)
+// {
+//     char	**split;
+//     int		i;
+//     t_command *cmd;
+
+//     if (!pre_check_input(&input, data, &cmd, &split))
+// 		return (false);
+//     i = -1;
+//     while (split[++i])
+//     {
+//         if (!cmd)
+//         	if_not_cmd(&data, &cmd);
+//         if (str_compare(split[i], "|"))
+//         {
+//             if (!setup_pipe_into_cmd(&data, &cmd))
+// 				return (false);
+//             continue;
+//         }
+//         cmd = get_last_cmd(data->cmd);
+//         if (setup_current_cmd_redir(data, &cmd, split, &i))
+// 				continue;
+//         else if (str_compare(split[i], "<<") && split[i + 1])
+// 		{
+// 			if (!setup_heredoc_into_cmd(&data, &cmd, split, &i))
+// 			{
+// 				free_split(split);
+// 				ft_free_ptr(input);
+// 				return (false);
+// 			}
+// 		}
+//         else
+// 			setup_current_cmd_command(&data, &cmd, split[i]);
+//     }
+//     free_split(split);
+// 	ft_free_ptr(input);
+//     return (true);
+// }
+
+bool cmd_args_split(t_data *data, char *input)
+{
+    char        **split;
+    int          i;
+    t_command   *cmd;
 
     if (!pre_check_input(&input, data, &cmd, &split))
-		return (false);
-    i = -1;
-    while (split[++i])
+        return false;
+    cmd = NULL;
+    i = 0;
+    while (split[i])
     {
         if (!cmd)
-        	if_not_cmd(&data, &cmd);
-        if (str_compare(split[i], "|"))
+            if_not_cmd(&data, &cmd);
+        if (!handle_token(data, &cmd, split, &i))
         {
-            if (!setup_pipe_into_cmd(&data, &cmd))
-				return (false);
-            continue;
+            cleanup(split, input);
+            return false;
         }
-        cmd = get_last_cmd(data->cmd);
-        if (setup_current_cmd_redir(data, &cmd, split, &i))
-				continue;
-        else if (str_compare(split[i], "<<") && split[i + 1])
-		{
-			if (!setup_heredoc_into_cmd(&data, &cmd, split, &i))
-			{
-				free_split(split);
-				ft_free_ptr(input);
-				return (false);
-			}
-		}
-        else
-			setup_current_cmd_command(&data, &cmd, split[i]);
+        i++;
     }
-    free_split(split);
-	ft_free_ptr(input);
-    return (true);
+    cleanup(split, input);
+    return true;
 }

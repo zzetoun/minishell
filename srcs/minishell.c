@@ -87,6 +87,11 @@ void	minishell_interactive(t_data *data)
     {
         set_signals_interactive();
         data->user_input = readline(PROMPT);
+		if (!data->user_input)
+		{
+			ft_printf(1, "\n");
+			exit_full(data, g_final_exit_code);
+		}
 		if (!validate_input(data->user_input)) {
 			ft_free_ptr(data->user_input);
 			continue;
@@ -101,11 +106,8 @@ void	minishell_interactive(t_data *data)
             g_final_exit_code = last_exit_code;
         ft_printf(1, ">> g_final_exit_code : [%d] <<\n", g_final_exit_code);
 		if (data->user_input && data->user_input[0] != '\0')
-		{
-			add_history(data->user_input);
 			ft_free_ptr(data->user_input);
-		}
-		clear_cmd(&data->cmd, &ft_free_ptr);
+		clear_	cmd(&data->cmd, &ft_free_ptr);
 //		ft_freedom(&data, true);
 		//list_clear_cmd(&data->cmd, &ft_free_ptr);
     }

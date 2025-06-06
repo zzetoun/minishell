@@ -1,10 +1,18 @@
-//
-// Created by iqment on 6/3/25.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser_utils.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: igorsergeevic <igorsergeevic@student.42    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/07 01:08:09 by igorsergeev       #+#    #+#             */
+/*   Updated: 2025/06/07 01:09:46 by igorsergeev      ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../parser.h"
-
-void			free_split(char **split)//TODO change to ft_free_array
+//TODO change to ft_free_array
+void	free_split(char **split)
 {
 	size_t	i;
 
@@ -16,7 +24,7 @@ void			free_split(char **split)//TODO change to ft_free_array
 	free(split);
 }
 
-static void 	*free_and_return_null(char **str)
+static void	*free_and_return_null(char **str)
 {
 	if (str && *str)
 	{
@@ -26,7 +34,8 @@ static void 	*free_and_return_null(char **str)
 	return (NULL);
 }
 
-char			**append_arg(char **args, const char *arg)//TODO make size for it - 25 lines
+//TODO make size for it - 25 lines
+char	**append_arg(char **args, const char *arg)
 {
 	size_t	i;
 	char	**new_args;
@@ -63,9 +72,9 @@ char			**append_arg(char **args, const char *arg)//TODO make size for it - 25 li
 	return (new_args);
 }
 
-t_command			*get_last_cmd(t_command *cmd)
+t_command	*get_last_cmd(t_command *cmd)
 {
 	while (cmd && cmd->next)
 		cmd = cmd->next;
-	return cmd;
+	return (cmd);
 }

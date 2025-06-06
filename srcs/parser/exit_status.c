@@ -1,6 +1,14 @@
-//
-// Created by iqment on 5/29/25.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exit_status.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: igorsergeevic <igorsergeevic@student.42    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/07 01:18:40 by igorsergeev       #+#    #+#             */
+/*   Updated: 2025/06/07 01:20:38 by igorsergeev      ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "parser.h"
 
@@ -11,25 +19,28 @@
  * @param cmd
  * @param last_exit_code
  */
-void 	setup_last_exit_code(t_command *cmd, int last_exit_code)
+void	setup_last_exit_code(t_command *cmd, int last_exit_code)
 {
 	t_command	*tmp;
 	size_t		i;
+	char		*new;
 
 	if (!cmd)
-		return;
+		return ;
 	tmp = cmd;
 	while (tmp)
 	{
-		i = (size_t) -1;
-		tmp->command = ft_replace_substr(tmp->command, "$?", ft_itoa(last_exit_code));
+		i = (size_t) - 1;
+		tmp->command = ft_replace_substr(tmp->command, "$?",
+				ft_itoa(last_exit_code));
 		while (tmp->args && tmp->args[i++])
 		{
 			if (!tmp->args[i])
-				continue;
+				continue ;
 			if (strstr(tmp->args[i], "$?"))
 			{
-				char *new = ft_replace_substr(tmp->args[i], "$?", ft_itoa(last_exit_code));
+				new = ft_replace_substr(tmp->args[i], "$?",
+						ft_itoa(last_exit_code));
 				free(tmp->args[i]);
 				tmp->args[i] = new;
 			}

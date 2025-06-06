@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: igorsergeevic <igorsergeevic@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 17:41:34 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/05/30 16:02:43 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/06/07 03:12:57 by igorsergeev      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
  * This part of parser.h - is about utilities for commands
 */
 t_command			*get_last_cmd(t_command *cmd);
-void		        add_back_cmd(t_command **list, t_command *new_node);
+bool				add_back_cmd(t_command **list, t_command *new_node);
 t_command	        *add_new_cmd(bool value);
 void				clear_cmd(t_command **lst, void (*del)(void *));
 

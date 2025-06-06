@@ -51,7 +51,7 @@ bool	setup_mini(t_data *data, char **envp)
 	return (true);
 }
 
-void	setup_io(t_command *cmd)
+bool	setup_io(t_command *cmd)
 {
 	if (!cmd->io_fds)
 	{
@@ -59,7 +59,7 @@ void	setup_io(t_command *cmd)
 		if (!cmd->io_fds)
 		{
 			errmsg("malloc", NULL, MALLERR, EXIT_FAILURE);
-			return ;
+			return (false);
 		}
 		cmd->io_fds->infile = NULL;
 		cmd->io_fds->outfile = NULL;
@@ -69,5 +69,7 @@ void	setup_io(t_command *cmd)
 		cmd->io_fds->fd_out = -1;
 		cmd->io_fds->stdin_backup = -1;
 		cmd->io_fds->stdout_backup = -1;
+		return (true);
 	}
+	return (true);
 }

@@ -1,10 +1,19 @@
-//
-// Created by iqment on 6/6/25.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser_setup.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: igorsergeevic <igorsergeevic@student.42    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/07 01:09:54 by igorsergeev       #+#    #+#             */
+/*   Updated: 2025/06/07 01:11:22 by igorsergeev      ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../parser.h"
 
-bool setup_token_type_and_give_command(t_command *cmd, const char *str, enum e_token_types token_type)
+bool	setup_token_type_and_give_command(t_command *cmd, const char *str,
+		enum e_token_types token_type)
 {
 	if (!cmd || !str)
 		return (false);
@@ -21,11 +30,12 @@ bool setup_token_type_and_give_command(t_command *cmd, const char *str, enum e_t
 }
 
 bool	setup_heredoc_into_cmd(t_data **data, t_command **cmd,
-									  char **split, int *i)
+		char **split, int *i)
 {
 	t_io_fds	*io;
 
-	if (!data || !*data || !cmd || !*cmd || !split || !split[*i] || !split[*i + 1])
+	if (!data || !*data || !cmd || !*cmd
+		|| !split || !split[*i] || !split[*i + 1])
 		return (false);
 	io = (*cmd)->io_fds;
 	if (io->heredoc_delimiter)

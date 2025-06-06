@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd_parse_utils.c                                  :+:      :+:    :+:   */
+/*   cmd_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: igorsergeevic <igorsergeevic@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 15:46:28 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/05/25 17:02:42 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/06/07 03:12:46 by igorsergeev      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_command	*add_new_cmd(bool value)
     return (new_node);
 }
 
-void	add_back_cmd(t_command **list, t_command *new_node)
+bool	add_back_cmd(t_command **list, t_command *new_node)
 {
     t_command	*start;
 
@@ -35,7 +35,7 @@ void	add_back_cmd(t_command **list, t_command *new_node)
     if (start == NULL)
     {
         *list = new_node;
-        return ;
+        return (true);
     }
     if (list && *list && new_node)
     {
@@ -43,6 +43,12 @@ void	add_back_cmd(t_command **list, t_command *new_node)
             start = start->next;
         start->next = new_node;
         new_node->prev = start;
+        return (true);
+    }
+    else
+    {
+        errmsg("add_back_cmd", NULL, "ERROR: list or new_node is NULL", EXIT_FAILURE);
+        return (false);
     }
 }
 
