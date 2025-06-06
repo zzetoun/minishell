@@ -63,4 +63,5 @@ void	parse_heredoc(t_data *data, t_command **l_cmd)
 	ft_free_ptr(old_delim);
 	if (!get_heredoc(data, io))
 		io->fd_in = -1;
+	//close(io->fd_in);
 }

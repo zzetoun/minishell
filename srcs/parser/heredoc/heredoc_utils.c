@@ -231,8 +231,8 @@ bool	fill_heredoc(t_data *data, t_io_fds *io, int fd)
 	line = NULL;
 	while (1)
 	{
-		set_signals_interactive();
-		line = readline("> ");
+		set_signals_interactive();//TODO cntrl + C = exit!
+		line = readline("> ");//TODO make sure to free line
 		set_signals_noninteractive();
 		if (!check_hdoc_input(data, &line, io, &ret))
 			break ;

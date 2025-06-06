@@ -53,6 +53,12 @@ void			 	setup_append(t_io_fds *io);
 void				parse_heredoc(t_data *data, t_command **last_cmd);
 bool				fill_heredoc(t_data *data, t_io_fds *io, int fd);
 void				list_clear_cmd(t_command **list, void (*del)(void *));
+bool				setup_token_type_and_give_command(t_command *cmd, const char *str, enum e_token_types token_type);
+bool				setup_heredoc_into_cmd(t_data **data, t_command **cmd,
+							   char **split, int *i);
+void				parse_pipe(t_command **head);
+bool				setup_pipe_into_cmd(t_data **data, t_command **cmd);
+bool	setup_word_into_cmd(t_data **data, t_command **cmd, char *word);
 
 
 

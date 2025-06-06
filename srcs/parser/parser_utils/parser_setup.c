@@ -1,0 +1,73 @@
+//
+// Created by iqment on 6/6/25.
+//
+
+#include "../parser.h"
+
+bool setup_token_type_and_give_command(t_command *cmd, const char *str, enum e_token_types token_type)
+{
+	if (!cmd || !str)
+		return (false);
+	cmd->token_type = token_type;
+	if (token_type == INPUT)
+		cmd->io_fds->infile = ft_strdup(str);
+	else if (token_type == TRUNC)
+		cmd->io_fds->outfile = ft_strdup(str);
+	else if (token_type == APPEND)
+		cmd->io_fds->append_file = ft_strdup(str);
+	else
+		printf("Error: Unknown token type %d\n", token_type);
+	return (true);
+}
+
+bool	setup_heredoc_into_cmd(t_data **data, t_command **cmd,
+									  char **split, int *i)
+{
+	t_io_fds	*io;
+
+	if (!data || !*data || !cmd || !*cmd || !split || !split[*i] || !split[*i + 1])
+		return (false);
+	io = (*cmd)->io_fds;
+	if (io->heredoc_delimiter)
+	{
+		free(io->heredoc_delimiter);
+		if (io->fd_in != -1)
+			close(io->fd_in);
+		io->fd_in = -1;
+	}
+	(*i)++;
+	io->heredoc_delimiter = ft_strdup(split[*i]);
+	if (!io->heredoc_delimiter)
+		return (false);
+	io->heredoc_quotes = has_quotes(io->heredoc_delimiter);
+	parse_heredoc(*data, cmd);
+	(*cmd)->token_type = HEREDOC;
+	return (true);
+}
+
+bool	setup_pipe_into_cmd(t_data **data, t_command **cmd)
+{
+	if (!data || !*data || !cmd || !*cmd)
+		return (false);
+	parse_pipe(&(*data)->cmd);
+	*cmd = get_last_cmd((*data)->cmd);
+	setup_io(*cmd);
+	return (true);
+}
+
+bool	setup_word_into_cmd(t_data **data, t_command **cmd, char *word)
+{
+	if (!data || !*data || !cmd || !*cmd || !word)
+		return (false);
+	(*cmd)->token_type = WORD;
+	(*cmd)->command = ft_strdup(word);
+	if (!(*cmd)->command)
+		return (false);
+	(*cmd)->args = append_arg((*cmd)->args, word);
+	if (!(*cmd)->args)
+	{
+		ft_free_ptr((*cmd)->command);
+		return (false);
+	}
+	return (true);
+}

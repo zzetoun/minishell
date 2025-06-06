@@ -2,9 +2,9 @@
 // Created by iqment on 6/3/25.
 //
 
-#include "parser.h"
+#include "../parser.h"
 
-void			free_split(char **split)
+void			free_split(char **split)//TODO change to ft_free_array
 {
 	size_t	i;
 
