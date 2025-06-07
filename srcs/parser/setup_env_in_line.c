@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 01:23:12 by igorsergeev       #+#    #+#             */
-/*   Updated: 2025/06/07 18:14:03 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/06/07 19:03:08 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static ssize_t handle_single_quotes(const char *s, size_t i, char **dst)
 	if (!sub && errno == ENOMEM)
 		return -1;
 	char *tmp = join_and_free(*dst, sub ? sub : "");
-	ft_free_dptr(sub);
+	ft_free_dptr((void **)&sub);
 	if (!tmp)
 		return -1;
 	*dst = tmp;
@@ -60,7 +60,7 @@ static ssize_t handle_env(const char *s, size_t i, char **dst, t_data *d)
 	char *val = get_env(d->env, var);
 	if (!val) val = "";
 	char *tmp = join_and_free(*dst, val);
-	ft_free_dptr(var);
+	ft_free_dptr((void **)&var);
 	if (!tmp) return -1;
 	*dst = tmp;
 	return (ssize_t)(j - 1);
@@ -223,7 +223,10 @@ char    *setup_env_in_line(const char *line, t_data *d)
 	{
 		i = process_token(line, i, &in_dq, &out, d);
 		if (i == ERR_INDEX)
-			return (ft_free_dptr(out), NULL);
+		{
+			ft_free_dptr((void **)&out);
+			return (NULL);
+		}
 	}
 	return (out);
 }

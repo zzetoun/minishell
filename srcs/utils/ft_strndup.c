@@ -1,8 +1,16 @@
-//
-// Created by IqMent on 09.05.2025.
-//
-#include "../parser/parser.h"
-#include <string.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strndup.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/07 19:18:13 by zzetoun           #+#    #+#             */
+/*   Updated: 2025/06/07 19:18:20 by zzetoun          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "minishell.h"
 
 char *ft_strndup(const char *str, size_t n)
 {

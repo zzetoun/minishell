@@ -42,7 +42,6 @@ bool	setup_mini(t_data *data, char **envp)
 		errmsg("Fatal", NULL, WDERROR, EXIT_FAILURE);
 		return (false);
 	}
-	data->token = NULL;
 	data->user_input = NULL;
 	data->cmd = NULL;
 	data->pid = -1;

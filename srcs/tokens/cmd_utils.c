@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: igorsergeevic <igorsergeevic@student.42    +#+  +:+       +#+        */
+/*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 15:46:28 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/06/07 03:12:46 by igorsergeev      ###   ########.fr       */
+/*   Updated: 2025/06/07 19:06:06 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tokens.h"
+#include "minishell.h"
 
 t_command	*add_new_cmd(bool value)
 {

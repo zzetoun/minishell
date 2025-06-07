@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 01:12:14 by igorsergeev       #+#    #+#             */
-/*   Updated: 2025/06/07 18:14:47 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/06/07 18:54:15 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,21 +52,20 @@ static char	*get_expanded_var_line(t_data *data, char *line)
 	words = ft_split(line, ' ');
 	if (!words)
 		return (NULL);
-	i = 0;
-	while (words[i])
+	i = -1;
+	while (words[++i])
 	{
 		if (ft_strchr(words[i], '$'))
 		{
 			tmp = words[i];
 			words[i] = setup_env_in_line(tmp, data);
-			ft_free_dptr(tmp);
+			ft_free_dptr((void **)&tmp);
 			if (!words[i])
 			{
 				ft_free_array(words);
 				return (NULL);
 			}
 		}
-		i++;
 	}
 	return (make_str_from_tab(words));
 }
@@ -96,7 +95,7 @@ static bool	check_hdoc_input(t_data *data, char **line, t_io_fds *io, bool *ret)
 		*line = get_expanded_var_line(data, *line);
 		if (!(*line))
 		{
-			ft_free_dptr(*line);
+			ft_free_dptr((void **)&(line));
 			*ret = false;
 			return (false);
 		}
@@ -121,14 +120,14 @@ bool	fill_heredoc(t_data *data, t_io_fds *io, int fd)
 	line = NULL;
 	while (1)
 	{
-		set_signals_interactive();
+		set_signals_interactive(); //change this to the correct way
 		line = readline("> ");
 		set_signals_noninteractive();
 		if (!check_hdoc_input(data, &line, io, &ret))
 			break ;
 		ft_printf(fd, "%s\n", line);
-		ft_free_dptr(line);
+		ft_free_dptr((void **)&(line));
 	}
-	ft_free_dptr(line);
+	ft_free_dptr((void **)&(line));
 	return (ret);
 }

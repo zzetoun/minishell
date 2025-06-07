@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 01:20:51 by igorsergeev       #+#    #+#             */
-/*   Updated: 2025/06/07 18:14:03 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/06/07 18:57:54 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static bool	pre_check_input(char **input, t_data *data, t_command **cmd, char **
 	*split = minishell_split(*input);
 	if (!*split)
 	{
-		ft_free_dptr(*input);
+		ft_free_dptr((void **)input);
 		return (false);
 	}
 	return (true);
@@ -102,8 +102,7 @@ static bool  finish_segment(t_command *cmd)
 	}
 	if (!cmd->command)
 	{
-		ft_printf(2,
-				   "Minishell: syntax error near unexpected token `|'\n");
+		ft_printf(2, "Minishell: syntax error near unexpected token `|'\n");
 		g_final_exit_code = 258;
 		return (false);
 	}

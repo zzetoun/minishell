@@ -12,7 +12,7 @@
 
 #ifndef FREEDOM_H
 # define FREEDOM_H
-#include "../../include/minishell.h"
+#include "minishell.h"
 
 void	ft_free_io(t_io_fds *io);
 void 	ft_free_dptr(void **pointer);

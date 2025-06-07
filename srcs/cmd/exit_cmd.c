@@ -6,11 +6,11 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 22:49:06 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/05/25 20:13:41 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/06/07 19:05:20 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "minishell.h"
 
 static int	ft_atoi_error(const char *str, bool *error)
 {

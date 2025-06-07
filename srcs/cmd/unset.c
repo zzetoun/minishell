@@ -6,11 +6,11 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 22:58:21 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/06/07 18:42:25 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/06/07 19:05:20 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "minishell.h"
 
 static void	ft_indxing(t_env_info *env)
 {

@@ -6,13 +6,12 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 17:41:34 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/06/07 18:25:00 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/06/07 19:21:57 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSER_H
 # define PARSER_H
-
 
 t_command			*get_last_cmd(t_command *cmd);
 bool				add_back_cmd(t_command **list, t_command *new_node);
@@ -34,7 +33,6 @@ void			 	close_exists_red_fds(t_io_fds *fds);
 void			 	setup_append(t_io_fds *io);
 void				parse_heredoc(t_data *data, t_command **last_cmd);
 bool				fill_heredoc(t_data *data, t_io_fds *io, int fd);
-void				list_clear_cmd(t_command **list, void (*del)(void *));
 bool				setup_token_type_and_give_command(t_command *cmd, const char *str, enum e_token_types token_type);
 int					setup_heredoc_into_cmd(t_data *d, t_command *cmd, char **sp, int i);
 bool				parse_pipe(t_command **head);
@@ -43,4 +41,5 @@ bool	setup_word_into_cmd(t_command **cmd, char *w);
 enum e_token_types  get_current_token_type(const char *str);
 void                add_back_cmd_token_type(t_command **cmd, t_command *new_node, enum e_token_types token_type);
 bool                cmd_args_split(t_data *data, char *input);
+
 #endif

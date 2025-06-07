@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 01:09:54 by igorsergeev       #+#    #+#             */
-/*   Updated: 2025/06/07 18:14:47 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/06/07 19:02:03 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	setup_heredoc_into_cmd(t_data *d, t_command *cmd, char **sp, int i)
 	io = cmd->io_fds;
 	if (io->heredoc_delimiter)
 	{
-		ft_free_dptr(io->heredoc_delimiter);
+		ft_free_dptr((void **)&io->heredoc_delimiter);
 		if (io->fd_in != -1)
 			close(io->fd_in);
 		io->fd_in = -1;
@@ -100,7 +100,7 @@ bool    setup_word_into_cmd(t_command **cmd, char *w)
 	if (!(*cmd)->args)
 	{
 		if (!(*cmd)->command)
-			ft_free_dptr((*cmd)->command);
+			ft_free_dptr((void **)&(*cmd)->command);
 		return (false);
 	}
 	return (true);

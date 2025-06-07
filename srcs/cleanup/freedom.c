@@ -82,7 +82,7 @@ void	ft_freedom(t_data **data, bool clear_history)
 {
 	if (data && (*data)->user_input)
 	{
-		ft_free_dptr((void **)(*data)->user_input);
+		ft_free_dptr((void **)&(*data)->user_input);
 		(*data)->user_input = NULL;
 	}
 	if (data && (*data)->cmd)

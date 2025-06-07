@@ -12,9 +12,8 @@
 
 #ifndef MINI_UTILS_H
 # define MINI_UTILS_H
-#include "../../include/minishell.h"
 
-//void	setup_io(t_command *cmd);
+
 bool	setup_io(t_command *cmd);
 void	linked_list_print(t_env_info *env, char **_envp, int option);
 

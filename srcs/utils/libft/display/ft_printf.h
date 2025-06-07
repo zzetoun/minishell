@@ -13,6 +13,8 @@
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
+# include <stdarg.h>
+
 void	ft_printf(int fd, const char *prnt, ...);
 
 #endif

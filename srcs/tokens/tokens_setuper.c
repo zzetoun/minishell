@@ -2,7 +2,7 @@
 // Created by IqMent on 17.05.2025.
 //
 
-#include "tokens.h"
+#include "minishell.h"
 
 enum e_token_types  get_current_token_type(const char *current)
 {

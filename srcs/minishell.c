@@ -69,7 +69,7 @@ void	minishell_interactive(t_data *data)
         else
             g_final_exit_code = last_exit_code;
         ft_printf(1, ">> g_final_exit_code : [%d] <<\n", g_final_exit_code);
-		ft_freedom(&data, true);
+		ft_freedom(&data, false);
     }
 }
 
