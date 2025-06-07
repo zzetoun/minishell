@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   freedom.c                                          :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 18:27:13 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/05/07 18:27:13 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/06/08 00:39:09 by zzetoun          ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "minishell.h"
 
@@ -81,10 +81,7 @@ void 	ft_free_dptr(void **pointer)
 void	ft_freedom(t_data **data, bool clear_history)
 {
 	if (data && (*data)->user_input)
-	{
 		ft_free_dptr((void **)&(*data)->user_input);
-		(*data)->user_input = NULL;
-	}
 	if (data && (*data)->cmd)
 		clear_cmd(&(*data)->cmd);
 	if (clear_history)

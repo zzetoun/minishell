@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 13:46:55 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/05/08 13:46:55 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/06/08 01:01:25 by zzetoun          ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "minishell.h"
 
@@ -73,10 +73,10 @@ int	ft_env(t_env_info *env, char **args, size_t idx) //TODO fix the error messag
 			ft_printf(1, "%s\n", envp[idx]);
 		ft_free_array(envp);
 		if (!path)
-			return (errmsg("env", NULL, "command not found", CMD_NOT_FOUND));
+			return (CMD_NOT_FOUND);
 		free(path);
 	}
 	else
-		return (EXIT_FAILURE);
+		return (CMD_NOT_FOUND);
 	return (EXIT_SUCCESS);
 }

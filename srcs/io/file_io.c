@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   file_io.c                                          :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 16:47:56 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/06/07 18:19:20 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/06/08 00:37:35 by zzetoun          ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "minishell.h"
 
@@ -46,7 +46,7 @@ void	redirect_io(t_io_fds *io)
 {
 	if (!io)
 		return ;
-	io->stdin_backup = dup(STDIN_FILENO );
+	io->stdin_backup = dup(STDIN_FILENO);
 	if (io->stdin_backup == -1)
 		errmsg("dup", "stdin backup", strerror(errno), errno);
 	io->stdout_backup = dup(STDOUT_FILENO);

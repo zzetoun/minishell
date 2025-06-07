@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   excv.c                                             :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 14:50:44 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/06/07 22:14:55 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/06/08 01:14:34 by zzetoun          ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "minishell.h"
 
@@ -56,7 +56,6 @@ static int	get_children(t_data *data)
 *	builtin was executed alone.
 *	Returns false if there was a fork error.
 */
-
 static int	create_children(t_data *data)
 {
 	t_command	*cmd;
@@ -76,9 +75,9 @@ static int	create_children(t_data *data)
 			if (cmd->io_fds && cmd->io_fds->append_file)
 				setup_append(cmd->io_fds);
 			execute_command(data, cmd);
-			if (data->cmd->io_fds->heredoc_delimiter)
+			if (data->cmd->io_fds->heredoc_delimiter) // TODO check ft_free_io
 				ft_free_dptr((void **)&data->cmd->io_fds->heredoc_delimiter);
-			close_exists_red_fds(cmd->io_fds);
+			close_exists_red_fds(cmd->io_fds); // TODO check ft_free_io it has all the close fds for commands and for heredocs and files
 			restore_io(cmd->io_fds);
 		}
 		cmd = cmd->next;
