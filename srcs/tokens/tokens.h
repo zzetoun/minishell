@@ -13,7 +13,7 @@ bool    tokenize_input(t_data *data, const char *input);
 
 // CMD_utils
 t_command	*add_new_cmd(bool value);
-void	add_back_cmd(t_command **list, t_command *new_node);
+bool		add_back_cmd(t_command **list, t_command *new_node);
 t_command	*last_cmd(t_command *cmd);
 enum e_token_types  get_current_token_type(const char *current);
 

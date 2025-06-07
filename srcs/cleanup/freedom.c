@@ -75,6 +75,15 @@ void	ft_free_array(char **array)
 	array = NULL;
 }
 
+void 	ft_free_dptr(void **pointer)
+{
+	if (pointer && *pointer)
+	{
+		free(*pointer);
+		*pointer = NULL;
+	}
+}
+
 void	ft_free_ptr(void *pointer)
 {
 	if (pointer != NULL)

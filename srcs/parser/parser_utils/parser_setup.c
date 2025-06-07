@@ -19,64 +19,110 @@ bool	setup_token_type_and_give_command(t_command *cmd, const char *str,
 		return (false);
 	cmd->token_type = token_type;
 	if (token_type == INPUT)
+	{
 		cmd->io_fds->infile = ft_strdup(str);
+		if (!cmd->io_fds->infile)
+		{
+			printf("Error: Failed to allocate memory for infile\n");
+			return (false);
+		}
+	}
 	else if (token_type == TRUNC)
+	{
 		cmd->io_fds->outfile = ft_strdup(str);
+		if (!cmd->io_fds->outfile)
+		{
+			printf("Error: Failed to allocate memory for outfile\n");
+			return (false);
+		}
+	}
 	else if (token_type == APPEND)
+	{
 		cmd->io_fds->append_file = ft_strdup(str);
+		if (!cmd->io_fds->append_file)
+		{
+			printf("Error: Failed to allocate memory for append file\n");
+			return (false);
+		}
+	}
 	else
 		printf("Error: Unknown token type %d\n", token_type);
 	return (true);
 }
 
-bool	setup_heredoc_into_cmd(t_data **data, t_command **cmd,
-		char **split, int *i)
+int	setup_heredoc_into_cmd(t_data *d, t_command *cmd, char **sp, int i)
 {
 	t_io_fds	*io;
 
-	if (!data || !*data || !cmd || !*cmd
-		|| !split || !split[*i] || !split[*i + 1])
-		return (false);
-	io = (*cmd)->io_fds;
+	if (!d || !cmd || !sp[i + 1])
+		return (-1);
+	io = cmd->io_fds;
 	if (io->heredoc_delimiter)
 	{
-		free(io->heredoc_delimiter);
+		ft_free_ptr(io->heredoc_delimiter);
 		if (io->fd_in != -1)
 			close(io->fd_in);
 		io->fd_in = -1;
 	}
-	(*i)++;
-	io->heredoc_delimiter = ft_strdup(split[*i]);
+	io->heredoc_delimiter = ft_strdup(sp[i + 1]);
 	if (!io->heredoc_delimiter)
-		return (false);
+		return (-1);
 	io->heredoc_quotes = has_quotes(io->heredoc_delimiter);
-	parse_heredoc(*data, cmd);
-	(*cmd)->token_type = HEREDOC;
+	parse_heredoc(d, &cmd);
+	cmd->token_type = HEREDOC;
+	return (2);
+}
+
+bool	setup_pipe_into_cmd(t_data **d, t_command **cmd)
+{
+	if (!parse_pipe(&(*d)->cmd))
+		return (false);
+	*cmd = get_last_cmd((*d)->cmd);
+	if (!*cmd)
+		return (false);
+	if (!setup_io(*cmd))
+		return (false);
 	return (true);
 }
 
-bool	setup_pipe_into_cmd(t_data **data, t_command **cmd)
-{
-	if (!data || !*data || !cmd || !*cmd)
-		return (false);
-	parse_pipe(&(*data)->cmd);
-	*cmd = get_last_cmd((*data)->cmd);
-	setup_io(*cmd);
-	return (true);
-}
+//bool	setup_word_into_cmd(t_command **cmd, char *w)
+//{
+//	if (!w)
+//		return (false);
+//	(*cmd)->token_type = WORD;
+//	(*cmd)->command = ft_strdup(w);
+//	if (!(*cmd)->command)
+//		return (false);
+//	(*cmd)->args = append_arg((*cmd)->args, w);
+//	if (!(*cmd)->args)
+//	{
+//		ft_free_ptr((*cmd)->command);
+//		return (false);
+//	}
+//	return (true);
+//}
 
-bool	setup_word_into_cmd(t_data **data, t_command **cmd, char *word)
+bool    setup_word_into_cmd(t_command **cmd, char *w)
 {
-	if (!data || !*data || !cmd || !*cmd || !word)
+	if (!cmd || !*cmd || !w)
 		return (false);
-	(*cmd)->token_type = WORD;
-	(*cmd)->command = ft_strdup(word);
+
+	/* если это первое слово – это команда */
 	if (!(*cmd)->command)
-		return (false);
-	(*cmd)->args = append_arg((*cmd)->args, word);
+	{
+		(*cmd)->token_type = WORD;
+		(*cmd)->command = ft_strdup(w);
+		if (!(*cmd)->command)
+			return (false);
+	}
+
+	/* в любом случае слово становится аргументом */
+	(*cmd)->args = append_arg((*cmd)->args, w);
 	if (!(*cmd)->args)
 	{
-		ft_free_ptr((*cmd)->command);
+		/* если команду только что выделили ‒ откатить */
+		if (!(*cmd)->command)
+			ft_free_ptr((*cmd)->command);
 		return (false);
 	}
 	return (true);

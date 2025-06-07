@@ -18,58 +18,74 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
-void	parse_pipe(t_command **head)
+bool    parse_pipe(t_command **head)
 {
-	t_command *last;
+	t_command   *last;
 
+	if (!head)
+		return (false);
 	last = get_last_cmd(*head);
 	if (!last)
 	{
-		add_back_cmd(head, add_new_cmd(false));
-		last = get_last_cmd(*head);
-		setup_io(last);
-	}
-	last->pipe_output = true;
-	add_back_cmd(&last, add_new_cmd(false));
-	setup_io(last->next);
-}
-
-static bool setup_current_cmd_redir(t_data *data, t_command **cmd, char **split, int *i)
-{
-	bool	res;
-
-	if (!data || !cmd || !*cmd)
-		return (false);
-	res = false;
-	if (strcmp(split[(*i)], "<") == 0 && split[(*i) + 1])
-		res = setup_token_type_and_give_command(*cmd, split[++(*i)], INPUT);
-	else if (strcmp(split[(*i)], ">") == 0 && split[(*i) + 1])
-		res = setup_token_type_and_give_command(*cmd, split[++(*i)], TRUNC);
-	else if (strcmp(split[(*i)], ">>") == 0 && split[(*i) + 1])
-		res = setup_token_type_and_give_command(*cmd, split[++(*i)], APPEND);
-	return (res);
-}
-
-static bool setup_current_cmd_command(t_data **data, t_command **cmd, char *word)
-{
-	if (!data || !*data || !cmd || !*cmd || !word)
-		return (false);
-	if (cmd && (*cmd) && !(*cmd)->command)
-		setup_word_into_cmd(data, cmd, word);
-	else if (cmd && (*cmd) && (*cmd)->command)
-	{
-		(*cmd)->args = append_arg((*cmd)->args, word);
-		if (!(*cmd)->args)
+		if (!add_back_cmd(head, add_new_cmd(false))
+			|| !(last = get_last_cmd(*head))
+			|| !setup_io(last))
 			return (false);
 	}
+	last->pipe_output = true;
+	if (!add_back_cmd(&last, add_new_cmd(false))
+		|| !setup_io(last->next))
+		return (false);
 	return (true);
+}
+
+//static int	setup_redir(t_command *cmd, char **sp, int i)
+//{
+//	if (!cmd || !sp[i] || !sp[i + 1])
+//		return (-1);
+//	if (strcmp(sp[i], "<") == 0)
+//	{
+//		if (setup_token_type_and_give_command(cmd, sp[i + 1], INPUT))
+//			return (2);
+//		return (-1);
+//	}
+//	if (strcmp(sp[i], ">") == 0)
+//	{
+//		if (setup_token_type_and_give_command(cmd, sp[i + 1], TRUNC))
+//			return (2);
+//		return (-1);
+//	}
+//	if (strcmp(sp[i], ">>") == 0)
+//	{
+//		if (setup_token_type_and_give_command(cmd, sp[i + 1], APPEND))
+//			return (2);
+//		return (-1);
+//	}
+//	return (0);
+//}
+
+static int setup_redir(t_command *cmd, char **sp, int i)
+{
+	if (!cmd || !sp[i])
+		return (-1);
+	if (strcmp(sp[i], "<") && strcmp(sp[i], ">") && strcmp(sp[i], ">>"))
+		return (0);
+	if (!sp[i + 1])
+		return (-1);
+	if (strcmp(sp[i], "<") == 0)
+		return (setup_token_type_and_give_command(cmd, sp[i + 1], INPUT) ? 2 : -1);
+	if (strcmp(sp[i], ">") == 0)
+		return (setup_token_type_and_give_command(cmd, sp[i + 1], TRUNC) ? 2 : -1);
+	if (strcmp(sp[i], ">>") == 0)
+		return (setup_token_type_and_give_command(cmd, sp[i + 1], APPEND) ? 2 : -1);
+
+	return (0);
 }
 
 static bool	pre_check_input(char **input, t_data *data, t_command **cmd, char ***split)
 {
 	if (!data)
 		return (false);
-	add_history(*input);
 	(*cmd) = data->cmd;
 	*input = setup_env_in_line(*input, data);
 	if (!*input)
@@ -83,100 +99,133 @@ static bool	pre_check_input(char **input, t_data *data, t_command **cmd, char **
 	return (true);
 }
 
-static void if_not_cmd(t_data **data, t_command **cmd)
+static bool if_not_cmd(t_data **data, t_command **cmd)
 {
 	if (!*cmd)
 	{
 		if (!add_back_cmd(&(*data)->cmd, add_new_cmd(false)))
 			return (false);
 		*cmd = get_last_cmd((*data)->cmd);
-		setup_io(*cmd);
+		if (!*cmd)
+			return (false);
+		if (!setup_io(*cmd))
+			return (false);
 	}
-	return ;
+	return (true);
 }
 
-static bool handle_token(t_data *data, t_command **cmd, char **split, int *i)
+//int	handle_token(t_data *d, t_command **cmd, char **sp, int i)
+//{
+//	int	step;
+//
+//	if (str_compare(sp[i], "|"))
+//	{
+//		if (!setup_pipe_into_cmd(&d, cmd))
+//			return (-1);
+//		return (1);
+//	}
+//	*cmd = get_last_cmd(d->cmd);
+//	if (!*cmd)
+//	{
+//		if (!if_not_cmd(&d, cmd))
+//			return (-1);
+//	}
+//	step = setup_redir(*cmd, sp, i);
+//	if (step != 0)
+//		return (step);
+//	if (str_compare(sp[i], "<<"))
+//		return (setup_heredoc_into_cmd(d, *cmd, sp, i));
+//	if (!setup_word_into_cmd(cmd, sp[i]))
+//		return (-1);
+//	return (1);
+//}
+static bool  has_any_redir(t_command *cmd)
 {
-    if (str_compare(split[*i], "|"))
-        return setup_pipe_into_cmd(&data, cmd);
-
-    *cmd = get_last_cmd(data->cmd);
-    if (setup_current_cmd_redir(data, cmd, split, i))
-        return true;
-
-    if (str_compare(split[*i], "<<") && split[*i + 1])
-        return setup_heredoc_into_cmd(&data, cmd, split, i);
-
-    setup_current_cmd_command(&data, cmd, split[*i]);
-    return true;
+	t_io_fds *io = cmd->io_fds;
+	return (io && (io->infile || io->outfile || io->append_file
+				   || io->heredoc_delimiter));
 }
 
-static void cleanup(char **split, char *input)
+static bool  finish_segment(t_command *cmd)
 {
-    free_split(split);
-    // ft_free_ptr(input);
+	if (!cmd)                   /* пустого узла нет – всё ок */
+		return (true);
+
+	/* есть хотя бы один редирект, но нет слова-команды */
+	if (!cmd->command && has_any_redir(cmd))
+	{
+		cmd->command = ft_strdup(":");          /* POSIX  no-op */
+		cmd->args    = append_arg(NULL, ":");
+		return (true);
+	}
+
+	/* совсем ничего – синтаксическая ошибка */
+	if (!cmd->command)
+	{
+		ft_printf(2,
+				   "Minishell: syntax error near unexpected token `|'\n");
+		g_final_exit_code = 258;
+		return (false);
+	}
+	return (true);
 }
 
-// bool		cmd_args_split(t_data *data, char *input)
-// {
-//     char	**split;
-//     int		i;
-//     t_command *cmd;
-
-//     if (!pre_check_input(&input, data, &cmd, &split))
-// 		return (false);
-//     i = -1;
-//     while (split[++i])
-//     {
-//         if (!cmd)
-//         	if_not_cmd(&data, &cmd);
-//         if (str_compare(split[i], "|"))
-//         {
-//             if (!setup_pipe_into_cmd(&data, &cmd))
-// 				return (false);
-//             continue;
-//         }
-//         cmd = get_last_cmd(data->cmd);
-//         if (setup_current_cmd_redir(data, &cmd, split, &i))
-// 				continue;
-//         else if (str_compare(split[i], "<<") && split[i + 1])
-// 		{
-// 			if (!setup_heredoc_into_cmd(&data, &cmd, split, &i))
-// 			{
-// 				free_split(split);
-// 				ft_free_ptr(input);
-// 				return (false);
-// 			}
-// 		}
-//         else
-// 			setup_current_cmd_command(&data, &cmd, split[i]);
-//     }
-//     free_split(split);
-// 	ft_free_ptr(input);
-//     return (true);
-// }
-
-bool cmd_args_split(t_data *data, char *input)
+int handle_token(t_data *d, t_command **cmd, char **sp, int i)
 {
-    char        **split;
-    int          i;
-    t_command   *cmd;
+	int step;
 
-    if (!pre_check_input(&input, data, &cmd, &split))
-        return false;
-    cmd = NULL;
-    i = 0;
-    while (split[i])
-    {
-        if (!cmd)
-            if_not_cmd(&data, &cmd);
-        if (!handle_token(data, &cmd, split, &i))
-        {
-            cleanup(split, input);
-            return false;
-        }
-        i++;
-    }
-    cleanup(split, input);
-    return true;
+	if (str_compare(sp[i], "|"))
+	{
+		if (!finish_segment(*cmd) || !setup_pipe_into_cmd(&d, cmd))
+			return (-1);
+		return (1);
+	}
+	*cmd = get_last_cmd(d->cmd);
+	if (!*cmd && !if_not_cmd(&d, cmd))
+		return (-1);
+	*cmd = get_last_cmd(d->cmd);        /* ← добавили повторное получение */
+
+	step = setup_redir(*cmd, sp, i);
+	if (step != 0)
+		return (step);
+
+	if (str_compare(sp[i], "<<"))
+		return (setup_heredoc_into_cmd(d, *cmd, sp, i));
+
+	if (!setup_word_into_cmd(cmd, sp[i]))
+		return (-1);
+
+	return (1);
+}
+
+bool	cmd_args_split(t_data *d, char *input)
+{
+	char		**sp;
+	t_command	*cmd;
+	int			i;
+	int			step;
+
+	if (!pre_check_input(&input, d, &cmd, &sp))
+		return (false);
+	cmd = NULL;
+	i = 0;
+	while (sp[i])
+	{
+		if (!cmd && !if_not_cmd(&d, &cmd))
+			break ;
+		step = handle_token(d, &cmd, sp, i);
+		if (step < 0)
+		{
+			free_split(sp);
+			return (false);
+		}
+		i += step;
+	}
+	if (!finish_segment(cmd))
+	{
+		free_split(sp);
+		return (false);
+	}
+	free_split(sp);
+	return (true);
 }

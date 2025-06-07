@@ -16,6 +16,7 @@
 
 void	ft_free_io(t_io_fds *io);
 void	ft_free_ptr(void *pointer);
+void 	ft_free_dptr(void **pointer);
 void	ft_free_array(char **array);
 void	exit_full(t_data *data, int exit_num);
 void	ft_freedom(t_data **data, bool clear_history);

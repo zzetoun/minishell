@@ -18,6 +18,8 @@ void	exit_full(t_data *data, int exit_num)
 	if (data)
 	{
         //printf("command=[%s] i am inside exit full\n", data->cmd->command);
+		if (data->user_input)
+			ft_free_dptr((void *)&data->user_input);
 		if (data->cmd && data->cmd->io_fds)
 			ft_close_fds(data->cmd, 1);
 		if (data->cmd)
