@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 17:41:34 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/06/07 19:21:57 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/06/07 20:42:47 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,8 @@ bool                has_unclosed_quotes(const char *line);
 char				*ft_replace_substr(const char *str, const char *target, const char *replacement);
 void 				setup_last_exit_code(t_command *cmd, int last_exit_code);
 char				**append_arg(char **args, const char *arg);
-void				free_split(char **split);
 char				**minishell_split(char *input);
-bool				validate_input(const char *input);
+bool				validate_input(t_data *data);
 void 				setup_truncate(t_io_fds *io);
 void				setup_input(t_io_fds *io);
 void			 	close_exists_red_fds(t_io_fds *fds);

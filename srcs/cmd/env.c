@@ -56,12 +56,12 @@ static char	*find_path(t_env_info *env)
 	return (NULL);
 }
 
-int	ft_env(t_env_info *env, char **args, size_t idx)
+int	ft_env(t_env_info *env, char **args, size_t idx) //TODO fix the error message when PATH unsets
 {
 	char	**envp;
 	char	*path;
 
-	if (!args && args[1])
+	if (args && args[1])
 		return (errmsg("env", NULL, ARGERR0R, EXIT_FAILURE));
 	if (get_env(env, "PATH"))
 	{
@@ -77,6 +77,6 @@ int	ft_env(t_env_info *env, char **args, size_t idx)
 		free(path);
 	}
 	else
-		return (errmsg("env", NULL, ENVERR02, CMD_NOT_FOUND));
+		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }

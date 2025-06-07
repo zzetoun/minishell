@@ -6,23 +6,11 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 01:08:09 by igorsergeev       #+#    #+#             */
-/*   Updated: 2025/06/07 18:14:47 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/06/07 20:42:58 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-//TODO change to ft_free_array
-void	free_split(char **split)
-{
-	size_t	i;
-
-	if (!split || !*split)
-		return ;
-	i = 0;
-	while (split[i])
-		free(split[i++]);
-	free(split);
-}
 
 static void	*free_and_return_null(char **str)
 {

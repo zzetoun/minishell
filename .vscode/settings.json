@@ -4,6 +4,7 @@
 		"stdlib.h": "c",
 		"stdio.h": "c",
 		"stdarg.h": "c",
-		"parser.h": "c"
+		"parser.h": "c",
+		"minishell.h": "c"
 	}
 }

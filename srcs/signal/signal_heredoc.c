@@ -1,26 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   signal_heredoc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/23 20:10:39 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/06/07 21:19:09 by zzetoun          ###   ########.fr       */
+/*   Created: 2025/06/07 20:50:17 by zzetoun           #+#    #+#             */
+/*   Updated: 2025/06/07 20:50:39 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	exit_full(t_data *data, int exit_num)
+void	handle_heredoc_sigint(int signo)
 {
-
-	if (data)
-	{
-		if (data->cmd && data->cmd->io_fds)
-			ft_close_fds(data->cmd, 1);
-		ft_freedom(&data, 1);
-		rl_clear_history();
-	}
-	exit(exit_num);
+	(void)signo;
+	write(STDOUT_FILENO, "\n", 1);
 }

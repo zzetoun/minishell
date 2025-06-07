@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 01:23:12 by igorsergeev       #+#    #+#             */
-/*   Updated: 2025/06/07 19:03:08 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/06/07 21:22:12 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,72 +63,16 @@ static ssize_t handle_env(const char *s, size_t i, char **dst, t_data *d)
 	ft_free_dptr((void **)&var);
 	if (!tmp) return -1;
 	*dst = tmp;
-	return (ssize_t)(j - 1);
-}
-
-static bool add_literal(char **dst, char c)
-{
-	return (append_char(dst, c));
+	return (ssize_t)(j);
 }
 
 /* handle \$? -> literally "$?" */
 static bool add_exit_status_literal(char **dst)
 {
-	if (!add_literal(dst, '$'))
+	if (!append_char(dst, '$'))
 		return (false);
-	return (add_literal(dst, '?'));
+	return (append_char(dst, '?'));
 }
-
-/* ─────────────────────── main expander ───────────────────── */
-
-//char *setup_env_in_line(const char *line, t_data *d)
-//{
-//	char    *out;
-//	size_t  i;
-//	bool    in_dq;
-//
-//	out = ft_strdup("");
-//	if (!out)
-//		return (NULL);
-//	i = 0;
-//	in_dq = false;
-//	while (line[i])
-//	{
-//		if (line[i] == '"')
-//		{
-//			in_dq = !in_dq;
-//			if (!add_literal(&out, '"'))
-//				return (ft_free_dptr(out), NULL);
-//		}
-//		else if (line[i] == '\'' && !in_dq)
-//		{
-//			ssize_t r = handle_single_quotes(line, i, &out);
-//			if (r < 0)
-//				return (ft_free_dptr(out), NULL);
-//			i = (size_t)r;
-//		}
-//		else if (line[i] == '$' && line[i + 1] == '?')
-//		{
-//			if (!add_exit_status_literal(&out))
-//				return (ft_free_dptr(out), NULL);
-//			++i;
-//		}
-//		else if (line[i] == '$' && line[i + 1] && line[i + 1] != '"' && line[i + 1] != '\'')
-//		{
-//			ssize_t r_var = handle_env(line, i, &out, d);
-//			if (r_var < 0)
-//				return (ft_free_dptr(out), NULL);
-//			i = (size_t)r_var;
-//		}
-//		else
-//		{
-//			if (!add_literal(&out, line[i]))
-//				return (ft_free_dptr(out), NULL);
-//		}
-//		++i;
-//	}
-//	return (out);
-//}
 
 #define ERR_INDEX SIZE_MAX
 
@@ -138,7 +82,7 @@ static bool add_exit_status_literal(char **dst)
 static size_t	handle_double_quote(bool *in_dq, char **out, size_t i)
 {
 	*in_dq = !*in_dq;
-	if (!add_literal(out, '"'))
+	if (!append_char(out, '"'))
 		return (ERR_INDEX);
 	return (i + 1);
 }
@@ -180,7 +124,7 @@ static size_t	handle_env_var(const char *l, size_t i, char **out, t_data *d)
 /* -------------------------------------------------------------------------- */
 static size_t	handle_regular_char(const char *l, size_t i, char **out)
 {
-	if (!add_literal(out, l[i]))
+	if (!append_char(out, l[i]))
 		return (ERR_INDEX);
 	return (i + 1);
 }

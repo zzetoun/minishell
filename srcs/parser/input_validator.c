@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 01:48:58 by igorsergeev       #+#    #+#             */
-/*   Updated: 2025/06/07 19:04:40 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/06/07 20:31:36 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,13 @@ static bool quotes_error(const char *line)
 	return (true);
 }
 
-bool	validate_input(const char *input)
+bool	validate_input(t_data *data)
 {
-	if (!input || !*input)
-		return (true);
-	return (quotes_error(input));
+	if (!data->user_input)
+	{
+		ft_printf(1, "\n");
+		exit_full(data, g_final_exit_code);
+	}
+	add_history(data->user_input);
+	return (quotes_error(data->user_input));
 }

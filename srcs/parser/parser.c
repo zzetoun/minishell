@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 01:20:51 by igorsergeev       #+#    #+#             */
-/*   Updated: 2025/06/07 18:57:54 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/06/07 20:44:24 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,10 @@ static int setup_redir(t_command *cmd, char **sp, int i)
 	return (0);
 }
 
-static bool	pre_check_input(char **input, t_data *data, t_command **cmd, char ***split)
+static bool	pre_check_input(char **input, t_data *data, char ***split)
 {
 	if (!data)
 		return (false);
-	(*cmd) = data->cmd;
 	*input = setup_env_in_line(*input, data);
 	if (!*input)
 		return (false);
@@ -133,35 +132,35 @@ int handle_token(t_data *d, t_command **cmd, char **sp, int i)
 	return (1);
 }
 
-bool	cmd_args_split(t_data *d, char *input)
+bool	cmd_args_split(t_data *data, char *input)
 {
-	char		**sp;
 	t_command	*cmd;
-	int			i;
+	char		**sp;
+	int			idx;
 	int			step;
 
-	if (!pre_check_input(&input, d, &cmd, &sp))
+	if (!pre_check_input(&input, data, &sp))
 		return (false);
 	cmd = NULL;
-	d->user_input = input;
-	i = 0;
-	while (sp[i])
+	data->user_input = input;
+	idx = 0;
+	while (sp[idx])
 	{
-		if (!cmd && !if_not_cmd(&d, &cmd))
+		if (!cmd && !if_not_cmd(&data, &cmd))
 			break ;
-		step = handle_token(d, &cmd, sp, i);
+		step = handle_token(data, &cmd, sp, idx);
 		if (step < 0)
 		{
-			free_split(sp);
+			ft_free_array(sp);
 			return (false);
 		}
-		i += step;
+		idx += step;
 	}
 	if (!finish_segment(cmd))
 	{
-		free_split(sp);
+		ft_free_array(sp);
 		return (false);
 	}
-	free_split(sp);
+	ft_free_array(sp);
 	return (true);
 }

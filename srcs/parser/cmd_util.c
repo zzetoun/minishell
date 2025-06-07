@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 01:18:16 by igorsergeev       #+#    #+#             */
-/*   Updated: 2025/06/07 18:32:09 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/06/07 21:19:27 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	clear_cmd(t_command **lst)
 				close((*lst)->pipe_fd[0]);
 			if ((*lst)->pipe_fd[1] != -1)
 				close((*lst)->pipe_fd[1]);
-			ft_free_dptr((void **)(*lst)->pipe_fd);
+			ft_free_dptr((void **)&(*lst)->pipe_fd);
 		}
 		ft_free_dptr((void **)lst);
 		*lst = next;

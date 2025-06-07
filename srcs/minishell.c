@@ -39,7 +39,6 @@ static bool	first_check(t_data *data, int ac, char **av)
 *	Runs parsing and execution in interactive mode, i.e. when minishell
 *	is started without arguments and provides a prompt for user input.
 */
-
 void	minishell_interactive(t_data *data)
 {
 
@@ -50,13 +49,8 @@ void	minishell_interactive(t_data *data)
     {
         set_signals_interactive();
         data->user_input = readline(PROMPT);
-		if (!data->user_input) // move this inside validate
+		if (!validate_input(data))
 		{
-			ft_printf(1, "\n");
-			exit_full(data, g_final_exit_code);
-		}
-		add_history(data->user_input);
-		if (!validate_input(data->user_input)) {
 			ft_free_dptr((void *)&data->user_input);
 			continue;
 		}
@@ -68,7 +62,6 @@ void	minishell_interactive(t_data *data)
         }
         else
             g_final_exit_code = last_exit_code;
-        ft_printf(1, ">> g_final_exit_code : [%d] <<\n", g_final_exit_code);
 		ft_freedom(&data, false);
     }
 }
@@ -95,7 +88,6 @@ void	minishell_noninteractive(t_data *data, char *arg)
 		}
 		else
 			g_final_exit_code = last_exit_code;
-		ft_printf(1, ">> g_final_exit_code : [%d] <<\n", g_final_exit_code);
 	}
 	ft_free_array(user_inputs);
 }
