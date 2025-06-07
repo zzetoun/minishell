@@ -208,6 +208,7 @@ bool	cmd_args_split(t_data *d, char *input)
 	if (!pre_check_input(&input, d, &cmd, &sp))
 		return (false);
 	cmd = NULL;
+	d->user_input = input;
 	i = 0;
 	while (sp[i])
 	{

@@ -1,0 +1,12 @@
+# Automatically find all .c source files recursively in $(SRCDIR)
+CC          = cc -g3 #-fsanitize=address,undefined -O0 -fno-omit-frame-pointer -fno-optimize-sibling-calls
+CFLAGS      = -Wall -Wextra -Werror -I$(INCDIR) -I/usr/local/opt/readline/include  #-I/opt/vagrant/embedded/include
+.PHONY: all libft clean fclean re
+all: libft $(NAME)
+re: fclean all
+# Automatically find all .c source files recursively in $(SRCDIR)
+CC          = cc -g3 #-fsanitize=address,undefined -O0 -fno-omit-frame-pointer -fno-optimize-sibling-calls
+CFLAGS      = -Wall -Wextra -Werror -I$(INCDIR) -I/usr/local/opt/readline/include  #-I/opt/vagrant/embedded/include
+.PHONY: all libft clean fclean re
+all: libft $(NAME)
+re: fclean all

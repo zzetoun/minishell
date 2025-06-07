@@ -88,17 +88,17 @@
 //    return result;
 //}
 
-//static char *join_and_free(char *a, const char *b)
-//{
-//	char *res = ft_strjoin(a, b);
-//	ft_free_ptr(a);
-//	return res;
-//}
+static char *join_and_free(char *a, const char *b)
+{
+	char *res = ft_strjoin(a, b);
+	ft_free_dptr((void *) &a);
+	return res;
+}
 
 static bool append_char(char **dst, char c)
 {
 	char buf[2] = { c, 0 };
-	char *tmp = ft_strjoin_free(*dst, buf);
+	char *tmp = join_and_free(*dst, buf);
 	if (!tmp)
 		return false;
 	*dst = tmp;
@@ -114,7 +114,7 @@ static ssize_t handle_single_quotes(const char *s, size_t i, char **dst)
 	char *sub = ft_substr(s, start, i - start);
 	if (!sub && errno == ENOMEM)
 		return -1;
-	char *tmp = ft_strjoin_free(*dst, sub ? sub : "");
+	char *tmp = join_and_free(*dst, sub ? sub : "");
 	ft_free_ptr(sub);
 	if (!tmp)
 		return -1;
@@ -137,7 +137,7 @@ static ssize_t handle_env(const char *s, size_t i, char **dst, t_data *d)
 	if (!var) return -1;
 	char *val = get_env(d->env, var);
 	if (!val) val = "";
-	char *tmp = ft_strjoin_free(*dst, val);
+	char *tmp = join_and_free(*dst, val);
 	ft_free_ptr(var);
 	if (!tmp) return -1;
 	*dst = tmp;
