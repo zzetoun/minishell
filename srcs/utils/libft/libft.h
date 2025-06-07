@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 18:20:08 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/06/03 15:17:08 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/06/07 20:17:36 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 char	*ft_strdup(const char *s1);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strrchr(const char *s, int c);
-char	*ft_darray_to_str(char **darray, char *seperator);
 char	*ft_strnstr(const char *ha, const char *ne, size_t len);
+char	*ft_darray_to_str(char **darray, char *seperator);
 
 char	*ft_itoa(int n);
 char	*ft_str_tolower(char *s);

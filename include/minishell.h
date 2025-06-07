@@ -13,16 +13,12 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include <stdarg.h>
-# include <unistd.h>
+# include "../srcs/utils/libft/libft.h"
 # include <string.h>
-# include <stdlib.h>
-# include <stdio.h>
 # include <sys/wait.h>
 # include <sys/stat.h>
 # include <fcntl.h>
 # include <stddef.h>
-# include <stdint.h>
 # include <signal.h>
 # include <errno.h>
 # include <stdbool.h>
@@ -36,10 +32,10 @@
 # include "../srcs/parser/parser.h"
 # include "../srcs/lexer/lexer.h"
 # include "../srcs/signal/signal.h"
-# include "../srcs/expansion/expan.h"
+# include "../srcs/tokens/tokens.h"
 # include "../srcs/cleanup/freedom.h"
 # include "../srcs/error/controllers.h"
-# include "../srcs/utils/libft/libft.h"
+# include "../srcs/utils/mini_utils.h"
 
 # define PROMPT "\001\e[44m\002* \001\e[0m\e[96m\002 Minishell>$ \001\e[0m\002"
 # define PATHEN	"/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin:."

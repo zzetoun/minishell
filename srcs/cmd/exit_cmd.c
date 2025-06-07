@@ -6,11 +6,11 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 22:49:06 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/06/03 19:52:06 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/06/07 20:17:36 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "minishell.h"
 
 static int	ft_atoi_error(const char *str, bool *error)
 {
@@ -31,26 +31,26 @@ static int	ft_atoi_error(const char *str, bool *error)
 
 static int	get_exit_code(char *arg, bool *error)
 {
-	unsigned long long	idx;
+	unsigned long long	i;
 
 	if (!arg)
 		return (g_final_exit_code);
-	idx = 0;
-	while (ft_isspace(arg[idx]))
-		idx++;
-	if (arg[idx] == '\0')
+	i = 0;
+	while (ft_isspace(arg[i]))
+		i++;
+	if (arg[i] == '\0')
 		(*error) = true;
-	idx += (arg[idx] == '-' || arg[idx] == '+');
-	if (!ft_isdigit(arg[idx]))
+	i += (arg[i] == '-' || arg[i] == '+');
+	if (!ft_isdigit(arg[i]))
 		(*error) = true;
-	while (arg[idx])
+	while (arg[i])
 	{
-		if (!ft_isdigit(arg[idx]) && !ft_isspace(arg[idx]))
+		if (!ft_isdigit(arg[i]) && !ft_isspace(arg[i]))
 			(*error) = true;
-		idx++;
+		i++;
 	}
-	idx = ft_atoi_error(arg, error);
-	return (idx % 256);
+	i = ft_atoi_error(arg, error);
+	return (i % 256);
 }
 
 /* silent_exit_check:
@@ -98,5 +98,5 @@ int	ft_exit(t_data *data, char **args)
 			return (errmsg("exit", NULL, EXITRR02, 1));
 	}
 	exit_full(data, exit_code);
-	return (2);
+	return (EXIT_SUCCESS);
 }

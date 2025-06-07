@@ -1,4 +1,4 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   file_io.c                                          :+:      :+:    :+:   */
@@ -6,11 +6,11 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 16:47:56 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/06/04 03:22:05 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/06/07 20:17:36 by zzetoun          ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "minishell.h"
 
 /* restore_io:
 *	Restores the original standard input and standard output
@@ -46,18 +46,27 @@ void	redirect_io(t_io_fds *io)
 {
 	if (!io)
 		return ;
-	io->stdin_backup = dup(STDIN_FILENO);
+	io->stdin_backup = dup(STDIN_FILENO );
 	if (io->stdin_backup == -1)
 		errmsg("dup", "stdin backup", strerror(errno), errno);
 	io->stdout_backup = dup(STDOUT_FILENO);
 	if (io->stdout_backup == -1)
 		errmsg("dup", "stdout backup", strerror(errno), errno);
-	if (io->fd_in != -1)
+	if (io->append_file)
+		setup_append(io);
+	if (io->outfile)
+		setup_truncate(io);
+	if (io->fd_in != -1 && io->fd_in != STDIN_FILENO)
+	{
 		if (dup2(io->fd_in, STDIN_FILENO) == -1)
 			errmsg("dup2", io->infile, strerror(errno), errno);
-	if (io->fd_out != -1)
-		if (dup2(io->fd_out, STDOUT_FILENO) == -1)
-			errmsg("dup2", io->outfile, strerror(errno), errno);
+	}
+//	if (io->fd_in != -1)
+//		if (dup2(io->fd_in, STDIN_FILENO) == -1)
+//			errmsg("dup2", io->infile, strerror(errno), errno); //TODO chech heredoc
+//	if (io->fd_out != -1)
+//		if (dup2(io->fd_out, STDOUT_FILENO) == -1)
+//			errmsg("dup2", io->outfile, strerror(errno), errno);
 }
 
 /* check_io:

@@ -6,11 +6,11 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 19:03:45 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/06/02 18:26:15 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/06/07 20:17:36 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "minishell.h"
 
 /* new_line_check:
 *	Returns true if arg is a dash followed only by 
@@ -64,3 +64,6 @@ int	ft_echo(char **args)
 		ft_printf(1, "\n");
 	return (EXIT_SUCCESS);
 }
+
+
+//TODO new varaint of echo

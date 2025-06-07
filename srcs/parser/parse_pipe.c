@@ -12,9 +12,9 @@
 
 #include "../include/minishell.h"
 
-void	parse_pipe(t_command **cmd, t_token **token_lst)
-{
-	t_command	*last_cmd;
+
+bool	setup_io(t_command *cmd);
+void	linked_list_print(t_env_info *env, char **_envp, int option);
 
 	last_cmd = get_last_cmd(*cmd);
 	last_cmd->pipe_output = true;

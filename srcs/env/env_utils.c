@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "minishell.h"
 
 char	*get_env(t_env_info *env, char *key)
 {
@@ -37,9 +37,9 @@ int	set_env(t_env_info *env, char *key, char *value)
 			return (0);
 		if (!ft_strncmp(envp->key, key, ft_strlen(key)))
 		{
-			ft_free_ptr(envp->value);
+			ft_free_dptr((void **)&envp->value);
 			envp->value = ft_strdup(value);
-			ft_free_ptr(envp->str);
+			ft_free_dptr((void **)&envp->str);
 			envp->str = ft_strjoin(key, "=");
 			envp->str = ft_strjoin_free(envp->str, value);
 			return (0);

@@ -10,19 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "minishell.h"
 
 static void	ft_set_shlvl(t_env_info *env)
 {
-	char	*shlvl;
+	char *shlvl;
 
 	if (get_env(env, "SHLVL"))
 	{
 		shlvl = ft_itoa(ft_atoi(get_env(env, "SHLVL")) + 1);
 		set_env(env, "SHLVL", shlvl);
-		ft_free_ptr(shlvl);
+		ft_free_dptr((void **)&shlvl);
 	}
-		
 	else
 		add_new_env(env, "SHLVL", "1");
 }

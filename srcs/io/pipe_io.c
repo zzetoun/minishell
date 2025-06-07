@@ -1,4 +1,4 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   pipe_io.c                                          :+:      :+:    :+:   */
@@ -6,11 +6,11 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 16:48:20 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/06/04 03:37:16 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/06/07 20:17:36 by zzetoun          ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "minishell.h"
 
 /* close_pipe_fds:
 *	Closes the pipe fds of all commands. A pointer to a command to skip
@@ -28,12 +28,12 @@ void	close_pipe_fds(t_command *cmds, t_command *_cmd)
 		if (cmds != _cmd && cmds->pipe_fd)
 		{
 			if (cmds->pipe_fd[0] != -1)
-			{	
+			{
 				close(cmds->pipe_fd[0]);
 				cmds->pipe_fd[0] = -1;
 			}
 			if (cmds->pipe_fd[1] != -1)
-			{	
+			{
 				close(cmds->pipe_fd[1]);
 				cmds->pipe_fd[1] = -1;
 			}
@@ -49,23 +49,23 @@ void	close_pipe_fds(t_command *cmds, t_command *_cmd)
 */
 bool	create_pipes(t_data *data)
 {
-	int			*fd;	
-	t_command	*cmd;
+	int			*fd;
+	t_command	*tmp;
 
-	cmd = data->cmd;
-	while (cmd)
+	tmp = data->cmd;
+	while (tmp)
 	{
-		if (cmd->pipe_output || (cmd->prev && cmd->prev->pipe_output))
+		if (tmp->pipe_output || (tmp->prev && tmp->prev->pipe_output))
 		{
 			fd = ft_calloc(2, sizeof(*fd));
 			if (!fd || pipe(fd) != 0)
 			{
-				ft_freedom(data, false);
+				ft_freedom(&data, 0);
 				return (false);
 			}
-			cmd->pipe_fd = fd;
+			tmp->pipe_fd = fd;
 		}
-		cmd = cmd->next;
+		tmp = tmp->next;
 	}
 	return (true);
 }

@@ -6,11 +6,11 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 14:50:44 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/06/04 15:25:20 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/06/07 20:17:36 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "minishell.h"
 
 /* get_children:
 *	Waits for children to terminate after cleaning up fds and the command
@@ -56,6 +56,7 @@ static int	get_children(t_data *data)
 *	builtin was executed alone.
 *	Returns false if there was a fork error.
 */
+
 static int	create_children(t_data *data)
 {
 	t_command	*cmd;
@@ -67,7 +68,19 @@ static int	create_children(t_data *data)
 		if (data->pid == -1)
 			return (errmsg("fork", NULL, strerror(errno), errno));
 		else if (data->pid == 0)
+		{
+			if (cmd->io_fds && cmd->io_fds->infile)
+				setup_input(cmd->io_fds);
+			if (cmd->io_fds && cmd->io_fds->outfile)
+				setup_truncate(cmd->io_fds);
+			if (cmd->io_fds && cmd->io_fds->append_file)
+				setup_append(cmd->io_fds);
 			execute_command(data, cmd);
+			if (data->cmd->io_fds->heredoc_delimiter)
+				ft_free_dptr((void **)&data->cmd->io_fds->heredoc_delimiter);
+			close_exists_red_fds(cmd->io_fds);
+			restore_io(cmd->io_fds);
+		}
 		cmd = cmd->next;
 	}
 	return (get_children(data));

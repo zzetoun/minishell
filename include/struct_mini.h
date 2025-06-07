@@ -15,18 +15,6 @@
 
 # include "minishell.h"
 
-typedef struct s_token
-{
-	char			*str;
-	char			*str_backup;
-	bool			var_exists;
-	int				type;
-	int				status;
-	bool			join;
-	struct s_token	*next;
-	struct s_token	*prev;
-}	t_token;
-
 typedef struct s_envp
 {
 	char			*key;
@@ -46,16 +34,32 @@ typedef struct s_io_fds
 {
 	char	*infile;
 	char	*outfile;
+	char 	*append_file;
 	char	*heredoc_delimiter;
 	bool	heredoc_quotes;
 	int		fd_in;
 	int		fd_out;
 	int		stdin_backup;
 	int		stdout_backup;
+	int		heredoc_pipe[2];
 }	t_io_fds;
+
+enum e_token_types
+{
+    SPACES = 1,
+    WORD,
+    VAR,
+    PIPE,
+    INPUT,
+    TRUNC,
+    HEREDOC,
+    APPEND,
+    END
+};
 
 typedef struct s_command
 {
+    enum e_token_types  token_type;
 	char				*command;
 	char				*path;
 	char				**args;
@@ -70,26 +74,12 @@ typedef struct s_data
 {
 	bool		interactive;
 	t_env_info	*env;
-	t_token		*token;
 	char		*user_input;
 	char		*working_dir;
 	char		*old_working_dir;
 	t_command	*cmd;
 	pid_t		pid;
 }	t_data;
-
-enum e_token_types
-{
-	SPACES = 1,
-	WORD,
-	VAR,
-	PIPE,
-	INPUT,
-	TRUNC,
-	HEREDOC,
-	APPEND,
-	END
-};
 
 enum e_quoting_status
 {
