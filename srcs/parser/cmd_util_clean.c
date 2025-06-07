@@ -6,11 +6,11 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 15:48:26 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/05/25 18:36:54 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/06/07 18:14:03 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include "minishell.h"
 
 void	list_del_cmd(t_command *list, void (*del)(void *))
 {

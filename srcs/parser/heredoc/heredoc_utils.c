@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: igorsergeevic <igorsergeevic@student.42    +#+  +:+       +#+        */
+/*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 01:12:14 by igorsergeev       #+#    #+#             */
-/*   Updated: 2025/06/07 01:13:11 by igorsergeev      ###   ########.fr       */
+/*   Updated: 2025/06/07 18:14:47 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../parser.h"
+#include "minishell.h"
 
 /* make_str_from_tab:
 *	Creates a single string from an array of strings by
@@ -59,7 +59,7 @@ static char	*get_expanded_var_line(t_data *data, char *line)
 		{
 			tmp = words[i];
 			words[i] = setup_env_in_line(tmp, data);
-			ft_free_ptr(tmp);
+			ft_free_dptr(tmp);
 			if (!words[i])
 			{
 				ft_free_array(words);
@@ -96,7 +96,7 @@ static bool	check_hdoc_input(t_data *data, char **line, t_io_fds *io, bool *ret)
 		*line = get_expanded_var_line(data, *line);
 		if (!(*line))
 		{
-			ft_free_ptr(*line);
+			ft_free_dptr(*line);
 			*ret = false;
 			return (false);
 		}
@@ -127,8 +127,8 @@ bool	fill_heredoc(t_data *data, t_io_fds *io, int fd)
 		if (!check_hdoc_input(data, &line, io, &ret))
 			break ;
 		ft_printf(fd, "%s\n", line);
-		ft_free_ptr(line);
+		ft_free_dptr(line);
 	}
-	ft_free_ptr(line);
+	ft_free_dptr(line);
 	return (ret);
 }

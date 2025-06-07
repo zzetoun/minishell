@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   input_split.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: igorsergeevic <igorsergeevic@student.42    +#+  +:+       +#+        */
+/*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 02:58:14 by igorsergeev       #+#    #+#             */
-/*   Updated: 2025/06/07 01:06:39 by igorsergeev      ###   ########.fr       */
+/*   Updated: 2025/06/07 18:14:03 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include "minishell.h"
 //TODO change realloc to allowed function
 static char	**append_tok(char **arr, size_t *n, const char *s, size_t len)
 {

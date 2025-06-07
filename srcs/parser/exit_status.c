@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exit_status.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: igorsergeevic <igorsergeevic@student.42    +#+  +:+       +#+        */
+/*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 01:18:40 by igorsergeev       #+#    #+#             */
-/*   Updated: 2025/06/07 01:20:38 by igorsergeev      ###   ########.fr       */
+/*   Updated: 2025/06/07 18:14:03 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include "minishell.h"
 
 //TODO setuping only here last status of the command for current command struct
 

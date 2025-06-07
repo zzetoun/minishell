@@ -3,20 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: igorsergeevic <igorsergeevic@student.42    +#+  +:+       +#+        */
+/*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 01:20:51 by igorsergeev       #+#    #+#             */
-/*   Updated: 2025/06/07 03:13:28 by igorsergeev      ###   ########.fr       */
+/*   Updated: 2025/06/07 18:14:03 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <ctype.h>
-#include <readline/readline.h>
-#include <readline/history.h>
+#include "minishell.h"
 
 bool    parse_pipe(t_command **head)
 {
@@ -68,7 +62,7 @@ static bool	pre_check_input(char **input, t_data *data, t_command **cmd, char **
 	*split = minishell_split(*input);
 	if (!*split)
 	{
-		ft_free_ptr(*input);
+		ft_free_dptr(*input);
 		return (false);
 	}
 	return (true);

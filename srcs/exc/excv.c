@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 14:50:44 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/05/30 16:33:06 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/06/07 18:09:00 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static int	create_children(t_data *data)
 			execute_command(data, cmd);
 
 			if (data->cmd->io_fds->heredoc_delimiter)
-				ft_free_ptr(data->cmd->io_fds->heredoc_delimiter);
+				ft_free_dptr(data->cmd->io_fds->heredoc_delimiter);
 			close_exists_red_fds(cmd->io_fds);
 			restore_io(cmd->io_fds);
 			//printf("Child process %d finished execution.\n", data->pid);

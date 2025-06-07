@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 22:58:21 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/05/25 20:10:13 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/06/07 18:09:00 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void	free_env_in(t_env_info *env, char *key)
 				pre->next = envp->next;
 			else
 				pre->next = NULL;
-			ft_free_ptr(tmp);
+			ft_free_dptr(tmp);
 			ft_indxing(env);
 			break ;
 		}

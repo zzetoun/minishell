@@ -18,8 +18,8 @@ OBJ         = $(SRC:.c=.o)
 
 # Compiler and flags
 CC          = cc -g3 -fsanitize=address,undefined -O0 -fno-omit-frame-pointer -fno-optimize-sibling-calls
-CFLAGS      = -Wall -Wextra -Werror -I$(INCDIR) -I/usr/local/opt/readline/include  #-I/opt/vagrant/embedded/include
-LDFLAGS     = -lreadline -lhistory -L/usr/local/opt/readline/lib #-L/opt/vagrant/embedded/lib/
+CFLAGS      = -Wall -Wextra -Werror -I$(INCDIR) -I/usr/local/opt/readline/include -I/opt/vagrant/embedded/include
+LDFLAGS     = -lreadline -lhistory -L/usr/local/opt/readline/lib -L/opt/vagrant/embedded/lib/
 
 # **************************************************************************** #
 #                                  RULES                                       #

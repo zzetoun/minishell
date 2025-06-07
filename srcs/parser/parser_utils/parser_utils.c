@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: igorsergeevic <igorsergeevic@student.42    +#+  +:+       +#+        */
+/*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 01:08:09 by igorsergeev       #+#    #+#             */
-/*   Updated: 2025/06/07 01:09:46 by igorsergeev      ###   ########.fr       */
+/*   Updated: 2025/06/07 18:14:47 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../parser.h"
+#include "minishell.h"
 //TODO change to ft_free_array
 void	free_split(char **split)
 {

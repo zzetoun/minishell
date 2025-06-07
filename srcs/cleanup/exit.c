@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 20:10:39 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/05/23 20:42:10 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/06/07 18:09:00 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	exit_full(t_data *data, int exit_num)
 		if (data->cmd && data->cmd->io_fds)
 			ft_close_fds(data->cmd, 1);
 		if (data->cmd)
-			clear_cmd(&data->cmd, &ft_free_ptr);
+			clear_cmd(&data->cmd, &ft_free_dptr);
 		ft_freedom(&data, 1);
 		rl_clear_history();
 	}

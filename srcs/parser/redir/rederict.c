@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   rederict.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: igorsergeevic <igorsergeevic@student.42    +#+  +:+       +#+        */
+/*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 01:13:25 by igorsergeev       #+#    #+#             */
-/*   Updated: 2025/06/07 01:17:01 by igorsergeev      ###   ########.fr       */
+/*   Updated: 2025/06/07 18:14:47 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../parser.h"
+#include "minishell.h"
 
 /**
  * @brief this function setups the output file descriptor when we are have a '>'

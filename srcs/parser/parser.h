@@ -3,36 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: igorsergeevic <igorsergeevic@student.42    +#+  +:+       +#+        */
+/*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 17:41:34 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/06/07 03:12:57 by igorsergeev      ###   ########.fr       */
+/*   Updated: 2025/06/07 18:14:29 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSER_H
 # define PARSER_H
 
-#include "../../include/struct_mini.h"
-#include "../../include/minishell.h"
 
-
-//                                               UTILITIES                                                            //
-
-/*
- * This part of parser.h - is about utilities for commands
-*/
 t_command			*get_last_cmd(t_command *cmd);
 bool				add_back_cmd(t_command **list, t_command *new_node);
 t_command	        *add_new_cmd(bool value);
 void				clear_cmd(t_command **lst, void (*del)(void *));
-
-
-/*
- * This part of parser.h - is about utilities for expanding the environment or
- * replacing variables in the command line
-*/
-//char                *setup_env_in_line(char *line, t_data *data);
 char *setup_env_in_line(const char *line, t_data *d);
 char                *ft_strndup(const char *s, size_t n);
 bool                 has_quotes(const char *str);
@@ -43,10 +28,6 @@ char				**append_arg(char **args, const char *arg);
 void				free_split(char **split);
 char				**minishell_split(char *input);
 bool				validate_input(const char *input);
-
-//                                             END OF UTILITIES                                                       //
-
-//                                      REDIRECTION AND HEREDOC SETUP                                                 //
 void 				setup_truncate(t_io_fds *io);
 void				setup_input(t_io_fds *io);
 void			 	close_exists_red_fds(t_io_fds *fds);
@@ -59,17 +40,7 @@ int					setup_heredoc_into_cmd(t_data *d, t_command *cmd, char **sp, int i);
 bool				parse_pipe(t_command **head);
 bool				setup_pipe_into_cmd(t_data **data, t_command **cmd);
 bool	setup_word_into_cmd(t_command **cmd, char *w);
-
-
-
-//                                      END OF REDIRECTION AND HEREDOC SETUP                                          //
-
-//                                              TOKENIZATION                                                          //
 enum e_token_types  get_current_token_type(const char *str);
 void                add_back_cmd_token_type(t_command **cmd, t_command *new_node, enum e_token_types token_type);
-
-//											  TOKENIZATION END                                                        //
-
-//                                              MASTER FUNCTION                                                       //
 bool                cmd_args_split(t_data *data, char *input);
 #endif

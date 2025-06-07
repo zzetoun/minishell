@@ -37,14 +37,9 @@ int	set_env(t_env_info *env, char *key, char *value)
 			return (0);
 		if (!ft_strncmp(envp->key, key, ft_strlen(key)))
 		{
-			ft_free_ptr(envp->value);
-//			if (value && *value && (*value == '\"' || *value == '\''))
-//				value++; //TODO make sure this works correctly with quotes
-//			if (value && *value && value[ft_strlen(value) - 1] == '\"')
-//				envp->value = ft_substr(value, 0, ft_strlen(value) - 1);
-//			else
-				envp->value = ft_strdup(value);
-			ft_free_ptr(envp->str);
+			ft_free_dptr(envp->value);
+			envp->value = ft_strdup(value);
+			ft_free_dptr(envp->str);
 			envp->str = ft_strjoin(key, "=");
 			envp->str = ft_strjoin_free(envp->str, value);
 			return (0);

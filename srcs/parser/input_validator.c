@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   input_validator.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: igorsergeevic <igorsergeevic@student.42    +#+  +:+       +#+        */
+/*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 01:48:58 by igorsergeev       #+#    #+#             */
-/*   Updated: 2025/06/07 01:48:59 by igorsergeev      ###   ########.fr       */
+/*   Updated: 2025/06/07 18:14:03 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-#include "parser.h"
+#include "minishell.h"
 
 static void init_variables_with_zero(size_t *v1, size_t *v2, size_t *v3, size_t *v4)
 {

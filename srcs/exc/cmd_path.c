@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 20:02:19 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/05/24 13:42:11 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/06/07 18:09:00 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static char	*valid_cmd_path(char *cmd, char **paths)
 		}
 		if (access(path, F_OK | X_OK) == 0)
 			return (path);
-		ft_free_ptr(path);
+		ft_free_dptr(path);
 	}
 	return (NULL);
 }

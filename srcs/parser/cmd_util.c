@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_util.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: igorsergeevic <igorsergeevic@student.42    +#+  +:+       +#+        */
+/*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 01:18:16 by igorsergeev       #+#    #+#             */
-/*   Updated: 2025/06/07 02:53:51 by igorsergeev      ###   ########.fr       */
+/*   Updated: 2025/06/07 18:09:00 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	clear_cmd(t_command **lst, void (*del)(void *))
 				close((*lst)->pipe_fd[0]);
 			if ((*lst)->pipe_fd[1] != -1)
 				close((*lst)->pipe_fd[1]);
-			ft_free_ptr((*lst)->pipe_fd);
+			ft_free_dptr((*lst)->pipe_fd);
 		}
 		(*del)((*lst));
 		*lst = next;

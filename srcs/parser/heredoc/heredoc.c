@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: igorsergeevic <igorsergeevic@student.42    +#+  +:+       +#+        */
+/*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 01:11:35 by igorsergeev       #+#    #+#             */
-/*   Updated: 2025/06/07 01:12:00 by igorsergeev      ###   ########.fr       */
+/*   Updated: 2025/06/07 18:14:47 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../parser.h"
+#include "minishell.h"
 
 /* get_heredoc:
 *	Opens a heredoc awaiting user input.
@@ -65,13 +65,13 @@ void	parse_heredoc(t_data *data, t_command **l_cmd)
 	new_delim = get_delim(old_delim, &io->heredoc_quotes);
 	if (!new_delim)
 	{
-		ft_free_ptr(old_delim);
+		ft_free_dptr(old_delim);
 		io->heredoc_delimiter = NULL;
 		io->fd_in = -1;
 		return ;
 	}
 	io->heredoc_delimiter = new_delim;
-	ft_free_ptr(old_delim);
+	ft_free_dptr(old_delim);
 	if (!get_heredoc(data, io))
 		io->fd_in = -1;
 }
