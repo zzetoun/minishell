@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "minishell.h"
 
 static void	update_wds(t_data *data, char *wd, t_env_info *env)
 {
@@ -18,15 +18,15 @@ static void	update_wds(t_data *data, char *wd, t_env_info *env)
 	set_env(env, "PWD", wd);
 	if (data->old_working_dir)
 	{
-		ft_free_dptr(data->old_working_dir);
+		ft_free_dptr((void **)&data->old_working_dir);
 		data->old_working_dir = ft_strdup(data->working_dir);
 	}
 	if (data->working_dir)
 	{
-		ft_free_dptr(data->working_dir);
+		ft_free_dptr((void **)&data->working_dir);
 		data->working_dir = ft_strdup(wd);
 	}
-	ft_free_dptr(wd);
+	ft_free_dptr((void **)&wd);
 }
 
 static bool	change_dir(t_data *data, char *path, t_env_info *env)

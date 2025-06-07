@@ -13,21 +13,7 @@
 #ifndef STRUCT_MINI_H
 # define STRUCT_MINI_H
 
-//# include "minishell.h"
-#include <unistd.h>
-#include <stdbool.h>
-
-typedef struct s_token
-{
-	char			*str;
-	char			*str_backup;
-	int				var_exists;
-	int				type;
-	int				status;
-	int				join;
-	struct s_token	*next;
-	struct s_token	*prev;
-}	t_token;
+# include "minishell.h"
 
 typedef struct s_envp
 {
@@ -88,7 +74,6 @@ typedef struct s_data
 {
 	int			interactive;
 	t_env_info	*env;
-	t_token		*token;
 	char		*user_input;
 	char		*working_dir;
 	char		*old_working_dir;

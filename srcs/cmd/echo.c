@@ -6,11 +6,11 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 19:03:45 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/05/30 20:15:56 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/06/07 18:19:20 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "minishell.h"
 
 /* new_line_check:
 *	Returns true if arg is a dash followed only by 

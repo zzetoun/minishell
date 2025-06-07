@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
-#include <readline/history.h>
+#include "minishell.h"
 
 void	ft_free_io(t_io_fds *io)
 {
@@ -19,13 +18,13 @@ void	ft_free_io(t_io_fds *io)
 		return ;
 	restore_io(io);
 	if (io->infile)
-		ft_free_dptr(io->infile);
+		ft_free_dptr((void **)&io->infile);
 	if (io->outfile)
-		ft_free_dptr(io->outfile);
+		ft_free_dptr((void **)&io->outfile);
 	if (io->append_file)
-		ft_free_dptr(io->append_file);
+		ft_free_dptr((void **)&io->append_file);
 	if (io->heredoc_delimiter)
-		ft_free_dptr(io->heredoc_delimiter);
+		ft_free_dptr((void **)&io->heredoc_delimiter);
 	if (io->heredoc_pipe[0] > 0)
 	{
 		close(io->heredoc_pipe[0]);
@@ -37,7 +36,7 @@ void	ft_free_io(t_io_fds *io)
 		io->heredoc_pipe[1] = -1;
 	}
 	if (io)//TODO do no free io here, because it is already freed in the cmd
-		ft_free_dptr(io);
+		ft_free_dptr((void **)&io);
 }
 
 void	ft_close_fds(t_command *cmds, bool close_backups)
@@ -83,17 +82,17 @@ void	ft_freedom(t_data **data, bool clear_history)
 {
 	if (data && (*data)->user_input)
 	{
-		ft_free_dptr((*data)->user_input);
+		ft_free_dptr((void **)(*data)->user_input);
 		(*data)->user_input = NULL;
 	}
 	if (data && (*data)->cmd)
-		clear_cmd(&(*data)->cmd, &ft_free_dptr);
+		clear_cmd(&(*data)->cmd);
 	if (clear_history)
 	{
 		if (data && *data && (*data)->working_dir)
-			ft_free_dptr((*data)->working_dir);
+			ft_free_dptr((void **)&(*data)->working_dir);
 		if (data && *data && (*data)->old_working_dir)
-			ft_free_dptr((*data)->old_working_dir);
+			ft_free_dptr((void **)&(*data)->old_working_dir);
 		if (data && *data && (*data)->env)
 			free_env((*data)->env);
 		rl_clear_history();

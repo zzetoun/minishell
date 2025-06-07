@@ -6,11 +6,11 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 13:46:55 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/05/29 18:43:13 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/06/07 18:19:20 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "minishell.h"
 
 void	linked_list_print(t_env_info *env, char **_envp, int option)
 {

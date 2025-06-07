@@ -6,11 +6,11 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 17:01:55 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/05/24 14:18:24 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/06/07 18:19:20 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "minishell.h"
 
 /* signal_reset_prompt:
 *	Resets the readline user input prompt for interactive signal handling.

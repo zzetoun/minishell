@@ -6,11 +6,11 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 14:51:57 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/05/25 19:39:49 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/06/07 18:19:20 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "minishell.h"
 
 int	cmd_is_dir(char *cmd)
 {

@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 17:41:34 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/06/07 18:14:29 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/06/07 18:25:00 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 t_command			*get_last_cmd(t_command *cmd);
 bool				add_back_cmd(t_command **list, t_command *new_node);
 t_command	        *add_new_cmd(bool value);
-void				clear_cmd(t_command **lst, void (*del)(void *));
+void				clear_cmd(t_command **lst);
 char *setup_env_in_line(const char *line, t_data *d);
 char                *ft_strndup(const char *s, size_t n);
 bool                 has_quotes(const char *str);

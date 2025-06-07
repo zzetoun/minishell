@@ -6,11 +6,11 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 14:50:44 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/06/07 18:09:00 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/06/07 18:46:23 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "minishell.h"
 
 /* get_children:
 *	Waits for children to terminate after cleaning up fds and the command
@@ -76,13 +76,10 @@ static int	create_children(t_data *data)
 			if (cmd->io_fds && cmd->io_fds->append_file)
 				setup_append(cmd->io_fds);
 			execute_command(data, cmd);
-
 			if (data->cmd->io_fds->heredoc_delimiter)
-				ft_free_dptr(data->cmd->io_fds->heredoc_delimiter);
+				ft_free_dptr((void **)&data->cmd->io_fds->heredoc_delimiter);
 			close_exists_red_fds(cmd->io_fds);
 			restore_io(cmd->io_fds);
-			//printf("Child process %d finished execution.\n", data->pid);
-			//exit(0);
 		}
 		cmd = cmd->next;
 	}

@@ -6,11 +6,11 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 16:47:56 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/05/30 16:00:36 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/06/07 18:19:20 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "minishell.h"
 
 /* restore_io:
 *	Restores the original standard input and standard output

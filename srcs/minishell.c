@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "minishell.h"
 
 /* first_check:
 *	Checks the arguments at program start up. Minishell can start either:
@@ -50,7 +50,7 @@ void	minishell_interactive(t_data *data)
     {
         set_signals_interactive();
         data->user_input = readline(PROMPT);
-		if (!data->user_input)
+		if (!data->user_input) // move this inside validate
 		{
 			ft_printf(1, "\n");
 			exit_full(data, g_final_exit_code);
@@ -69,11 +69,7 @@ void	minishell_interactive(t_data *data)
         else
             g_final_exit_code = last_exit_code;
         ft_printf(1, ">> g_final_exit_code : [%d] <<\n", g_final_exit_code);
-		if (data->user_input && data->user_input[0] != '\0')
-			ft_free_dptr((void *)&data->user_input);
-		clear_cmd(&data->cmd, &ft_free_dptr);
-//		ft_freedom(&data, true);
-		//list_clear_cmd(&data->cmd, &ft_free_dptr);
+		ft_freedom(&data, true);
     }
 }
 
@@ -86,7 +82,6 @@ void	minishell_noninteractive(t_data *data, char *arg)
 	user_inputs = ft_split(arg, ';');
 	if (!user_inputs)
 		exit_full(data, EXIT_FAILURE);
-
 	last_exit_code = 1;
 	i = -1;
 	while (user_inputs[++i])
@@ -101,11 +96,7 @@ void	minishell_noninteractive(t_data *data, char *arg)
 		else
 			g_final_exit_code = last_exit_code;
 		ft_printf(1, ">> g_final_exit_code : [%d] <<\n", g_final_exit_code);
-		//ft_free_dptr(data->user_input);
-		clear_cmd(&data->cmd, &ft_free_dptr);  /* освобождаем список команд */
-		/* ft_freedom(&data, false);          ← вызов при необходимости */
 	}
-
 	ft_free_array(user_inputs);
 }
 
