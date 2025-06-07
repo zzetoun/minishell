@@ -39,31 +39,6 @@ bool    parse_pipe(t_command **head)
 	return (true);
 }
 
-//static int	setup_redir(t_command *cmd, char **sp, int i)
-//{
-//	if (!cmd || !sp[i] || !sp[i + 1])
-//		return (-1);
-//	if (strcmp(sp[i], "<") == 0)
-//	{
-//		if (setup_token_type_and_give_command(cmd, sp[i + 1], INPUT))
-//			return (2);
-//		return (-1);
-//	}
-//	if (strcmp(sp[i], ">") == 0)
-//	{
-//		if (setup_token_type_and_give_command(cmd, sp[i + 1], TRUNC))
-//			return (2);
-//		return (-1);
-//	}
-//	if (strcmp(sp[i], ">>") == 0)
-//	{
-//		if (setup_token_type_and_give_command(cmd, sp[i + 1], APPEND))
-//			return (2);
-//		return (-1);
-//	}
-//	return (0);
-//}
-
 static int setup_redir(t_command *cmd, char **sp, int i)
 {
 	if (!cmd || !sp[i])
@@ -114,31 +89,6 @@ static bool if_not_cmd(t_data **data, t_command **cmd)
 	return (true);
 }
 
-//int	handle_token(t_data *d, t_command **cmd, char **sp, int i)
-//{
-//	int	step;
-//
-//	if (str_compare(sp[i], "|"))
-//	{
-//		if (!setup_pipe_into_cmd(&d, cmd))
-//			return (-1);
-//		return (1);
-//	}
-//	*cmd = get_last_cmd(d->cmd);
-//	if (!*cmd)
-//	{
-//		if (!if_not_cmd(&d, cmd))
-//			return (-1);
-//	}
-//	step = setup_redir(*cmd, sp, i);
-//	if (step != 0)
-//		return (step);
-//	if (str_compare(sp[i], "<<"))
-//		return (setup_heredoc_into_cmd(d, *cmd, sp, i));
-//	if (!setup_word_into_cmd(cmd, sp[i]))
-//		return (-1);
-//	return (1);
-//}
 static bool  has_any_redir(t_command *cmd)
 {
 	t_io_fds *io = cmd->io_fds;
@@ -148,18 +98,14 @@ static bool  has_any_redir(t_command *cmd)
 
 static bool  finish_segment(t_command *cmd)
 {
-	if (!cmd)                   /* пустого узла нет – всё ок */
+	if (!cmd)
 		return (true);
-
-	/* есть хотя бы один редирект, но нет слова-команды */
 	if (!cmd->command && has_any_redir(cmd))
 	{
-		cmd->command = ft_strdup(":");          /* POSIX  no-op */
+		cmd->command = ft_strdup(":");
 		cmd->args    = append_arg(NULL, ":");
 		return (true);
 	}
-
-	/* совсем ничего – синтаксическая ошибка */
 	if (!cmd->command)
 	{
 		ft_printf(2,
@@ -183,18 +129,14 @@ int handle_token(t_data *d, t_command **cmd, char **sp, int i)
 	*cmd = get_last_cmd(d->cmd);
 	if (!*cmd && !if_not_cmd(&d, cmd))
 		return (-1);
-	*cmd = get_last_cmd(d->cmd);        /* ← добавили повторное получение */
-
+	*cmd = get_last_cmd(d->cmd);
 	step = setup_redir(*cmd, sp, i);
 	if (step != 0)
 		return (step);
-
 	if (str_compare(sp[i], "<<"))
 		return (setup_heredoc_into_cmd(d, *cmd, sp, i));
-
 	if (!setup_word_into_cmd(cmd, sp[i]))
 		return (-1);
-
 	return (1);
 }
 

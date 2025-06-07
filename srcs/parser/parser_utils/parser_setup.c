@@ -85,29 +85,10 @@ bool	setup_pipe_into_cmd(t_data **d, t_command **cmd)
 	return (true);
 }
 
-//bool	setup_word_into_cmd(t_command **cmd, char *w)
-//{
-//	if (!w)
-//		return (false);
-//	(*cmd)->token_type = WORD;
-//	(*cmd)->command = ft_strdup(w);
-//	if (!(*cmd)->command)
-//		return (false);
-//	(*cmd)->args = append_arg((*cmd)->args, w);
-//	if (!(*cmd)->args)
-//	{
-//		ft_free_ptr((*cmd)->command);
-//		return (false);
-//	}
-//	return (true);
-//}
-
 bool    setup_word_into_cmd(t_command **cmd, char *w)
 {
 	if (!cmd || !*cmd || !w)
 		return (false);
-
-	/* если это первое слово – это команда */
 	if (!(*cmd)->command)
 	{
 		(*cmd)->token_type = WORD;
@@ -115,12 +96,9 @@ bool    setup_word_into_cmd(t_command **cmd, char *w)
 		if (!(*cmd)->command)
 			return (false);
 	}
-
-	/* в любом случае слово становится аргументом */
 	(*cmd)->args = append_arg((*cmd)->args, w);
 	if (!(*cmd)->args)
 	{
-		/* если команду только что выделили ‒ откатить */
 		if (!(*cmd)->command)
 			ft_free_ptr((*cmd)->command);
 		return (false);
