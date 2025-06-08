@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 01:09:54 by igorsergeev       #+#    #+#             */
-/*   Updated: 2025/06/07 19:02:03 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/06/08 15:44:34 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,18 +85,18 @@ bool	setup_pipe_into_cmd(t_data **d, t_command **cmd)
 	return (true);
 }
 
-bool    setup_word_into_cmd(t_command **cmd, char *w)
+bool    setup_word_into_cmd(t_command **cmd, char *word)
 {
-	if (!cmd || !*cmd || !w)
+	if (!cmd || !*cmd || !word)
 		return (false);
 	if (!(*cmd)->command)
 	{
 		(*cmd)->token_type = WORD;
-		(*cmd)->command = ft_strdup(w);
+		(*cmd)->command = ft_strdup(word);
 		if (!(*cmd)->command)
 			return (false);
 	}
-	(*cmd)->args = append_arg((*cmd)->args, w);
+	(*cmd)->args = append_arg((*cmd)->args, word);
 	if (!(*cmd)->args)
 	{
 		if (!(*cmd)->command)

@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 02:58:14 by igorsergeev       #+#    #+#             */
-/*   Updated: 2025/06/07 18:14:03 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/06/08 16:06:41 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static char	**append_tok(char **arr, size_t *n, const char *s, size_t len)
 		exit(1);
 	}
 	arr = tmp;
-	tok = ft_strndup(s, len);
+	tok = ft_substr(s, 0, len);
 	arr[*n] = tok;
 	arr[*n + 1] = NULL;
 	(*n)++;

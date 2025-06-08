@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 01:20:51 by igorsergeev       #+#    #+#             */
-/*   Updated: 2025/06/07 20:44:24 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/06/08 16:23:23 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,19 +84,31 @@ static bool if_not_cmd(t_data **data, t_command **cmd)
 
 static bool  has_any_redir(t_command *cmd)
 {
-	t_io_fds *io = cmd->io_fds;
+	t_io_fds *io;
+	
+	io = cmd->io_fds;
 	return (io && (io->infile || io->outfile || io->append_file
 				   || io->heredoc_delimiter));
 }
 
 static bool  finish_segment(t_command *cmd)
 {
+	ft_printf(1, "I enter finish_segment\n");
 	if (!cmd)
+	{
+		ft_printf(1, "no CMD in finish_segment\n");
 		return (true);
+	}
 	if (!cmd->command && has_any_redir(cmd))
 	{
+		ft_printf(1, "no cmd->command in finish_segment and ios are good\n");
 		cmd->command = ft_strdup(":");
 		cmd->args    = append_arg(NULL, ":");
+		int idx = -1;
+		if (!cmd->args)
+			ft_printf(1, "cmd->args is NULL\n");
+		while(cmd->args && cmd->args[++idx])
+				ft_printf(1, "cmd->args[%d]={%s}\n", idx, cmd->args[idx]);
 		return (true);
 	}
 	if (!cmd->command)

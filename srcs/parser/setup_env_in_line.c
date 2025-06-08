@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 01:23:12 by igorsergeev       #+#    #+#             */
-/*   Updated: 2025/06/07 21:22:12 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/06/08 16:06:24 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static ssize_t handle_env(const char *s, size_t i, char **dst, t_data *d)
 	size_t j = i + 1;
 	while (s[j] && is_env_char(s[j]))
 		j++;
-	char *var = ft_strndup(s + i + 1, j - i - 1);
+	char *var = ft_substr(s, i + 1, j - i - 1);
 	if (!var) return -1;
 	char *val = get_env(d->env, var);
 	if (!val) val = "";

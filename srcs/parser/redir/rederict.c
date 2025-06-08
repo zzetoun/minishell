@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 01:13:25 by igorsergeev       #+#    #+#             */
-/*   Updated: 2025/06/07 18:14:47 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/06/08 15:23:20 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	setup_truncate(t_io_fds *io)
 		errmsg("open", io->outfile, strerror(errno), errno);
 		return ;
 	}
-	if (dup2(io->fd_out, STDOUT_FILENO) == -1)
+	else if (dup2(io->fd_out, STDOUT_FILENO) == -1)
 		errmsg("dup2", io->outfile, strerror(errno), errno);
 }
 /**
@@ -68,8 +68,8 @@ void	setup_append(t_io_fds *io)
 	if (io->append_file)
 		io->fd_out = open(io->append_file, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (io->fd_out == -1)
-		errmsg("open", io->append_file, strerror(errno), errno);
-	if (dup2(io->fd_out, STDOUT_FILENO) == -1)
+		errmsg("openllllll", io->append_file, strerror(errno), errno);
+	else if (dup2(io->fd_out, STDOUT_FILENO) == -1)
 		errmsg("dup2", io->append_file, strerror(errno), errno);
 	if (io->fd_out != STDOUT_FILENO)
 	{

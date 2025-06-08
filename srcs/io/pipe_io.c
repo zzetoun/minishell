@@ -1,4 +1,4 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   pipe_io.c                                          :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 16:48:20 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/06/08 00:38:07 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/06/08 15:17:39 by zzetoun          ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "minishell.h"
 
@@ -84,9 +84,11 @@ int	set_pipe_fds(t_command *cmds, t_command *_cmd)
 	if (!_cmd)
 		return (0);
 	if (_cmd->prev && _cmd->prev->pipe_output)
-		dup2(_cmd->prev->pipe_fd[0], STDIN_FILENO);
+		if (dup2(_cmd->prev->pipe_fd[0], STDIN_FILENO) == -1)
+			errmsg("dup2", NULL, strerror(errno), EXIT_FAILURE);
 	if (_cmd->pipe_output)
-		dup2(_cmd->pipe_fd[1], STDOUT_FILENO);
+		if (dup2(_cmd->pipe_fd[1], STDOUT_FILENO) == -1)
+			errmsg("dup2", NULL, strerror(errno), EXIT_FAILURE);
 	close_pipe_fds(cmds, _cmd);
 	return (1);
 }

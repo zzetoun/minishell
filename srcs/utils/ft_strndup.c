@@ -6,7 +6,7 @@
 /*   By: zzetoun <zzetoun@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 19:18:13 by zzetoun           #+#    #+#             */
-/*   Updated: 2025/06/07 19:18:20 by zzetoun          ###   ########.fr       */
+/*   Updated: 2025/06/08 16:04:22 by zzetoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,6 @@ char *ft_strndup(const char *str, size_t n)
     dup = malloc(len + 1);
     if (!dup)
         return (NULL);
-    strlcpy(dup, str, len + 1);
+    strncpy(dup, str, len + 1);
     return (dup);
 }
